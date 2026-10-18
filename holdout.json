@@ -1,0 +1,6 @@
+{
+  "description": "Benchmark sets. core_ids: the 5 core claims Menna & Tasnim finished with multi-source evidence (answered from the curated database). holdout_ids: claims HIDDEN from the server so evaluate.py can test the live PubMed tier on claims the system has never answered. These 5 never produced an answer in any earlier run (they errored), so no prompt change was based on them. Do not tune prompts on holdout results.",
+  "locked_on": "2026-10-19",
+  "core_ids": ["MYTH-001", "MYTH-008", "MYTH-009", "MYTH-012", "MYTH-013"],
+  "holdout_ids": ["MYTH-005", "MYTH-006", "MYTH-010", "MYTH-011", "MYTH-014"]
+}

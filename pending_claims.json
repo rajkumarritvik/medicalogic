@@ -1,0 +1,50 @@
+[
+  {
+    "claim_text": "Putting lemon juice in your eyes lightens their color.",
+    "platform_origin": [
+      "TikTok"
+    ],
+    "risk_classification": "High",
+    "missing": "PubMed evidence (Jiayi: search PubMed, filter Review first; AAO page stays as advice source)"
+  },
+  {
+    "claim_text": "Inhaling 100% pure oxygen from commercial canisters boosts energy.",
+    "platform_origin": [
+      "TikTok",
+      "Instagram"
+    ],
+    "risk_classification": "Low",
+    "missing": "mechanism, risk, evidence, advice"
+  },
+  {
+    "claim_text": "Applying raw egg whites to fresh burns cools them and prevents blistering.",
+    "platform_origin": [
+      "Facebook"
+    ],
+    "risk_classification": "High",
+    "missing": "mechanism, risk, evidence, advice"
+  },
+  {
+    "claim_text": "Drinking water while eating causes a potbelly and slows digestion.",
+    "platform_origin": [
+      "TikTok",
+      "Instagram"
+    ],
+    "risk_classification": "Low",
+    "missing": "mechanism, risk, evidence, advice"
+  },
+  {
+    "claim_text": "Tilting your head back or lying down stops a nosebleed faster.",
+    "platform_origin": [
+      "Facebook"
+    ],
+    "risk_classification": "Medium",
+    "missing": "everything except risk"
+  },
+  {
+    "claim_text": "Using ice gives glowing skin.",
+    "platform_origin": [],
+    "risk_classification": "Medium",
+    "missing": "everything except risk"
+  }
+]

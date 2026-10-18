@@ -1,0 +1,2 @@
+id,expected_verdict,got_verdict,verdict_correct,latency_ms,tokens,precision,recall,context_relevance,zero_memory_pass,cited_pmids,expected_pmids,answer,error
+MYTH-001,Refuted,Refuted,True,1155,635,1.0,1.0,0.38,True,1749210;36636365;38062980,36636365;1749210;38062980,"Refuted. The liver possesses intrinsic detoxification pathways and does not require external “detox” drinks to eliminate toxins (PMID 1749210). Moreover, herbal detox teas and dietary supplements have been documented to cause liver injury, contradicting the notion that they safely cleanse the liver ",

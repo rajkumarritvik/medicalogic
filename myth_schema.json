@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "medicalogic/myth_schema.json",
+  "title": "MedicaLogic Viral Health Myth Record (v2)",
+  "description": "One record = one viral health claim, its manipulation markers, and the PubMed evidence used to check it. Verdicts are literature-based syntheses of several sources, not medical rulings. Scope: health MISinformation (false or inaccurate, whatever the intent) that could lead to harm.",
+  "type": "object",
+  "required": [
+    "id",
+    "claim_text",
+    "category",
+    "platform_origin",
+    "raw_quotes",
+    "manipulation_markers",
+    "risk_classification",
+    "verdict",
+    "true_part",
+    "overstated_part",
+    "evidence",
+    "recommended_action",
+    "evidence_last_checked",
+    "information_disorder_type"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^MYTH-[0-9]{3}$",
+      "description": "Unique ID, e.g. MYTH-001"
+    },
+    "claim_text": {
+      "type": "string",
+      "minLength": 10,
+      "description": "The claim in one neutral sentence (what the post says is true)."
+    },
+    "category": {
+      "type": "string",
+      "description": "Topic bucket, e.g. detox, vaccines, nutrition, infection, cancer, mental-health"
+    },
+    "platform_origin": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "TikTok",
+          "Instagram",
+          "X",
+          "YouTube",
+          "Facebook",
+          "Other"
+        ]
+      },
+      "description": "Every platform where the claim was seen."
+    },
+    "source_url": {
+      "type": "string",
+      "description": "Optional link to an example post."
+    },
+    "date_observed": {
+      "type": "string",
+      "format": "date",
+      "description": "When the claim was seen trending (YYYY-MM-DD)."
+    },
+    "raw_quotes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "Exact wording copied from the post/video."
+    },
+    "manipulation_markers": {
+      "type": "object",
+      "description": "Phrases FROM THE POST (not from the article). Feeds the Emotional Manipulation Meter.",
+      "required": [
+        "clickbait_phrases",
+        "absolute_promises",
+        "fear_keywords"
+      ],
+      "properties": {
+        "clickbait_phrases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "absolute_promises": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fear_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "urgency_phrases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "mechanism": {
+      "type": "string",
+      "description": "What the science actually says about how this works."
+    },
+    "risk_classification": {
+      "type": "string",
+      "enum": [
+        "Low",
+        "Medium",
+        "High"
+      ],
+      "description": "How much harm could someone come to by believing this?"
+    },
+    "risk_rationale": {
+      "type": "string",
+      "description": "One sentence explaining the risk level."
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "Supported",
+        "Refuted",
+        "Divergent",
+        "Insufficient"
+      ],
+      "description": "Synthesis of all sources. Divergent = evidence is mixed. Insufficient = not enough verified evidence (a valid result)."
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "pmid",
+          "title",
+          "study_type",
+          "relevance"
+        ],
+        "properties": {
+          "pmid": {
+            "type": "string",
+            "pattern": "^[0-9]{1,9}$",
+            "description": "PubMed ID, digits only."
+          },
+          "title": {
+            "type": "string"
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "journal": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer"
+          },
+          "volume_issue": {
+            "type": "string",
+            "description": "e.g. 16(3)"
+          },
+          "pages": {
+            "type": "string",
+            "description": "e.g. 612-617"
+          },
+          "study_type": {
+            "type": "string",
+            "enum": [
+              "Systematic Review",
+              "Meta-Analysis",
+              "RCT",
+              "Review",
+              "Case Report",
+              "Guideline",
+              "Other"
+            ]
+          },
+          "relevance": {
+            "type": "string",
+            "enum": [
+              "direct",
+              "indirect"
+            ],
+            "description": "Does the study test this claim directly, or support it from another angle (mechanism, safety)?"
+          },
+          "note": {
+            "type": "string",
+            "description": "One line: what this study shows about the claim."
+          }
+        }
+      }
+    },
+    "recommended_action": {
+      "type": "string",
+      "description": "Safe, practical advice for the reader (no diagnosis)."
+    },
+    "advice_source": {
+      "type": "string",
+      "description": "Link to the trusted source of the recommended action."
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "en",
+        "ar"
+      ],
+      "default": "en"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "true_part": {
+      "type": "string",
+      "description": "What is actually true or based on real science (Jiayi: many myths start from real science)."
+    },
+    "overstated_part": {
+      "type": "string",
+      "description": "What the claim stretches beyond the evidence."
+    },
+    "safety_pmids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Extra PMIDs cited for the risk section."
+    },
+    "evidence_last_checked": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the evidence was last checked on PubMed."
+    },
+    "pmid_verified": {
+      "type": "boolean",
+      "description": "True once every PMID was opened on PubMed and its title matched (run verify_pmids.py)."
+    },
+    "needs_review": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Fields drafted or unclear that a researcher still needs to confirm."
+    },
+    "information_disorder_type": {
+      "type": "string",
+      "enum": [
+        "Misinformation",
+        "Disinformation",
+        "Malinformation"
+      ],
+      "description": "Challenge definitions: misinformation = false or inaccurate whatever the intent; disinformation = spread on purpose to harm; malinformation = true information taken out of context to harm."
+    },
+    "core": {
+      "type": "boolean",
+      "description": "One of the 5 core benchmark claims (multi-source, team-verified)."
+    }
+  }
+}

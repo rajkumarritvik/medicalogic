@@ -1,0 +1,19 @@
+# --- Secrets: NEVER upload API keys ---
+.env
+server/.env
+*.env
+
+# --- Installed packages (anyone can get them with: npm install) ---
+node_modules/
+
+# --- Editor settings ---
+.vscode/
+
+# --- Generated / temporary files ---
+server/data/
+results.csv
+__pycache__/
+*.zip
+
+# --- Ritvik's personal guide ---
+README.md
