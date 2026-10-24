@@ -60,9 +60,10 @@ else renderAnswerCard(data);
   "evidence_last_checked": "2026-10-18",
   "disclaimer": "MedicaLogic summarizes published research for education. It is literature-based, not a medical ruling…",
   "meta": {
-    "prompt_version": "2.1", "provider": "groq", "model": "openai/gpt-oss-120b",
+    "prompt_version": "2.2", "provider": "groq", "model": "openai/gpt-oss-120b",
     "latency_ms": 2140, "usage": { "total_tokens": 1830 }, "cached": false,
     "retrieved": { "pubmed": 4, "medlineplus": 1 },
+    "search_queries": ["alkaline water cancer", "dietary acid load cancer"],
     "retrieved_articles": [ { "pmid": "27297008", "title": "…", "study_type": "Systematic Review" } ], "warnings": []
   }
 }
@@ -114,7 +115,7 @@ Rules the server enforces, so the website doesn't need to:
 ## GET /api/health
 
 ```json
-{ "ok": true, "curated_claims": 9, "prompt_version": "2.1" }
+{ "ok": true, "curated_claims": 9, "prompt_version": "2.2" }
 ```
 
 ## Settings (`server/.env`)
@@ -133,4 +134,5 @@ Rules the server enforces, so the website doesn't need to:
 | `RATE_LIMIT_PER_MIN` | 20 | requests per user per minute |
 | `LIVE_LIMIT_PER_MIN` | 8 | new (non-curated) claims per user per minute |
 | `CACHE_TTL_MINUTES` | 360 | repeated questions are answered from memory |
+| `SEARCH_TERM_SUGGESTIONS` | on | `off` = skip the AI step that turns a new claim into medical PubMed search terms (live tier only) |
 | `CURATED_MATCH_THRESHOLD` | 0.5 | how closely a question must match a curated claim (0–1) |

@@ -1,0 +1,7 @@
+[
+  {"id": "FRESH-001", "fresh": true, "claim_text": "The MMR vaccine causes autism in children.", "verdict": "Refuted", "accept_verdicts": ["Refuted"], "evidence": []},
+  {"id": "FRESH-002", "fresh": true, "claim_text": "Cracking your knuckles causes arthritis.", "verdict": "Refuted", "accept_verdicts": ["Refuted"], "evidence": []},
+  {"id": "FRESH-003", "fresh": true, "claim_text": "Eating sugar makes children hyperactive.", "verdict": "Refuted", "accept_verdicts": ["Refuted"], "evidence": []},
+  {"id": "FRESH-004", "fresh": true, "claim_text": "Taking vitamin C supplements every day prevents you from catching colds.", "verdict": "Refuted", "accept_verdicts": ["Refuted", "Divergent"], "evidence": []},
+  {"id": "FRESH-005", "fresh": true, "claim_text": "Tilting your head back is the best way to stop a nosebleed.", "verdict": "Refuted", "accept_verdicts": ["Refuted"], "evidence": []}
+]

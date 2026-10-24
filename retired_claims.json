@@ -1,0 +1,149 @@
+[
+  {
+    "id": "MYTH-005",
+    "claim_text": "5G towers spread viruses.",
+    "category": "infection",
+    "platform_origin": [
+      "Facebook",
+      "YouTube"
+    ],
+    "raw_quotes": [
+      "5G tower are affecting your health. no matter how far away you live from them"
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [
+        "no matter how far away you live"
+      ],
+      "fear_keywords": [
+        "affecting your health"
+      ],
+      "urgency_phrases": []
+    },
+    "mechanism": "5G networks are just radio waves and cannot cause diseases because they do not carry viruses. They are physical energy, not biological material. Viruses spread through sneezing or touching contaminated surfaces.",
+    "risk_classification": "Low",
+    "risk_rationale": "No direct health risk, but it causes fear and makes people believe 5G waves caused their illness.",
+    "verdict": "Refuted",
+    "true_part": "5G does use radio-frequency energy.",
+    "overstated_part": "Radio waves cannot carry or spread viruses; research on 5G-level radio fields has not found health harm at normal exposure.",
+    "evidence": [
+      {
+        "pmid": "33727687",
+        "title": "5G mobile networks and health-a state-of-the-science review of the research into low-level RF fields above 6 GHz",
+        "authors": [
+          "Ken Karipidis",
+          "Rohan Mate",
+          "David Urban",
+          "Rick Tinker",
+          "Andrew Wood"
+        ],
+        "journal": "J Expo Sci Environ Epidemiol",
+        "year": 2021,
+        "volume_issue": "31(4)",
+        "pages": "585-605",
+        "study_type": "Review",
+        "relevance": "indirect",
+        "note": "Reviews health research on 5G-type radio fields; does not test virus spread directly."
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "Do not believe claims without a reliable source, and check the scientific research.",
+    "advice_source": "",
+    "language": "en",
+    "reviewed_by": "Menna",
+    "evidence_last_checked": "2026-10-11",
+    "pmid_verified": true,
+    "needs_review": [
+      "verdict",
+      "true_part",
+      "overstated_part",
+      "evidence.relevance",
+      "evidence.note",
+      "no advice_source given",
+      "risk 'Low' - team to confirm",
+      "information_disorder_type defaulted to Misinformation"
+    ],
+    "core": false,
+    "information_disorder_type": "Misinformation"
+  },
+  {
+    "id": "MYTH-011",
+    "claim_text": "Drinking bentonite clay is a DIY kidney detox.",
+    "category": "detox",
+    "platform_origin": [
+      "TikTok",
+      "Instagram"
+    ],
+    "raw_quotes": [
+      "If you want to detox your kidney drink bentonite clay water",
+      "clean your kidney"
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [
+        "clean your kidney"
+      ],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "The kidneys are self-cleansing organs that do not need products promoted as 'detox' or 'kidney cleansers'. These substances can disrupt normal kidney function.",
+    "risk_classification": "High",
+    "risk_rationale": "It may cause intestinal obstruction and harm liver and kidney function because of toxic heavy metal content.",
+    "verdict": "Refuted",
+    "true_part": "The kidneys do filter waste from the blood.",
+    "overstated_part": "They do this on their own; clay does not 'detox' them and may contain heavy metals.",
+    "evidence": [
+      {
+        "pmid": "23862762",
+        "title": "Levels of lead, arsenic, mercury and cadmium in clays for oral use on the Dutch market and estimation of associated risks",
+        "authors": [
+          "N M Reeuwijk",
+          "W N M Klerx",
+          "M Kooijman",
+          "L A P Hoogenboom",
+          "I M C M Rietjens",
+          "M J Martena"
+        ],
+        "journal": "Food Addit Contam Part A Chem Anal Control Expo Risk Assess",
+        "year": 2013,
+        "volume_issue": "30(9)",
+        "pages": "1535-45",
+        "study_type": "Other",
+        "relevance": "direct",
+        "note": "Edible clays sold to consumers contained heavy metals at risky levels (safety)."
+      },
+      {
+        "pmid": "16871112",
+        "title": "Severe hypokalemia caused by oral and rectal administration of bentonite in a pediatric patient",
+        "authors": [
+          "Amanda Bennett",
+          "Glenn Stryjewski"
+        ],
+        "journal": "Pediatr Emerg Care",
+        "year": 2006,
+        "volume_issue": "22(7)",
+        "pages": "500-2",
+        "study_type": "Case Report",
+        "relevance": "direct",
+        "note": "Bentonite use caused dangerously low potassium in a child (safety)."
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "To keep kidneys healthy, drink water regularly and eat a balanced diet.",
+    "advice_source": "https://health.clevelandclinic.org/how-to-keep-kidneys-healthy",
+    "language": "en",
+    "reviewed_by": "Menna",
+    "evidence_last_checked": "2026-10-11",
+    "pmid_verified": true,
+    "needs_review": [
+      "verdict",
+      "true_part",
+      "overstated_part",
+      "evidence.relevance",
+      "evidence.note",
+      "information_disorder_type defaulted to Misinformation"
+    ],
+    "core": false,
+    "information_disorder_type": "Misinformation"
+  }
+]

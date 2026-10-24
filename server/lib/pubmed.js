@@ -122,9 +122,30 @@ const STRONG_TYPES = '(systematic[sb] OR meta-analysis[pt] OR randomized control
  * @param {string[]} kw  keywords from the claim, most important first
  * @returns article objects, strongest study types first
  */
-export async function searchEvidence(kw, max = Number(process.env.PUBMED_MAX_RESULTS || 4)) {
+export async function searchEvidence(kw, max = Number(process.env.PUBMED_MAX_RESULTS || 4), queries = []) {
   const core = kw.slice(0, 6);
-  if (!core.length) return [];
+  if (!core.length && !queries.length) return [];
+  const rank = { 'Systematic Review': 0, 'Meta-Analysis': 0, RCT: 1, Guideline: 1, Review: 2, 'Case Report': 3, Other: 4 };
+  const byStrength = list => list.sort((a, b) => (rank[a.study_type] ?? 4) - (rank[b.study_type] ?? 4) || (b.year || 0) - (a.year || 0));
+
+  // 0. AI-suggested medical search terms (e.g. "amygdalin cancer"), strongest study types first.
+  const qIds = [];
+  for (const q of queries) {
+    const words = q.split(/\s+/).filter(Boolean);
+    for (const term of [`(${words.join(' AND ')}) AND systematic[sb]`, `(${words.join(' AND ')}) AND ${STRONG_TYPES}`]) {
+      for (const id of await esearch(term, 2)) if (!qIds.includes(id)) qIds.push(id);
+      if (qIds.length >= max) break;
+    }
+    if (qIds.length >= max) break;
+  }
+  const fromQueries = qIds.length ? await articlesFor(qIds.slice(0, max)) : [];
+  if (fromQueries.length >= max || !core.length) return byStrength(fromQueries).slice(0, max);
+  const rest = await keywordSearch(core, max - fromQueries.length, new Set(fromQueries.map(a => a.pmid)));
+  return byStrength(fromQueries.concat(rest));
+}
+
+/** Plain keyword search (used when the AI-suggested terms find fewer than `max` papers). */
+async function keywordSearch(core, max, skip = new Set()) {
   const and = words => words.join(' AND ');
   const attempts = [
     `(${and(core.slice(0, 5))}) AND systematic[sb]`,
@@ -133,7 +154,7 @@ export async function searchEvidence(kw, max = Number(process.env.PUBMED_MAX_RES
   ];
   const ids = [];
   for (const term of attempts) {
-    for (const id of await esearch(term, max)) if (!ids.includes(id)) ids.push(id);
+    for (const id of await esearch(term, max)) if (!ids.includes(id) && !skip.has(id)) ids.push(id);
     if (ids.length >= max) break;
   }
   let arts = ids.length ? await articlesFor(ids.slice(0, max)) : [];
@@ -141,7 +162,7 @@ export async function searchEvidence(kw, max = Number(process.env.PUBMED_MAX_RES
   if (arts.length < max && core.length >= 2) {
     const need = Math.max(2, Math.round(core.length / 3));
     const orIds = (await esearch(`(${core.join(' OR ')}) AND ${STRONG_TYPES}`, 20, 'relevance'))
-      .filter(id => !ids.includes(id));
+      .filter(id => !ids.includes(id) && !skip.has(id));
     if (orIds.length) {
       const extra = (await articlesFor(orIds))
         .map(a => ({ a, c: coverage(a, core) }))
@@ -152,6 +173,5 @@ export async function searchEvidence(kw, max = Number(process.env.PUBMED_MAX_RES
     }
   }
 
-  const rank = { 'Systematic Review': 0, 'Meta-Analysis': 0, RCT: 1, Guideline: 1, Review: 2, 'Case Report': 3, Other: 4 };
-  return arts.sort((a, b) => rank[a.study_type] - rank[b.study_type] || (b.year || 0) - (a.year || 0));
+  return arts;
 }

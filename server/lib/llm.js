@@ -38,11 +38,11 @@ export async function getGroqModel() {
 
 let useReasoningEffort = true;
 
-async function chat(service, base, key, model, system, user, jsonMode) {
+async function chat(service, base, key, model, system, user, jsonMode, maxTokens) {
   const body = {
     model,
     temperature: 0,
-    max_tokens: Number(process.env.LLM_MAX_TOKENS || 2000),
+    max_tokens: maxTokens || Number(process.env.LLM_MAX_TOKENS || 2000),
     messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
   };
   if (jsonMode) body.response_format = { type: 'json_object' };
@@ -59,7 +59,7 @@ async function chat(service, base, key, model, system, user, jsonMode) {
 }
 
 /** @returns {{text: string, usage: object|null, model: string}} */
-export async function complete({ system, user, provider = 'groq' }) {
+export async function complete({ system, user, provider = 'groq', maxTokens }) {
   const isOpenAI = provider === 'openai';
   const service = isOpenAI ? 'OpenAI' : 'Groq';
   const key = isOpenAI ? process.env.OPENAI_API_KEY : process.env.GROQ_API_KEY;
@@ -69,7 +69,7 @@ export async function complete({ system, user, provider = 'groq' }) {
   let jsonMode = true;
   for (let attempt = 0; ; attempt++) {
     try {
-      return await chat(service, base, key, model, system, user, jsonMode);
+      return await chat(service, base, key, model, system, user, jsonMode, maxTokens);
     } catch (err) {
       // Some models don't support JSON mode - try again without it.
       if (err.status === 400 && jsonMode && /response_format|json/i.test(err.message)) { jsonMode = false; continue; }

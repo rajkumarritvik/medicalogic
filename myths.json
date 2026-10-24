@@ -64,11 +64,9 @@
     "advice_source": "https://liverfoundation.org/resource-center/blog/healthy-liver-tips/",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-18",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
-    "needs_review": [
-      "verdict (not in the 5-core table; kept as Refuted)"
-    ],
+    "needs_review": [],
     "core": true,
     "information_disorder_type": "Disinformation"
   },
@@ -96,8 +94,8 @@
     "risk_classification": "High",
     "risk_rationale": "It causes irritation and erosion of the stomach wall, as well as disruption of good gut bacteria, if used daily. It also poses a risk for people with irritable bowel syndrome (IBS).",
     "verdict": "Refuted",
-    "true_part": "Allicin from garlic does kill bacteria in laboratory (test-tube) experiments.",
-    "overstated_part": "Lab results do not show that drinking garlic water clears bacteria or viruses inside the body, and daily raw garlic can irritate the stomach.",
+    "true_part": "Garlic contains organosulfur compounds like allicin that show antibacterial and antiviral properties in laboratory settings.",
+    "overstated_part": "Claiming garlic water eradicates viral or bacterial infections inside the human body.",
     "evidence": [
       {
         "pmid": "21520707",
@@ -111,26 +109,8 @@
         "volume_issue": "698",
         "pages": "110-21",
         "study_type": "Review",
-        "relevance": "indirect",
+        "relevance": "direct",
         "note": "Reviews garlic's sulfur compounds and their possible health uses (mechanism)."
-      },
-      {
-        "pmid": "31585716",
-        "title": "Allicin, a natural antimicrobial defence substance from garlic, inhibits DNA gyrase activity in bacteria",
-        "authors": [
-          "Jana Reiter",
-          "Anna Maria Hübbers",
-          "Frank Albrecht",
-          "Lars Ingo Ole Leichert",
-          "Alan John Slusarenko"
-        ],
-        "journal": "Int J Med Microbiol",
-        "year": 2020,
-        "volume_issue": "310(1)",
-        "pages": "151359",
-        "study_type": "Other",
-        "relevance": "indirect",
-        "note": "Lab experiment: allicin blocks a bacterial enzyme in test tubes, not in people (mechanism)."
       },
       {
         "pmid": "11238827",
@@ -153,18 +133,10 @@
     "recommended_action": "Eat cooked garlic by adding it to your food; this reduces its strong effect on the stomach. Eat foods that support good bacteria, like yogurt and buttermilk. If you have irritable bowel syndrome, ask a doctor first.",
     "advice_source": "https://pubmed.ncbi.nlm.nih.gov/30889821/",
     "language": "en",
-    "reviewed_by": "Menna",
-    "evidence_last_checked": "2026-10-11",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
-    "needs_review": [
-      "verdict",
-      "true_part",
-      "overstated_part",
-      "evidence.relevance",
-      "evidence.note",
-      "advice_source is a PubMed paper, not a patient-advice page",
-      "information_disorder_type defaulted to Misinformation"
-    ],
+    "needs_review": [],
     "core": false,
     "information_disorder_type": "Misinformation"
   },
@@ -193,9 +165,28 @@
     "risk_classification": "High",
     "risk_rationale": "Severe metabolic alkalosis and hypokalemia that can threaten the heart, failure to absorb oral cancer drugs, and delaying real treatment due to false hope.",
     "verdict": "Refuted",
-    "true_part": "Tumors do create an acidic environment around themselves.",
-    "overstated_part": "Drinking alkaline water does not change blood pH, and there is no evidence it treats or prevents cancer.",
+    "true_part": "Alkaline water neutralizes stomach acid temporarily on contact.",
+    "overstated_part": "Claiming it permanently neutralizes blood acidity or treats cancer.",
     "evidence": [
+      {
+        "pmid": "39789195",
+        "title": "Associations between per-and polyfluoroalkyl substances (PFAS) and county-level cancer incidence between 2016 and 2021 and incident cancer burden attributable to PFAS in drinking water in the United States",
+        "authors": [
+          "Li S",
+          "Oliva P",
+          "Zhang L",
+          "Goodrich JA",
+          "McConnell R",
+          "Conti DV"
+        ],
+        "journal": "J Expo Sci Environ Epidemiol",
+        "year": 2025,
+        "volume_issue": "",
+        "pages": "",
+        "study_type": "Systematic Review",
+        "relevance": "direct",
+        "note": ""
+      },
       {
         "pmid": "27297008",
         "title": "Systematic review of the association between dietary acid load, alkaline water and cancer",
@@ -210,43 +201,20 @@
         "study_type": "Systematic Review",
         "relevance": "direct",
         "note": "Systematic review: no evidence that alkaline water or diet acid load treats or prevents cancer."
-      },
-      {
-        "pmid": "38097490",
-        "title": "Severe Alkalemia and hypokalemia after chronic exposure to alkaline water",
-        "authors": [
-          "Khizer Rizvi",
-          "Stanley Abraham",
-          "Jonathan Gong",
-          "Joshua Nogar"
-        ],
-        "journal": "Am J Emerg Med",
-        "year": 2024,
-        "volume_issue": "76",
-        "pages": "273.e5-273.e7",
-        "study_type": "Case Report",
-        "relevance": "direct",
-        "note": "Long-term alkaline water use caused dangerous blood chemistry changes (safety)."
       }
     ],
     "safety_pmids": [],
     "recommended_action": "See a doctor if you have any symptoms of cancer and follow your doctor's instructions.",
     "advice_source": "https://pubmed.ncbi.nlm.nih.gov/28922780/",
     "language": "en",
-    "reviewed_by": "Menna",
-    "evidence_last_checked": "2026-10-11",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
     "needs_review": [
-      "verdict",
-      "true_part",
-      "overstated_part",
-      "evidence.relevance",
-      "evidence.note",
-      "advice_source is the same PubMed link as MYTH-006 - check it is the intended page",
-      "information_disorder_type defaulted to Misinformation"
+      "one-line note missing for some PMIDs"
     ],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Disinformation"
   },
   {
     "id": "MYTH-004",
@@ -274,8 +242,8 @@
     "risk_classification": "High",
     "risk_rationale": "Taking too much concentrated apple cider vinegar daily on an empty stomach can damage tooth enamel, make gums sensitive, and slow stomach emptying, which is risky for people with diabetes or gastroparesis.",
     "verdict": "Refuted",
-    "true_part": "Some research suggests vinegar in the diet may help prevent kidney stones from forming.",
-    "overstated_part": "There is no evidence that apple cider vinegar dissolves stones a person already has.",
+    "true_part": "Apple cider vinegar contains acetic and citric acid.",
+    "overstated_part": "Claiming that drinking vinegar directly dissolves existing calcium kidney stones.",
     "evidence": [
       {
         "pmid": "41351751",
@@ -294,23 +262,6 @@
         "study_type": "RCT",
         "relevance": "direct",
         "note": "Clinical trial of apple cider vinegar for preventing stones (prevention, not dissolving)."
-      },
-      {
-        "pmid": "31202812",
-        "title": "Dietary vinegar prevents kidney stone recurrence via epigenetic regulations",
-        "authors": [
-          "Wei Zhu",
-          "Yang Liu",
-          "Yu Lan",
-          "Guohua Zeng"
-        ],
-        "journal": "EBioMedicine",
-        "year": 2019,
-        "volume_issue": "45",
-        "pages": "231-250",
-        "study_type": "Other",
-        "relevance": "indirect",
-        "note": "Lab and clinical data that vinegar may lower stone recurrence (mechanism)."
       }
     ],
     "safety_pmids": [
@@ -320,85 +271,10 @@
     "recommended_action": "Consult your doctor and follow the medical treatment plan if you have kidney stones. Drink plenty of water.",
     "advice_source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4953772/",
     "language": "en",
-    "reviewed_by": "Menna",
-    "evidence_last_checked": "2026-10-11",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
-    "needs_review": [
-      "verdict",
-      "true_part",
-      "overstated_part",
-      "evidence.relevance",
-      "evidence.note",
-      "evidence[1].authors shortened to first 3 + last author",
-      "information_disorder_type defaulted to Misinformation"
-    ],
-    "core": false,
-    "information_disorder_type": "Misinformation"
-  },
-  {
-    "id": "MYTH-005",
-    "claim_text": "5G towers spread viruses.",
-    "category": "infection",
-    "platform_origin": [
-      "Facebook",
-      "YouTube"
-    ],
-    "raw_quotes": [
-      "5G tower are affecting your health. no matter how far away you live from them"
-    ],
-    "manipulation_markers": {
-      "clickbait_phrases": [],
-      "absolute_promises": [
-        "no matter how far away you live"
-      ],
-      "fear_keywords": [
-        "affecting your health"
-      ],
-      "urgency_phrases": []
-    },
-    "mechanism": "5G networks are just radio waves and cannot cause diseases because they do not carry viruses. They are physical energy, not biological material. Viruses spread through sneezing or touching contaminated surfaces.",
-    "risk_classification": "Low",
-    "risk_rationale": "No direct health risk, but it causes fear and makes people believe 5G waves caused their illness.",
-    "verdict": "Refuted",
-    "true_part": "5G does use radio-frequency energy.",
-    "overstated_part": "Radio waves cannot carry or spread viruses; research on 5G-level radio fields has not found health harm at normal exposure.",
-    "evidence": [
-      {
-        "pmid": "33727687",
-        "title": "5G mobile networks and health-a state-of-the-science review of the research into low-level RF fields above 6 GHz",
-        "authors": [
-          "Ken Karipidis",
-          "Rohan Mate",
-          "David Urban",
-          "Rick Tinker",
-          "Andrew Wood"
-        ],
-        "journal": "J Expo Sci Environ Epidemiol",
-        "year": 2021,
-        "volume_issue": "31(4)",
-        "pages": "585-605",
-        "study_type": "Review",
-        "relevance": "indirect",
-        "note": "Reviews health research on 5G-type radio fields; does not test virus spread directly."
-      }
-    ],
-    "safety_pmids": [],
-    "recommended_action": "Do not believe claims without a reliable source, and check the scientific research.",
-    "advice_source": "",
-    "language": "en",
-    "reviewed_by": "Menna",
-    "evidence_last_checked": "2026-10-11",
-    "pmid_verified": true,
-    "needs_review": [
-      "verdict",
-      "true_part",
-      "overstated_part",
-      "evidence.relevance",
-      "evidence.note",
-      "no advice_source given",
-      "risk 'Low' - team to confirm",
-      "information_disorder_type defaulted to Misinformation"
-    ],
+    "needs_review": [],
     "core": false,
     "information_disorder_type": "Misinformation"
   },
@@ -426,8 +302,8 @@
     "risk_classification": "High",
     "risk_rationale": "Cyanide poisoning, which can lead to death and makes cancer patients severely ill.",
     "verdict": "Refuted",
-    "true_part": "Apricot kernels do contain amygdalin, the compound marketed as 'vitamin B17'.",
-    "overstated_part": "Clinical studies found no benefit against cancer, and amygdalin can cause cyanide poisoning.",
+    "true_part": "Bitter apricot seeds contain high concentrations of amygdalin.",
+    "overstated_part": "Claiming vitamin B17 cures or destroys cancer cells and that you will not need any medical treatment.",
     "evidence": [
       {
         "pmid": "25918920",
@@ -463,8 +339,8 @@
         "year": 1982,
         "volume_issue": "306(4)",
         "pages": "201-6",
-        "study_type": "RCT",
-        "relevance": "direct",
+        "study_type": "Other",
+        "relevance": "indirect",
         "note": "Clinical trial: amygdalin gave no substantial benefit to cancer patients."
       }
     ],
@@ -472,21 +348,12 @@
     "recommended_action": "Consult your doctor. Do not take advertised cancer treatments or follow random medical advice, especially with a chronic or serious illness.",
     "advice_source": "https://pubmed.ncbi.nlm.nih.gov/28922780/",
     "language": "en",
-    "reviewed_by": "Menna",
-    "evidence_last_checked": "2026-10-11",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
-    "needs_review": [
-      "verdict",
-      "true_part",
-      "overstated_part",
-      "evidence.relevance",
-      "evidence.note",
-      "evidence[1].study_type: Menna wrote 'Clinical Trial' (mapped to RCT)",
-      "advice_source is the same PubMed link as MYTH-003",
-      "information_disorder_type defaulted to Misinformation"
-    ],
+    "needs_review": [],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Disinformation"
   },
   {
     "id": "MYTH-007",
@@ -512,8 +379,8 @@
     "risk_classification": "High",
     "risk_rationale": "Swallowing dry chia seeds lets them swell in the food pipe and stomach, which can cause breathing difficulty and esophageal blockage.",
     "verdict": "Refuted",
-    "true_part": "Chia seeds are high in fiber and can help you feel full.",
-    "overstated_part": "A trial found chia seeds did not cause weight loss, and nothing shows they 'block' fat absorption.",
+    "true_part": "Chia seeds contain a high percentage of fiber, which makes you feel full.",
+    "overstated_part": "Claiming chia gel creates a barrier that blocks fat absorption or triggers rapid weight loss.",
     "evidence": [
       {
         "pmid": "19628108",
@@ -539,19 +406,12 @@
     "recommended_action": "To lose weight you need a calorie deficit with a diet plan and exercise; consult a nutritionist who knows your medical history.",
     "advice_source": "https://www.health.harvard.edu/weight-loss/calorie-deficit-explained-is-it-a-safe-sustainable-approach-to-weight-loss",
     "language": "en",
-    "reviewed_by": "Menna",
-    "evidence_last_checked": "2026-10-11",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
-    "needs_review": [
-      "verdict",
-      "true_part",
-      "overstated_part",
-      "evidence.relevance",
-      "evidence.note",
-      "information_disorder_type defaulted to Misinformation"
-    ],
+    "needs_review": [],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Disinformation"
   },
   {
     "id": "MYTH-008",
@@ -617,11 +477,10 @@
     "advice_source": "https://www.mouthhealthy.org/all-topics-a-z/natural-teeth-whitening",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-18",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
     "needs_review": [
-      "verdict (not in the 5-core table; kept as Refuted)",
-      "evidence.note: one-line 'what this study shows' missing for new PMIDs (Jiayi asked for it)"
+      "one-line note missing for some PMIDs"
     ],
     "core": true,
     "information_disorder_type": "Disinformation"
@@ -649,7 +508,7 @@
     "risk_rationale": "Improper use destroys both helpful and harmful bacteria and drives antibiotic resistance, so future bacterial infections become harder to treat.",
     "verdict": "Refuted",
     "true_part": "Antibiotics are powerful medications designed specifically to treat bacterial infections.",
-    "overstated_part": "Claiming antibiotics cure colds or flu, when these are caused by viruses that antibiotics cannot target, while risking side effects and resistance.",
+    "overstated_part": "Claiming antibiotics cure colds or other viral infections.",
     "evidence": [
       {
         "pmid": "41277585",
@@ -665,6 +524,21 @@
         "study_type": "Meta-Analysis",
         "relevance": "direct",
         "note": "Cochrane review: antibiotics do not help the common cold and cause side effects."
+      },
+      {
+        "pmid": "10796517",
+        "title": "Antibiotics for the common cold",
+        "authors": [
+          "Arroll B",
+          "Kenealy T"
+        ],
+        "journal": "Cochrane Database Syst Rev",
+        "year": 2000,
+        "volume_issue": "",
+        "pages": "",
+        "study_type": "Systematic Review",
+        "relevance": "direct",
+        "note": ""
       }
     ],
     "safety_pmids": [],
@@ -672,10 +546,10 @@
     "advice_source": "https://www.cdc.gov/common-cold/treatment/index.html",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-18",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
     "needs_review": [
-      "verdict (not in the 5-core table; kept as Refuted)"
+      "one-line note missing for some PMIDs"
     ],
     "core": true,
     "information_disorder_type": "Misinformation"
@@ -703,8 +577,8 @@
     "risk_classification": "High",
     "risk_rationale": "Cell toxicity, severe irritation and inflammation, and permanent vision loss due to delayed treatment.",
     "verdict": "Refuted",
-    "true_part": "Some oils are tested as carriers in eye-drop formulas.",
-    "overstated_part": "Nothing shows castor oil can reach or dissolve a cataract; surgery is the proven treatment.",
+    "true_part": "Sterile castor oil formulations are used in specialized lipid-based eye drops to lubricate the eye surface and reduce dry-eye symptoms.",
+    "overstated_part": "Claims that castor oil dissolves cataracts or reverses vision loss.",
     "evidence": [
       {
         "pmid": "17962450",
@@ -731,100 +605,12 @@
     "recommended_action": "If you have cataracts, see an eye doctor about treatment such as surgery. Do not put oils or other substances in your eyes unless prescribed.",
     "advice_source": "https://www.aao.org/eye-health/tips-prevention/scariest-eye-cures-viral-tiktok-influencer",
     "language": "en",
-    "reviewed_by": "Menna",
-    "evidence_last_checked": "2026-10-11",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
-    "needs_review": [
-      "verdict",
-      "true_part",
-      "overstated_part",
-      "evidence.relevance",
-      "evidence.note",
-      "only indirect evidence - add a cataract treatment review if possible",
-      "information_disorder_type defaulted to Misinformation"
-    ],
+    "needs_review": [],
     "core": false,
-    "information_disorder_type": "Misinformation"
-  },
-  {
-    "id": "MYTH-011",
-    "claim_text": "Drinking bentonite clay is a DIY kidney detox.",
-    "category": "detox",
-    "platform_origin": [
-      "TikTok",
-      "Instagram"
-    ],
-    "raw_quotes": [
-      "If you want to detox your kidney drink bentonite clay water",
-      "clean your kidney"
-    ],
-    "manipulation_markers": {
-      "clickbait_phrases": [
-        "clean your kidney"
-      ],
-      "absolute_promises": [],
-      "fear_keywords": [],
-      "urgency_phrases": []
-    },
-    "mechanism": "The kidneys are self-cleansing organs that do not need products promoted as 'detox' or 'kidney cleansers'. These substances can disrupt normal kidney function.",
-    "risk_classification": "High",
-    "risk_rationale": "It may cause intestinal obstruction and harm liver and kidney function because of toxic heavy metal content.",
-    "verdict": "Refuted",
-    "true_part": "The kidneys do filter waste from the blood.",
-    "overstated_part": "They do this on their own; clay does not 'detox' them and may contain heavy metals.",
-    "evidence": [
-      {
-        "pmid": "23862762",
-        "title": "Levels of lead, arsenic, mercury and cadmium in clays for oral use on the Dutch market and estimation of associated risks",
-        "authors": [
-          "N M Reeuwijk",
-          "W N M Klerx",
-          "M Kooijman",
-          "L A P Hoogenboom",
-          "I M C M Rietjens",
-          "M J Martena"
-        ],
-        "journal": "Food Addit Contam Part A Chem Anal Control Expo Risk Assess",
-        "year": 2013,
-        "volume_issue": "30(9)",
-        "pages": "1535-45",
-        "study_type": "Other",
-        "relevance": "direct",
-        "note": "Edible clays sold to consumers contained heavy metals at risky levels (safety)."
-      },
-      {
-        "pmid": "16871112",
-        "title": "Severe hypokalemia caused by oral and rectal administration of bentonite in a pediatric patient",
-        "authors": [
-          "Amanda Bennett",
-          "Glenn Stryjewski"
-        ],
-        "journal": "Pediatr Emerg Care",
-        "year": 2006,
-        "volume_issue": "22(7)",
-        "pages": "500-2",
-        "study_type": "Case Report",
-        "relevance": "direct",
-        "note": "Bentonite use caused dangerously low potassium in a child (safety)."
-      }
-    ],
-    "safety_pmids": [],
-    "recommended_action": "To keep kidneys healthy, drink water regularly and eat a balanced diet.",
-    "advice_source": "https://health.clevelandclinic.org/how-to-keep-kidneys-healthy",
-    "language": "en",
-    "reviewed_by": "Menna",
-    "evidence_last_checked": "2026-10-11",
-    "pmid_verified": true,
-    "needs_review": [
-      "verdict",
-      "true_part",
-      "overstated_part",
-      "evidence.relevance",
-      "evidence.note",
-      "information_disorder_type defaulted to Misinformation"
-    ],
-    "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Disinformation"
   },
   {
     "id": "MYTH-012",
@@ -851,24 +637,24 @@
     "risk_rationale": "It worsens the burn and can cause infection; it also sticks to the burn and is painful to remove in the ER.",
     "verdict": "Refuted",
     "true_part": "Menthol in toothpaste gives a brief, temporary cooling feeling on the skin surface.",
-    "overstated_part": "Claiming toothpaste heals burns, when it actually traps heat in tissues, causes severe chemical irritation, and increases infection risk.",
+    "overstated_part": "Claiming toothpaste heals burns or is a first-aid measure for burns.",
     "evidence": [
       {
-        "pmid": "22030439",
-        "title": "Are parents in the UK equipped to provide adequate burns first aid?",
+        "pmid": "37885545",
+        "title": "Perception, Awareness, and Practices Related to Burn First Aid Among the General Population in Qassim Region, Saudi Arabia",
         "authors": [
-          "Graham HE",
-          "Bache SE",
-          "Muthayya P",
-          "Baker J",
-          "Ralston DR"
+          "Alkhalifah KM",
+          "Almutairi F",
+          "Almohaimeed NS",
+          "Alhumaidan LS",
+          "Alsulaim L"
         ],
-        "journal": "Burns",
-        "year": 2012,
+        "journal": "Cureus",
+        "year": 2023,
         "volume_issue": "",
         "pages": "",
         "study_type": "Other",
-        "relevance": "indirect",
+        "relevance": "direct",
         "note": ""
       },
       {
@@ -884,7 +670,7 @@
         "volume_issue": "",
         "pages": "",
         "study_type": "Systematic Review",
-        "relevance": "direct",
+        "relevance": "indirect",
         "note": ""
       }
     ],
@@ -893,11 +679,10 @@
     "advice_source": "https://www.mayoclinic.org/first-aid/first-aid-burns/basics/art-20056649",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-18",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
     "needs_review": [
-      "verdict (not in the 5-core table; kept as Refuted)",
-      "evidence.note: one-line 'what this study shows' missing for new PMIDs (Jiayi asked for it)"
+      "one-line note missing for some PMIDs"
     ],
     "core": true,
     "information_disorder_type": "Misinformation"
@@ -927,7 +712,7 @@
     "risk_rationale": "Skin cancer, especially with repeated use, and faster skin aging from collagen damage.",
     "verdict": "Refuted",
     "true_part": "Artificial UV tanning lamps emit high-intensity ultraviolet radiation (UVA/UVB) that stimulates skin cells to produce melanin.",
-    "overstated_part": "Claiming they offer a safe, fast tan, when uncalibrated lamps risk severe burns, cellular DNA damage, and skin cancer.",
+    "overstated_part": "Claiming they offer a safe, fast tan without any risks.",
     "evidence": [
       {
         "pmid": "11830612",
@@ -970,11 +755,10 @@
     "advice_source": "https://healthy.kaiserpermanente.org/health-wellness/healtharticle.what-you-need-know-about-sunless-tanning",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-18",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
     "needs_review": [
-      "verdict (not in the 5-core table; kept as Refuted)",
-      "evidence.note: one-line 'what this study shows' missing for new PMIDs (Jiayi asked for it)"
+      "one-line note missing for some PMIDs"
     ],
     "core": true,
     "information_disorder_type": "Disinformation"
@@ -1001,8 +785,8 @@
     "risk_classification": "High",
     "risk_rationale": "Chemical burns and permanent scarring hair loss (scarring alopecia), plus tissue damage.",
     "verdict": "Refuted",
-    "true_part": "Garlic contains strong, biologically active sulfur compounds.",
-    "overstated_part": "There is no evidence raw garlic regrows hair, and reported cases show it can cause chemical burns.",
+    "true_part": "Lab-formulated garlic gels, used under expert supervision, contain sulfur compounds that can increase scalp blood flow and soothe hair-follicle inflammation.",
+    "overstated_part": "Claiming raw crushed garlic reverses hair loss or baldness.",
     "evidence": [
       {
         "pmid": "33571752",
@@ -1027,20 +811,178 @@
     "recommended_action": "See a doctor to find the cause of your hair loss and get the right treatment.",
     "advice_source": "https://www.health.harvard.edu/womens-health/treating-female-pattern-hair-loss",
     "language": "en",
-    "reviewed_by": "Menna",
-    "evidence_last_checked": "2026-10-11",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
     "pmid_verified": true,
-    "needs_review": [
-      "verdict",
-      "true_part",
-      "overstated_part",
-      "evidence.relevance",
-      "evidence.note",
-      "risk was 'Medium to High' - stored as High",
-      "advice_source URL rebuilt from a Google redirect link - check it opens",
-      "information_disorder_type defaulted to Misinformation"
-    ],
+    "needs_review": [],
     "core": false,
     "information_disorder_type": "Misinformation"
+  },
+  {
+    "id": "MYTH-015",
+    "claim_text": "Using ice consistently gives glowing skin.",
+    "category": "skin",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Ice causes local vasoconstriction and reduces swelling, causing a temporary rush of blood flow and a minor cooling flush when removed.",
+    "overstated_part": "Claims that using ice daily improves skin texture, shrinks pores, and replaces skincare or seeing a doctor.",
+    "evidence": [
+      {
+        "pmid": "12788210",
+        "title": "Effect of cold face stimulation on cerebral blood flow in humans",
+        "authors": [
+          "Brown CM",
+          "Sanya EO",
+          "Hilz MJ"
+        ],
+        "journal": "Brain Res Bull",
+        "year": 2003,
+        "volume_issue": "",
+        "pages": "",
+        "study_type": "Other",
+        "relevance": "indirect",
+        "note": ""
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
+    "pmid_verified": true,
+    "core": false,
+    "information_disorder_type": "Misinformation",
+    "needs_review": [
+      "platform_origin unknown (set to Other)",
+      "no raw quotes / manipulation phrases yet",
+      "no recommended_action or advice link yet",
+      "risk level and verdict to confirm",
+      "one-line note missing for PMIDs"
+    ]
+  },
+  {
+    "id": "MYTH-016",
+    "claim_text": "Drinking pure celery juice every morning cures autoimmune disease and flushes chronic toxins.",
+    "category": "nutrition",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "High",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Celery contains antioxidants like apigenin and provides healthy hydration.",
+    "overstated_part": "Claiming celery juice cures chronic or autoimmune diseases.",
+    "evidence": [
+      {
+        "pmid": "31464016",
+        "title": "Beneficial effects of celery (Apium graveolens) on metabolic syndrome: A review of the existing evidences",
+        "authors": [
+          "Hedayati N",
+          "Bemani Naeini M",
+          "Mohammadinejad A",
+          "Mohajeri SA"
+        ],
+        "journal": "Phytother Res",
+        "year": 2019,
+        "volume_issue": "",
+        "pages": "",
+        "study_type": "Review",
+        "relevance": "indirect",
+        "note": ""
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
+    "pmid_verified": true,
+    "core": false,
+    "information_disorder_type": "Misinformation",
+    "needs_review": [
+      "platform_origin unknown (set to Other)",
+      "no raw quotes / manipulation phrases yet",
+      "no recommended_action or advice link yet",
+      "risk level and verdict to confirm",
+      "one-line note missing for PMIDs"
+    ]
+  },
+  {
+    "id": "MYTH-017",
+    "claim_text": "Raw garlic cures severe toothaches.",
+    "category": "dental",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "High",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Garlic contains allicin, an active organosulfur compound.",
+    "overstated_part": "Claiming garlic cures dental infections or nerve pain.",
+    "evidence": [
+      {
+        "pmid": "28390650",
+        "title": "Garlic burn of the oral mucosa: A case report and review of self-treatment chemical burns",
+        "authors": [
+          "Vargo RJ",
+          "Warner BM",
+          "Potluri A",
+          "Prasad JL"
+        ],
+        "journal": "J Am Dent Assoc",
+        "year": 2017,
+        "volume_issue": "",
+        "pages": "",
+        "study_type": "Case Report",
+        "relevance": "direct",
+        "note": ""
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-10-21",
+    "pmid_verified": true,
+    "core": false,
+    "information_disorder_type": "Misinformation",
+    "needs_review": [
+      "platform_origin unknown (set to Other)",
+      "no raw quotes / manipulation phrases yet",
+      "no recommended_action or advice link yet",
+      "risk level and verdict to confirm",
+      "one-line note missing for PMIDs"
+    ]
   }
 ]

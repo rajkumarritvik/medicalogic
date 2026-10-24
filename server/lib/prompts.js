@@ -3,7 +3,7 @@
 // v2.0 adds: synthesis rules, direct/indirect sources, "true vs overstated",
 // a <150-word summary, and a strict JSON reply the website can display.
 
-export const PROMPT_VERSION = '2.1';
+export const PROMPT_VERSION = '2.2';
 
 export function systemPrompt(lang = 'en') {
   const arabic = lang === 'ar'
@@ -60,3 +60,12 @@ export const FALLBACK_SUMMARY = {
   en: 'We could not find verified research that addresses this claim closely enough to give a verdict. That does not mean the claim is true. Our team logs unanswered claims so they can be researched and added later.',
   ar: 'لم نتمكن من العثور على أبحاث موثّقة تتناول هذا الادعاء بشكل كافٍ لإصدار حكم. هذا لا يعني أن الادعاء صحيح. يسجّل فريقنا الادعاءات غير المُجاب عنها لدراستها وإضافتها لاحقاً.',
 };
+
+// Used BEFORE searching PubMed: turns a social-media claim into proper medical search terms.
+// The model only chooses WHAT to search for; the verdict still comes only from retrieved papers.
+export const SEARCH_TERMS_PROMPT = `You help search PubMed. Turn the health claim into 2 or 3 short PubMed search queries
+(2 to 4 words each) using the standard scientific or medical terms researchers would use
+(compound names, condition names, MeSH-style terms). Example: "bitter apricot kernels vitamin B17 cure cancer"
+-> ["amygdalin cancer", "laetrile cancer", "apricot kernel cyanide"].
+Do not judge or answer the claim. Use plain words only, no quotes or operators.
+Reply with JSON only: {"queries": ["...", "..."]}`;

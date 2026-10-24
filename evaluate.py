@@ -27,6 +27,8 @@ Run:
   python evaluate.py --set holdout       (only holdout claims)
   python evaluate.py --lang ar           (test Arabic answers)
   python evaluate.py --mock              (fake answers, no server - checks the harness itself)
+  python evaluate.py --data fresh_claims.json --out fresh_results.csv
+                                         (FRESH set: brand-new myths never seen or tuned on - fair test of the live search)
   python evaluate.py --delay 10          (wait longer between claims if Groq rate-limits you)
 Results go to results.csv (one row per claim). Uses only built-in Python.
 """
@@ -89,12 +91,12 @@ def score_claim(myth, resp, latency):
     return {
         "id": myth["id"],
         "set": myth["_set"],
-        "expected_tier": "live" if myth["_set"] == "holdout" else "curated",
+        "expected_tier": "live" if myth["_set"] in ("holdout", "fresh") else "curated",
         "tier": resp.get("tier", ""),
         "expected_verdict": myth["verdict"],
         "verdict": resp.get("verdict", ""),
-        "verdict_correct": resp.get("verdict") == myth["verdict"],
-        "team_pmid_recall": round(hits / len(expected), 2) if expected else 0,
+        "verdict_correct": resp.get("verdict") in myth.get("accept_verdicts", [myth["verdict"]]),
+        "team_pmid_recall": round(hits / len(expected), 2) if expected else "",
         "has_direct_source": any(s.get("relevance") == "direct" for s in resp.get("sources", [])),
         "systematic_share": round(sum(s.get("study_type") in STRONG for s in resp.get("sources", [])) / len(cited), 2) if cited else 0,
         "summary_words": len(resp.get("summary", "").split()),
@@ -115,7 +117,8 @@ def pct(rows, key):
 
 
 def avg(rows, key):
-    return f"{statistics.mean(r[key] for r in rows):.2f}" if rows else "-"
+    vals = [r[key] for r in rows if r[key] != ""]
+    return f"{statistics.mean(vals):.2f}" if vals else "-"
 
 
 def main():
@@ -123,7 +126,7 @@ def main():
     ap.add_argument("--url", default="http://localhost:5000/api/verify")
     ap.add_argument("--data", default="myths.json")
     ap.add_argument("--holdout", default="holdout.json")
-    ap.add_argument("--set", default="all", choices=["all", "core", "holdout", "tuning"])
+    ap.add_argument("--set", default="all", choices=["all", "core", "holdout", "tuning", "fresh"])
     ap.add_argument("--lang", default="en", choices=["en", "ar"])
     ap.add_argument("--out", default="results.csv")
     ap.add_argument("--no-probes", action="store_true")
@@ -140,7 +143,7 @@ def main():
         sets = {}
     hold, core = set(sets.get("holdout_ids", [])), set(sets.get("core_ids", []))
     for m in myths:
-        m["_set"] = "holdout" if m["id"] in hold else ("core" if m["id"] in core else "tuning")
+        m["_set"] = "fresh" if m.get("fresh") else ("holdout" if m["id"] in hold else ("core" if m["id"] in core else "tuning"))
     todo = [m for m in myths if args.set == "all" or m["_set"] == args.set]
 
     rows = []
@@ -159,10 +162,10 @@ def main():
         else:
             ok = "OK  " if row["verdict_correct"] else "MISS"
             print(f"[{ok}] {row['id']} ({row['set']:7}) tier={row['tier']:8} verdict={row['verdict']:12} "
-                  f"recall={row['team_pmid_recall']:.2f} words={row['summary_words']:3} {row['latency_s']}s")
+                  f"recall={row['team_pmid_recall'] if row['team_pmid_recall'] == '' else format(row['team_pmid_recall'], '.2f'):>4} words={row['summary_words']:3} {row['latency_s']}s")
 
     probe_rows = []
-    if not args.no_probes and args.set != "tuning":
+    if not args.no_probes and args.set not in ("tuning", "core"):
         print("\nZero-memory probes (made-up claims, expected: Insufficient)")
         for p in PROBES:
             t0 = time.perf_counter()
@@ -190,7 +193,7 @@ def main():
     print("\n================ SUMMARY ================")
     print(f"Mode: {'MOCK (fake answers)' if args.mock else args.url}   language: {args.lang}")
     good = [r for r in rows if not r.get("error")]
-    for name in ["core", "tuning", "holdout"]:
+    for name in ["core", "tuning", "holdout", "fresh"]:
         rs = [r for r in good if r["set"] == name]
         if not rs:
             continue

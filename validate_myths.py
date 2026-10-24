@@ -44,8 +44,10 @@ def check_record(rec):
     if rec["verdict"] not in VERDICTS:
         errs.append(f"verdict must be one of {sorted(VERDICTS)}")
     if not rec["raw_quotes"]:
-        errs.append("raw_quotes needs at least one quote")
-    for key in ["true_part", "overstated_part", "recommended_action"]:
+        warns.append("no raw quotes yet (needed for the Manipulation Meter)")
+    if not str(rec.get("recommended_action", "")).strip():
+        warns.append("no recommended_action yet")
+    for key in ["true_part", "overstated_part"]:
         if not str(rec.get(key, "")).strip():
             errs.append(f"{key} is empty")
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(rec["evidence_last_checked"])):

@@ -13,7 +13,7 @@ import { matchMyth } from './curated.js';
 import { articlesFor, searchEvidence } from './pubmed.js';
 import { searchHealthTopics } from './medlineplus.js';
 import { complete } from './llm.js';
-import { systemPrompt, userMessage, DISCLAIMER, FALLBACK_SUMMARY, PROMPT_VERSION } from './prompts.js';
+import { systemPrompt, userMessage, DISCLAIMER, FALLBACK_SUMMARY, PROMPT_VERSION, SEARCH_TERMS_PROMPT } from './prompts.js';
 import { normalizeAnswer, parseModelJSON, RequestError } from './validate.js';
 import { searchTerms } from './text.js';
 import { createLimiter, createCache } from './ratelimit.js';
@@ -73,6 +73,22 @@ function fallbackAnswer(lang) {
   return { verdict: 'Insufficient', summary: FALLBACK_SUMMARY[lang], true_part: '', overstated_part: '', sources: [] };
 }
 
+/** Ask the AI for 2-3 proper medical search queries. Returns [] if anything goes wrong. */
+async function suggestQueries(claim, provider, warnings) {
+  if (process.env.SEARCH_TERM_SUGGESTIONS === 'off') return [];
+  try {
+    const out = await complete({ system: SEARCH_TERMS_PROMPT, user: `Claim: "${claim}"`, provider, maxTokens: 400 });
+    const list = parseModelJSON(out.text)?.queries;
+    return (Array.isArray(list) ? list : [])
+      .map(q => String(q).toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').replace(/\s+/g, ' ').trim())
+      .filter(q => q.split(' ').length >= 1 && q.split(' ').length <= 5)
+      .slice(0, 3);
+  } catch (err) {
+    warnings.push(`search-term suggestion failed (${err.message}) - used keywords only`);
+    return [];
+  }
+}
+
 export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 'local' }) {
   const t0 = Date.now();
   const cacheKey = `${lang}|${provider}|${query.toLowerCase()}`;
@@ -81,7 +97,7 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
 
   const warnings = [];
   const match = matchMyth(query);
-  let tier, articles, kw, teamNotes = null;
+  let tier, articles, kw, teamNotes = null, searchQueries = [];
 
   if (match) {
     const m = match.myth;
@@ -98,8 +114,9 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
     }
     tier = 'live';
     kw = searchTerms(query);
+    searchQueries = await suggestQueries(query, provider, warnings);
     try {
-      articles = kw.length ? await searchEvidence(kw) : [];
+      articles = (kw.length || searchQueries.length) ? await searchEvidence(kw, undefined, searchQueries) : [];
     } catch (err) {
       if (err instanceof UpstreamError) throw new RequestError('SOURCES_UNAVAILABLE', 'PubMed is not responding right now. Please try again in a minute.', 503);
       throw err;
@@ -168,6 +185,7 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
       usage,
       cached: false,
       retrieved: { pubmed: articles.length, medlineplus: consumer.length },
+      search_queries: searchQueries,
       retrieved_articles: articles.map(a => ({ pmid: a.pmid, title: a.title, study_type: a.study_type })),
       warnings,
     },
