@@ -1,6 +1,6 @@
 # --- Secrets: NEVER upload API keys ---
 .env
-server/.env
+backend/server/.env
 *.env
 
 # --- Installed packages (anyone can get them with: npm install) ---
@@ -10,7 +10,7 @@ node_modules/
 .vscode/
 
 # --- Generated / temporary files ---
-server/data/
+backend/server/data/
 results.csv
 __pycache__/
 *.zip
