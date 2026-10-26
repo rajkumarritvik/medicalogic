@@ -1535,3 +1535,126 @@ body {
 .side-search { margin: -8px 0 16px; padding-inline-start: 28px; }
 .side-search input { width: 100%; max-width: 230px; padding: 6px 10px; border-radius: 8px; border: 0;
   font-family: inherit; font-size: 12px; outline: none; }
+
+/* ================================================================
+   Polish pass (Ritvik): readability, contrast, mobile menu,
+   verdict colors. Same colors and layout as Mohammad's design.
+   ================================================================ */
+:root {
+  --green-color: #12B76A;
+  --red-color: #F04438;
+  --text-blue: #1B2F8F;
+}
+html, body { overflow-x: clip; }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+::selection { background: rgba(0, 252, 217, 0.45); }
+a, button, .side-item, .side-sub { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--baby-blue-color); outline-offset: 3px; border-radius: 8px; }
+img { height: auto; }
+
+/* Home hero: subtitle on two lines instead of three, nicer button */
+.hero .verifier h1 { max-width: 640px; text-wrap: balance; }
+.hero .verifier .text p { max-width: 470px; line-height: 1.55; }
+.hero .verifier button { color: #ffffff; font-family: inherit; font-size: 16px; font-weight: 600; }
+.hero .button p { font-size: 13px; color: var(--dark-blue-color); }
+
+/* Readable answer card (text was 10-12px) */
+.tools .label { font-size: 13px; }
+.tools .claim-box p { font-size: 13px; line-height: 1.6; }
+.tools .claim-box mark { background-color: rgba(250, 233, 0, 0.9); color: var(--dark-blue-color); border-radius: 3px; padding: 0 2px; }
+.tools .blue-box { padding: 14px 18px; border-radius: 12px; }
+.tools .blue-box h5 { font-size: 13px; font-weight: 600; letter-spacing: 0.1px; }
+.tools .blue-box h5 + p { margin-bottom: 10px; }
+.tools .blue-box p { font-size: 13px; line-height: 1.55; }
+.tools .blue-box.sources p { margin-bottom: 10px; }
+.tools .blue-box .src-title { font-size: 12px; margin-top: 2px; }
+.tools .blue-box .src-note { font-size: 12px; }
+.tools .blue-box a.src-link:hover { text-decoration-thickness: 2px; }
+.tools .answer-card h4 { line-height: 1.25; }
+.tools .answer-card .verdict { font-size: 15px; font-weight: 500; line-height: 1.5; }
+.tools .answer-card .advice { margin: 0; font-size: 14px; line-height: 1.55; color: var(--dark-blue-color); }
+.tools .answer-card .advice a { color: var(--light-blue-color); font-weight: 600; white-space: nowrap; }
+.tools .answer-card .advice a i { font-size: 11px; }
+.tools .menu { user-select: none; opacity: 0.6; }
+
+/* Verdict dots: green = supported, yellow = mixed, red = not supported */
+.tools .dots span { transition: background-color 0.3s ease, transform 0.3s ease; }
+.tools .dots span.active { transform: scale(1.08); box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.04); }
+.tools .dots span:nth-child(1).active { background-color: var(--green-color); }
+.tools .dots span:nth-child(3).active { background-color: var(--red-color); }
+.tools .answer-card[data-verdict="Supported"] .card-head h4 { color: #067647; }
+.tools .answer-card[data-verdict="Refuted"] .card-head h4 { color: #B42318; }
+
+/* Manipulation meter */
+.tools .meter-card h4 { font-size: 15px; font-weight: 600; opacity: 0.75; margin-bottom: 4px; }
+.tools .meter-card .score { font-size: 40px; font-weight: 600; line-height: 1.1; margin-bottom: 10px; }
+.tools .meter-card p { font-size: 14px; }
+.tools .tags-label { display: block; font-size: 12px; font-weight: 600; margin-top: 12px; }
+.tools .tags li { font-size: 12px; padding: 5px 14px; }
+.tools .meter-card[data-level="low"] .score { color: #067647; }
+
+/* Light-cyan buttons and name tags: dark text so they can be read */
+.dl-btn, .team-name { color: var(--dark-blue-color); font-weight: 600; }
+.dl-btn i { margin-inline-end: 6px; }
+.dl-btn.soon { cursor: default; opacity: 0.85; box-shadow: none; }
+.dl-btn.soon:hover { transform: none; box-shadow: none; }
+.dl-preview { position: relative; background: linear-gradient(160deg, rgba(0, 252, 217, 0.22), rgba(38, 83, 255, 0.10)); }
+.dl-preview::after { content: '\f15b'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 46px; color: rgba(38, 83, 255, 0.28); }
+
+/* Home buttons */
+.how-it-works .cta-button, .educator .more-button { font-weight: 600; }
+.educator .more-button { padding: 14px 0; }
+.how-it-works .step-image-wrapper img, .educator .resource-image img { transition: transform 0.5s ease; }
+.how-it-works .step-card:hover img, .educator .resource-card:hover img { transform: scale(1.04); }
+.educator .resource-description { font-size: 13px; }
+
+/* Methodology */
+.steps { max-width: 560px; }
+.step-pill h4 { font-size: 15px; }
+.step-pill p { font-size: 14px; }
+.evidence p { font-size: 15px; }
+.team-card .team-role { font-size: 14px; }
+
+/* Verifier page */
+.v-hint { margin: 10px 0 0; font-size: 12px; color: var(--dark-blue-color); opacity: 0.65; }
+.v-checks li { font-size: 14px; }
+.v-btn { font-weight: 600; }
+.v-btn.loading::before { content: ''; display: inline-block; width: 13px; height: 13px; margin-inline-end: 8px; vertical-align: -2px;
+  border: 2px solid rgba(255, 255, 255, 0.5); border-top-color: #ffffff; border-radius: 50%; animation: ml-spin 0.8s linear infinite; }
+@keyframes ml-spin { to { transform: rotate(360deg); } }
+.v-btn { width: auto; min-width: 150px; padding: 0 22px; }
+.pasted-box { color: #334155; font-size: 15px; }
+.sub-intro { font-size: 15px; }
+.side-new { font-weight: 600; }
+.side-search input { color: #0f172a; }
+
+/* Footer */
+.footer .footer-info { color: var(--dark-blue-color); font-size: 12px; }
+.footer .footer-links a { font-size: 14px; }
+
+/* Arabic: Cairo needs a little more line height */
+[dir="rtl"] .tools .blue-box p, [dir="rtl"] .tools .claim-box p, [dir="rtl"] .step-pill p { line-height: 1.75; }
+[dir="rtl"] .v-checks li::before { content: '\2713\00a0'; }
+
+/* Phones: show the page links under the logo (they were hidden with no menu) */
+@media (max-width: 767px) {
+  .hero .verifier h1 { max-width: 340px; }
+  .nav .container { flex-wrap: wrap; row-gap: 4px; }
+  .nav .links { display: block; order: 3; width: 100%; padding-bottom: 6px; }
+  .nav ul { flex-wrap: wrap; justify-content: center; gap: 6px 16px; }
+  .nav li a { font-size: 13px; }
+  .tools .meter-card .score { font-size: 34px; }
+  .tools .claim-box p, .tools .blue-box p { font-size: 13px; }
+  .evidence { flex-direction: column; text-align: center; }
+  .evidence .ev-img { flex: none; width: 180px; height: 220px; }
+  .evidence p { font-size: 14px; }
+  .sub-intro { font-size: 14px; }
+  .page-hero p { font-size: 14px; }
+  .how-it-works .step-description, .educator .resource-description { font-size: 14px; }
+  .menu-btn { top: 128px; }
+  .footer .footer-links a { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

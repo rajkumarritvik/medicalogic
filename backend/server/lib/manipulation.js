@@ -104,8 +104,8 @@ export function analyzeManipulation(text = '', lang = 'en') {
   } else {
     const lvl = { high: 'highly manipulative', moderate: 'moderately manipulative', low: 'mostly neutral' }[level];
     explanation = `We think this wording is ${lvl}.` +
-      (examples.length ? ` Words like ${examples.map(e => `'${e}'`).join(' and ')} add pressure instead of evidence.` : '') +
-      (parts.hedging >= 20 ? " It never says 'may' or 'might'." : '');
+      (examples.length ? ` Words like ${examples.map(e => `‘${e}’`).join(' and ')} add pressure instead of evidence.` : '') +
+      (parts.hedging >= 20 ? ' It never says ‘may’ or ‘might’.' : '');
   }
 
   return {

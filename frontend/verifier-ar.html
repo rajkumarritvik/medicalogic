@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300..800&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link rel="icon" href="imgs/logo.jpg">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="page-verifier">
@@ -30,7 +31,7 @@
                 <div class="links">
                     <ul>
                         <li><a href="index-ar.html">الصفحة الرئيسية</a></li>
-                        <li><a href="educator-ar.html">موارد المعلمين</a></li><li><a href="verifier-ar.html" class="active">تحقق من المعلومات الطبية</a></li>
+                        <li><a href="verifier-ar.html" class="active">تحقق من المعلومات الطبية</a></li><li><a href="educator-ar.html">موارد المعلمين</a></li>
                         <li><a href="methodology-ar.html">منهجيتنا</a></li>
                     </ul>
                 </div>
@@ -41,29 +42,30 @@
 
     <section class="v-empty" id="vEmpty">
       <div class="container">
-        <h1>مستعد عندما تكون.</h1>
-        <ul class="v-checks"><li>تحقق من صحة الادعاءات</li><li>احصل على ملخص علمي سريع</li><li>اعثر على المصادر بسهولة وموثوقية</li></ul>
-        <textarea id="claim" rows="1" placeholder="الصق ادعاءً أو نصاً توضيحياً هنا..."></textarea>
+        <h1>جاهزون متى كنت جاهزاً.</h1>
+        <ul class="v-checks"><li>تحقق من صحة الادعاءات الصحية</li><li>احصل على ملخص علمي سريع</li><li>اعثر على مصادر موثوقة في ثوانٍ</li></ul>
+        <textarea aria-label="الادعاء الصحي المراد التحقق منه" id="claim" rows="1" placeholder="الصق ادعاءً أو نصاً من منشور هنا…"></textarea>
+        <p class="v-hint">نصيحة: اضغط Ctrl + Enter للتحقق. يعمل بالعربية والإنجليزية.</p>
         <button type="button" id="verifyBtn" class="v-btn">تحقق من الادعاء</button>
       </div>
     </section>
 
     <section class="v-result tools" id="vResult">
       <div class="container">
-        <h2 class="v-title">الادعاء الذي قمت بلصقه</h2>
+        <h2 class="v-title">ادعاؤك</h2>
         <div class="pasted-box" id="pastedText"></div>
         <div class="tool answer-cards v-gap">
-          <div class="tool-text"><h3>بطاقة الإجابة</h3><p>إليك ما يراه نظام الذكاء الاصطناعي لدينا حول ادعائك، مدعوماً بملخص ومصادر.</p></div>
+          <div class="tool-text"><h3>بطاقة الإجابة</h3><p>إليك ما توصل إليه نظام الذكاء الاصطناعي لدينا حول ادعائك، مدعوماً بملخص ومصادر حقيقية.</p></div>
           <div class="answer-wrapper">
-            <div class="claim-box"><p>ولهذا السبب تعتمد الكثير من العائلات على علاجاتها الخاصة عند ظهور أول علامة على الزكام. بعد سنوات من مشاهدة الناس يعانون كل شتاء، أصبح هناك شيء واضحاً: <mark>فيتامين (ج) يعالج نزلات البرد، وهذا أمر مضمون، والصيدلية لا يريدك أن تكتشف ذلك.</mark> العام الماضي وحده، كان جاري يتناوله كل صباح ولم يمرض ولو مرة واحدة، بينما غاب بقية من في المكتب أسبوعاً</p></div>
+            <div class="claim-box"><p>…ولهذا السبب تعتمد الكثير من العائلات على علاجاتها الخاصة عند ظهور أول علامة على الزكام. بعد سنوات من مشاهدة الناس يعانون كل شتاء، أصبح شيء واحد واضحاً: <mark>فيتامين (ج) يعالج نزلات البرد، وهذا أمر مضمون، والصيدليات لا تريدك أن تكتشف ذلك.</mark> العام الماضي وحده، كان جاري يتناوله كل صباح ولم يمرض ولو مرة واحدة، بينما غاب بقية من في المكتب أسبوعاً كاملاً.</p></div>
             <div class="answer-card">
               <div class="card-head">
                 <div>
-                  <span class="label">هذا الادعاء...</span>
+                  <span class="label">هذا الادعاء…</span>
                   <h4>أدلة متضاربة</h4>
-                  <div class="dots"><span></span><span class="active"></span><span></span></div>
+                  <div class="dots"><span title="مدعوم"></span><span class="active" title="أدلة متضاربة"></span><span title="غير مدعوم"></span></div>
                 </div>
-                <span class="menu">&#8942;</span>
+                <span class="menu" aria-hidden="true">&#8942;</span>
               </div>
               <span class="label dot-label">ملخص علمي</span>
               <div class="blue-box">
@@ -71,33 +73,33 @@
                 <h5>ب. ما هو مبالغ فيه</h5><p>لا يضمن فيتامين (ج) الوقاية من نزلات البرد ولا يعمل كعلاج لها، وتظل التجارب الشخصية غير مقبولة كدليل علمي.</p>
               </div>
               <span class="label dot-label">المصادر وسجل التدقيق</span>
-              <div class="blue-box sources"><p>MedlinePlus: فيتامين (ج)</p><p>PubMed · الرقم المعرّف: 00000000 · مراجعة منهجية · 2023 (مباشر)</p><p>PubMed · الرقم المعرّف: 00000000 · مراجعة منهجية · 2019 (مباشر)</p></div>
-              <span class="label dot-label">النتيجة</span>
-              <h4 class="verdict">ليس بنصيحة طبية.</h4>
+              <div class="blue-box sources"><p><a class="src-link" href="https://vsearch.nlm.nih.gov/vivisimo/cgi-bin/query-meta?v%3Aproject=medlineplus&query=vitamin+c" target="_blank" rel="noopener">MedlinePlus: فيتامين (ج)</a></p><p><a class="src-link" href="https://pubmed.ncbi.nlm.nih.gov/23440782/" target="_blank" rel="noopener">PubMed · الرقم المعرّف: 23440782 · مراجعة منهجية (كوكرين) · 2013 (مباشر)</a><span class="src-title" dir="ltr">Vitamin C for preventing and treating the common cold</span></p></div>
+              <span class="label dot-label">تنبيه</span>
+              <h4 class="verdict">هذه ليست نصيحة طبية.</h4>
             </div>
           </div>
         </div>
         <div class="tool meter">
-          <div class="tool-text"><h3>مقياس التلاعب العاطفي</h3><p>تقيس هذه الأداة مدى اعتماد صياغة الادعاء على الضغط بدلاً من الأدلة، من 0 (محايد) إلى 100 (عالي التلاعب).</p></div>
+          <div class="tool-text"><h3>مقياس التلاعب العاطفي</h3><p>تقيس هذه الأداة مدى اعتماد صياغة الادعاء على الضغط بدلاً من الأدلة، من 0 (محايد) إلى 100 (تلاعب عالٍ). وهي تقيّم الصياغة فقط، لا صحة الادعاء.</p></div>
           <div class="meter-card">
-            <h4>نمنح أسلوب النص درجة...</h4>
+            <h4>درجة الأسلوب</h4>
             <span class="score">72/100</span>
-            <p>نرى أن هذا الادعاء يحتوي على نسبة عالية من التلاعب. كلمات مثل “مضمون” تشير إلى الجزم المطلق، ولا يذكر أبداً كلمات مثل “قد” أو “ربما”.</p>
-            <span class="tags-label">الوسوم:</span>
+            <p>نرى أن صياغة هذا النص تحمل قدراً عالياً من التلاعب. كلمات مثل “مضمون” تشير إلى الجزم المطلق، ولا يذكر أبداً كلمات مثل “قد” أو “ربما”.</p>
+            <span class="tags-label">الوسوم</span>
             <ul class="tags"><li>الجزم المطلق</li><li>الخوف / المؤامرة</li><li>الإثارة والتهويل</li><li>غياب التحفظ في الصياغة</li></ul>
           </div>
         </div>
-        <div class="v-report"><a href="#" class="dl-btn wide">حمّل التقرير</a></div>
+        <div class="v-report"><a href="#" class="dl-btn wide"><i class="fa-solid fa-download"></i> حمّل التقرير</a></div>
       </div>
     </section>
 
     <footer class="footer">
       <div class="container">
         <div class="footer-top">
-          <a href="index-ar.html" class="footer-logo"><img src="imgs/Footer.jpg" alt="MedicaLogic - paste. verify. learn."></a>
+          <a href="index-ar.html" class="footer-logo"><img src="imgs/footer.jpg" alt="MedicaLogic: paste. verify. learn."></a>
           <ul class="footer-links">
             <li><a href="index-ar.html">الصفحة الرئيسية</a></li>
-            <li><a href="educator-ar.html">موارد المعلمين</a></li><li><a href="verifier-ar.html">تحقق من المعلومات الطبية</a></li>
+            <li><a href="verifier-ar.html">تحقق من المعلومات الطبية</a></li><li><a href="educator-ar.html">موارد المعلمين</a></li>
             <li><a href="methodology-ar.html">منهجيتنا</a></li>
           </ul>
         </div>

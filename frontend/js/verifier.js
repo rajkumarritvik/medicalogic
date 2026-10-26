@@ -12,15 +12,16 @@
   var lang = (document.documentElement.lang || 'en').slice(0, 2) === 'ar' ? 'ar' : 'en';
   var T = {
     en: {
-      verifying: 'Verifying…', verify: 'Verify Claim', wait: 'Checking PubMed and MedlinePlus… this can take up to 20 seconds.',
+      verifying: 'Verifying…', verify: 'Verify Claim', wait: 'Checking PubMed and MedlinePlus… This can take up to 20 seconds.',
       verdicts: { Supported: 'Supported by evidence', Refuted: 'Not supported by evidence', Divergent: 'Divergent / Evolving Evidence', Insufficient: 'Insufficient verified evidence' },
-      summary: 'Summary', trueP: "a. What's True", overP: "b. What's Overstated", none: 'Nothing to add here.',
+      summary: 'Summary', trueP: 'a. What’s true', overP: 'b. What’s overstated', none: 'Nothing to add here.',
       noSources: 'No verified sources were found for this claim.', direct: 'Direct', indirect: 'Indirect',
       fromDb: 'Answered from the MedicaLogic research database', fromLive: 'Answered from a live PubMed search', fromNone: 'Not enough verified research found',
       risk: 'Risk level', advice: 'What to do instead', checked: 'Evidence last checked', newChat: 'New Claim',
       noChats: 'No chats yet', searchPh: 'Search your chats…', clear: 'Clear history', clearQ: 'Delete all saved chats on this device?',
       errNet: "Can't reach the MedicaLogic server. Make sure it is running (node server.js) and try again.",
-      reportTitle: 'MedicaLogic report', meterHead: 'We score the tone a…',
+      reportTitle: 'MedicaLogic report', claim: 'Claim', verdict: 'Verdict', sources: 'Sources', meter: 'Emotional Manipulation Meter', tags: 'Tags', generated: 'Generated',
+      dots: ['Supported', 'Divergent / evolving', 'Not supported'], more: 'Learn more',
     },
     ar: {
       verifying: 'جارٍ التحقق…', verify: 'تحقق من الادعاء', wait: 'نبحث في PubMed وMedlinePlus… قد يستغرق ذلك حتى 20 ثانية.',
@@ -31,7 +32,17 @@
       risk: 'مستوى الخطورة', advice: 'ماذا تفعل بدلاً من ذلك', checked: 'آخر تحقق من الأدلة', newChat: 'ادعاء جديد',
       noChats: 'لا توجد محادثات بعد', searchPh: 'ابحث في محادثاتك…', clear: 'مسح السجل', clearQ: 'حذف جميع المحادثات المحفوظة على هذا الجهاز؟',
       errNet: 'تعذّر الوصول إلى خادم MedicaLogic. تأكد من تشغيله ثم حاول مرة أخرى.',
-      reportTitle: 'تقرير MedicaLogic', meterHead: 'نمنح أسلوب النص درجة…',
+      errors: {
+        QUERY_TOO_SHORT: 'اكتب ادعاءً صحياً (3 أحرف على الأقل).',
+        QUERY_TOO_LONG: 'يجب ألا يتجاوز الادعاء أو النص 2000 حرف.',
+        RATE_LIMITED: 'طلبات كثيرة خلال وقت قصير. انتظر قليلاً ثم حاول مرة أخرى.',
+        AI_UNAVAILABLE: 'خدمة الذكاء الاصطناعي لا تستجيب الآن. حاول مرة أخرى.',
+        BAD_MODEL_OUTPUT: 'أعاد الذكاء الاصطناعي إجابة غير مفهومة. حاول مرة أخرى.',
+        SOURCES_UNAVAILABLE: 'قاعدة PubMed لا تستجيب الآن. حاول مرة أخرى بعد دقيقة.',
+        SERVER_ERROR: 'حدث خطأ في الخادم. حاول مرة أخرى.',
+      },
+      reportTitle: 'تقرير MedicaLogic', claim: 'الادعاء', verdict: 'الحكم', sources: 'المصادر', meter: 'مقياس التلاعب العاطفي', tags: 'الوسوم', generated: 'تاريخ التقرير',
+      dots: ['مدعوم', 'أدلة متضاربة', 'غير مدعوم'], more: 'اعرف المزيد',
     },
   }[lang];
 
@@ -47,6 +58,12 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
+  /** Text for the card. On the Arabic page, English-only text (e.g. our team's curated advice) is shown left-to-right. */
+  function txt(s) {
+    var e = esc(s);
+    return (lang === 'ar' && s && !/[\u0600-\u06FF]/.test(s)) ? '<span dir="ltr" lang="en">' + e + '</span>' : e;
+  }
+  var RISK_AR = { High: 'مرتفع', Medium: 'متوسط', Low: 'منخفض' };
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
   /** Pasted text with the manipulative words highlighted (<mark>). */
@@ -153,20 +170,20 @@
     $('.card-head h4', card).textContent = T.verdicts[d.verdict] || d.verdict;
     var dots = card.querySelectorAll('.dots span');
     var idx = { Supported: 0, Divergent: 1, Refuted: 2 }[d.verdict];
-    dots.forEach(function (s, i) { s.classList.toggle('active', i === idx); });
+    dots.forEach(function (s, i) { s.classList.toggle('active', i === idx); s.title = T.dots[i] || ''; });
 
     // Scientific summary
     var boxes = card.querySelectorAll('.blue-box');
     var sumBox = boxes[0], srcBox = boxes[1];
     var source = d.tier === 'curated' ? T.fromDb : d.tier === 'live' ? T.fromLive : T.fromNone;
-    var html = '<h5>' + esc(T.summary) + '</h5><p>' + esc(d.summary || T.none) + '</p>' +
-      '<h5>' + esc(T.trueP) + '</h5><p>' + esc(d.true_part || T.none) + '</p>' +
-      '<h5>' + esc(T.overP) + '</h5><p>' + esc(d.overstated_part || T.none) + '</p>';
+    var html = '<h5>' + esc(T.summary) + '</h5><p>' + txt(d.summary || T.none) + '</p>' +
+      '<h5>' + esc(T.trueP) + '</h5><p>' + txt(d.true_part || T.none) + '</p>' +
+      '<h5>' + esc(T.overP) + '</h5><p>' + txt(d.overstated_part || T.none) + '</p>';
     if (d.curated) {
-      if (d.curated.risk_level) html += '<h5>' + esc(T.risk) + '</h5><p>' + esc(d.curated.risk_level) + (d.curated.risk_rationale ? ' · ' + esc(d.curated.risk_rationale) : '') + '</p>';
+      if (d.curated.risk_level) html += '<h5>' + esc(T.risk) + '</h5><p>' + esc(lang === 'ar' ? (RISK_AR[d.curated.risk_level] || d.curated.risk_level) : d.curated.risk_level) + (d.curated.risk_rationale ? ' · ' + txt(d.curated.risk_rationale) : '') + '</p>';
       if (d.curated.recommended_action) {
-        html += '<h5>' + esc(T.advice) + '</h5><p>' + esc(d.curated.recommended_action) +
-          (d.curated.advice_source ? ' <a class="src-link" href="' + esc(d.curated.advice_source) + '" target="_blank" rel="noopener">↗</a>' : '') + '</p>';
+        html += '<h5>' + esc(T.advice) + '</h5><p>' + txt(d.curated.recommended_action) +
+          (d.curated.advice_source ? ' <a class="src-link" href="' + esc(d.curated.advice_source) + '" target="_blank" rel="noopener">' + esc(T.more) + ' ↗</a>' : '') + '</p>';
       }
     }
     html += '<p class="v-meta">' + esc(source) + ' · ' + esc(T.checked) + ': ' + esc(d.evidence_last_checked || '') + '</p>';
@@ -180,7 +197,7 @@
     (d.sources || []).forEach(function (s) {
       lines.push('<p><a class="src-link" href="' + esc(s.url) + '" target="_blank" rel="noopener">PubMed · PMID: ' + esc(s.pmid) +
         ' · ' + esc(s.study_type) + (s.year ? ' · ' + esc(s.year) : '') + ' (' + esc(s.relevance === 'direct' ? T.direct : T.indirect) + ')</a>' +
-        '<span class="src-title">' + esc(s.title) + '</span>' + (s.note ? '<span class="src-note">' + esc(s.note) + '</span>' : '') + '</p>');
+        '<span class="src-title" dir="ltr">' + esc(s.title) + '</span>' + (s.note ? '<span class="src-note">' + txt(s.note) + '</span>' : '') + '</p>');
     });
     if (!(d.sources || []).length) lines.push('<p>' + esc(T.noSources) + '</p>');
     srcBox.innerHTML = lines.join('');
@@ -239,7 +256,11 @@
       .then(function (res) { return res.json().catch(function () { return { success: false, error: { message: 'HTTP ' + res.status } }; }); })
       .then(function (data) {
         setLoading(false);
-        if (!data.success) { setError((data.error && data.error.message) || T.errNet); return; }
+        if (!data.success) {
+          var e = data.error || {};
+          setError((T.errors && T.errors[e.code]) || e.message || T.errNet);
+          return;
+        }
         setError('');
         addToHistory(text, data);
         current = { id: loadHistory()[0].id, query: text, data: data, time: new Date().toISOString() };
@@ -269,22 +290,22 @@
     var d = current.data, m = d.manipulation || {};
     var rows = [
       T.reportTitle, '='.repeat(40), '',
-      'Claim: ' + current.query, '',
-      'Verdict: ' + (T.verdicts[d.verdict] || d.verdict),
+      T.claim + ': ' + current.query, '',
+      T.verdict + ': ' + (T.verdicts[d.verdict] || d.verdict),
       T.summary + ': ' + (d.summary || ''),
       T.trueP + ': ' + (d.true_part || ''),
       T.overP + ': ' + (d.overstated_part || ''), '',
-      'Sources:',
+      T.sources + ':',
     ];
     (d.sources || []).forEach(function (s) {
-      rows.push('- PMID ' + s.pmid + ' (' + s.study_type + (s.year ? ', ' + s.year : '') + ', ' + s.relevance + '): ' + s.title + ' ' + s.url);
+      rows.push('- PMID ' + s.pmid + ' (' + s.study_type + (s.year ? ', ' + s.year : '') + ', ' + (s.relevance === 'direct' ? T.direct : T.indirect) + '): ' + s.title + ' ' + s.url);
       if (s.note) rows.push('    ' + s.note);
     });
     (d.consumer_info || []).forEach(function (c) { rows.push('- MedlinePlus: ' + c.title + ' ' + c.url); });
     if (!(d.sources || []).length) rows.push('- ' + T.noSources);
-    rows.push('', 'Emotional Manipulation Meter: ' + (m.score != null ? m.score + '/100' : '-') + ' ' + (m.explanation || ''));
-    rows.push('Tags: ' + ((m.tags || []).map(function (t) { return t.label; }).join(', ') || '-'));
-    rows.push('', T.checked + ': ' + (d.evidence_last_checked || ''), '', d.disclaimer || '');
+    rows.push('', T.meter + ': ' + (m.score != null ? m.score + '/100' : '-') + ' ' + (m.explanation || ''));
+    rows.push(T.tags + ': ' + ((m.tags || []).map(function (t) { return t.label; }).join(', ') || '-'));
+    rows.push('', T.checked + ': ' + (d.evidence_last_checked || ''), T.generated + ': ' + new Date().toLocaleString(), '', d.disclaimer || '');
     var blob = new Blob(['﻿' + rows.join('\n')], { type: 'text/plain;charset=utf-8' });
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
