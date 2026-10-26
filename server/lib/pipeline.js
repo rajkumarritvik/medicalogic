@@ -13,11 +13,13 @@ import { matchMyth } from './curated.js';
 import { articlesFor, searchEvidence } from './pubmed.js';
 import { searchHealthTopics } from './medlineplus.js';
 import { complete } from './llm.js';
-import { systemPrompt, userMessage, DISCLAIMER, FALLBACK_SUMMARY, PROMPT_VERSION, SEARCH_TERMS_PROMPT } from './prompts.js';
+import { systemPrompt, userMessage, DISCLAIMER, FALLBACK_SUMMARY, PROMPT_VERSION, SEARCH_TERMS_PROMPT, TRANSLATE_PROMPT } from './prompts.js';
 import { normalizeAnswer, parseModelJSON, RequestError } from './validate.js';
 import { searchTerms } from './text.js';
 import { createLimiter, createCache } from './ratelimit.js';
 import { UpstreamError } from './http.js';
+import { analyzeManipulation } from './manipulation.js';
+import { recordUnanswered } from './unanswered.js';
 
 const liveLimiter = createLimiter({ windowMs: 60_000, max: Number(process.env.LIVE_LIMIT_PER_MIN || 8) });
 const cache = createCache({ ttlMs: Number(process.env.CACHE_TTL_MINUTES || 360) * 60_000 });
@@ -28,9 +30,10 @@ export function setDataDir(serverDir) {
   fs.mkdirSync(path.dirname(unmappedLog), { recursive: true });
 }
 
-function logUnmapped(query, lang, reason) {
+function logUnmapped(query, lang, reason, english = '') {
+  recordUnanswered(query, lang, reason, english);
   if (!unmappedLog) return;
-  const line = JSON.stringify({ time: new Date().toISOString(), query, lang, reason }) + '\n';
+  const line = JSON.stringify({ time: new Date().toISOString(), query, lang, reason, ...(english ? { english } : {}) }) + '\n';
   fs.appendFile(unmappedLog, line, () => {});
 }
 
@@ -89,6 +92,21 @@ async function suggestQueries(claim, provider, warnings) {
   }
 }
 
+const hasArabic = text => /[\u0600-\u06FF]/.test(text);
+
+/** Arabic claim -> English, used only for matching and searching. Returns '' if it fails. */
+async function toEnglish(claim, provider, warnings) {
+  try {
+    const out = await complete({ system: TRANSLATE_PROMPT, user: claim, provider, maxTokens: 300 });
+    const en = String(parseModelJSON(out.text)?.english || '').trim();
+    if (en && !hasArabic(en)) return en.slice(0, 500);
+    warnings.push('translation came back empty - searched with the original text');
+  } catch (err) {
+    warnings.push(`translation failed (${err.message}) - searched with the original text`);
+  }
+  return '';
+}
+
 export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 'local' }) {
   const t0 = Date.now();
   const cacheKey = `${lang}|${provider}|${query.toLowerCase()}`;
@@ -96,7 +114,10 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
   if (hit) return { ...hit, meta: { ...hit.meta, cached: true, latency_ms: Date.now() - t0 } };
 
   const warnings = [];
-  const match = matchMyth(query);
+  // Our database and PubMed are English, so Arabic claims are searched in English.
+  const english = hasArabic(query) ? await toEnglish(query, provider, warnings) : '';
+  const searchText = english || query;
+  const match = matchMyth(searchText);
   let tier, articles, kw, teamNotes = null, searchQueries = [];
 
   if (match) {
@@ -113,8 +134,8 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
       throw e;
     }
     tier = 'live';
-    kw = searchTerms(query);
-    searchQueries = await suggestQueries(query, provider, warnings);
+    kw = searchTerms(searchText);
+    searchQueries = await suggestQueries(searchText, provider, warnings);
     try {
       articles = (kw.length || searchQueries.length) ? await searchEvidence(kw, undefined, searchQueries) : [];
     } catch (err) {
@@ -137,7 +158,7 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
   } else {
     const allowed = new Map(articles.map(a => [a.pmid, a]));
     const system = systemPrompt(lang);
-    const user = userMessage({ claim: query, articles, consumer, teamNotes });
+    const user = userMessage({ claim: english ? `${query}\n(English: ${english})` : query, articles, consumer, teamNotes });
     let result;
     for (let attempt = 0; attempt < 2 && !result?.answer; attempt++) {
       const out = await complete({ system, user, provider });
@@ -153,7 +174,7 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
 
   if (answer.verdict === 'Insufficient') {
     if (tier === 'live') tier = 'fallback';
-    logUnmapped(query, lang, articles.length ? 'insufficient_evidence' : 'no_pubmed_results');
+    logUnmapped(query, lang, articles.length ? 'insufficient_evidence' : 'no_pubmed_results', english);
   }
 
   const m = match?.myth;
@@ -175,6 +196,7 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
       manipulation_markers: m.manipulation_markers,
       platform_origin: m.platform_origin,
     } : null,
+    manipulation: analyzeManipulation(query, lang),
     evidence_last_checked: m?.evidence_last_checked || today(),
     disclaimer: DISCLAIMER[lang],
     meta: {
@@ -185,6 +207,7 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
       usage,
       cached: false,
       retrieved: { pubmed: articles.length, medlineplus: consumer.length },
+      search_text_en: english || null,
       search_queries: searchQueries,
       retrieved_articles: articles.map(a => ({ pmid: a.pmid, title: a.title, study_type: a.study_type })),
       warnings,

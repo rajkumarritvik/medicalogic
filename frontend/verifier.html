@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedicaLogic | Claim Verifier</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300..800&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-verifier">
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+      <ul class="side-list">
+        <li class="side-item"><i class="fa-solid fa-magnifying-glass"></i> Search Chats</li>
+        <li class="side-item"><i class="fa-solid fa-clock-rotate-left"></i> Recent Chats</li>
+        <li class="side-sub">Chat 1</li><li class="side-sub">Chat 2</li><li class="side-sub">Chat 3</li>
+      </ul>
+    </aside>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="v-overlay" id="vOverlay"></div>
+
+    <div class="v-main">
+    <div class="hero">
+        <div class="nav">
+            <div class="container">
+                <div class="logo"><a href="index.html"><img src="imgs/logo.jpg" alt="MedicaLogic"></a></div>
+                <div class="links">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="verifier.html" class="active">Claim Verifier</a></li><li><a href="educator.html">Educator Resources</a></li>
+                        <li><a href="methodology.html">Methodology</a></li>
+                    </ul>
+                </div>
+                <div class="btn"><a href="verifier-ar.html">EN | AR</a></div>
+            </div>
+        </div>
+    </div>
+
+    <section class="v-empty" id="vEmpty">
+      <div class="container">
+        <h1>Ready when you are.</h1>
+        <ul class="v-checks"><li>Check validity of claims</li><li>Write a quick scientific summary</li><li>Find resources reliably and easily</li></ul>
+        <textarea id="claim" rows="1" placeholder="Paste a claim or caption here…"></textarea>
+        <button type="button" id="verifyBtn" class="v-btn">Verify Claim</button>
+      </div>
+    </section>
+
+    <section class="v-result tools" id="vResult">
+      <div class="container">
+        <h2 class="v-title">Your Pasted Claim</h2>
+        <div class="pasted-box" id="pastedText"></div>
+        <div class="tool answer-cards v-gap">
+          <div class="tool-text"><h3>Our Answer Card</h3><p>Here's what our AI think of your claim, supported with a summary and sources.</p></div>
+          <div class="answer-wrapper">
+            <div class="claim-box"><p>which is why so many families swear by their own remedies at the first sign of a sniffle. After years of watching people struggle through every winter, one thing has become clear: <mark>Vitamin C cures the common cold, guaranteed, and the pharmacy aisle doesn't want you to find that out.</mark> Last year alone, a neighbor of mine took it every morning and never got sick once, while everyone else in the office was out for a week</p></div>
+            <div class="answer-card">
+              <div class="card-head">
+                <div>
+                  <span class="label">This claim is...</span>
+                  <h4>Divergent / Evolving Evidence</h4>
+                  <div class="dots"><span></span><span class="active"></span><span></span></div>
+                </div>
+                <span class="menu">&#8942;</span>
+              </div>
+              <span class="label dot-label">Scientific summary</span>
+              <div class="blue-box">
+                <h5>a. What's True</h5><p>Regular Vitamin C supplementation may slightly reduce the duration and severity of cold symptoms in some people.</p>
+                <h5>b. What's Overstated</h5><p>Vitamin C does not guarantee prevention or act as a cure for the common cold, and personal anecdotes are not scientific proof.</p>
+              </div>
+              <span class="label dot-label">Sources and audit trail</span>
+              <div class="blue-box sources"><p>MedlinePlus: Vitamin C</p><p>PubMed · PMID: 00000000 · Systematic review · 2023 (Direct)</p><p>PubMed · PMID: 00000000 · Systematic review · 2019 (Direct)</p></div>
+              <span class="label dot-label">Verdict</span>
+              <h4 class="verdict">This is not medical advice.</h4>
+            </div>
+          </div>
+        </div>
+        <div class="tool meter">
+          <div class="tool-text"><h3>Emotional Manipulation Meter</h3><p>This tool scores how much a claim's wording relies on pressure instead of evidence, from 0 (neutral) to 100 (highly manipulative).</p></div>
+          <div class="meter-card">
+            <h4>We score the tone a...</h4>
+            <span class="score">72/100</span>
+            <p>We think this claim is highly manipulative. Words like 'guaranteed' signal absolutism, and it never says 'may' or 'might.'</p>
+            <span class="tags-label">Tags:</span>
+            <ul class="tags"><li>Absolutism</li><li>Fear/Conspiracy</li><li>Sensationalism</li><li>Lack of hedging</li></ul>
+          </div>
+        </div>
+        <div class="v-report"><a href="#" class="dl-btn wide">download report</a></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <a href="index.html" class="footer-logo"><img src="imgs/Footer.jpg" alt="MedicaLogic - paste. verify. learn."></a>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="verifier.html">Claim Verifier</a></li><li><a href="educator.html">Educator Resources</a></li>
+            <li><a href="methodology.html">Methodology</a></li>
+          </ul>
+        </div>
+        <div class="footer-info"><span>Team</span><span>MediLab #7062</span></div>
+      </div>
+    </footer>
+    </div>
+    <script src="js/verifier.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

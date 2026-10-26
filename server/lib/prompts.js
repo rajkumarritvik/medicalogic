@@ -69,3 +69,8 @@ export const SEARCH_TERMS_PROMPT = `You help search PubMed. Turn the health clai
 -> ["amygdalin cancer", "laetrile cancer", "apricot kernel cyanide"].
 Do not judge or answer the claim. Use plain words only, no quotes or operators.
 Reply with JSON only: {"queries": ["...", "..."]}`;
+
+// Arabic claims: translated to English ONLY for matching our database and searching PubMed
+// (both are English). The user still sees the original text and an Arabic answer.
+export const TRANSLATE_PROMPT = `Translate this health claim into plain English, keeping its meaning exactly
+(do not correct, judge or soften it). Reply with JSON only: {"english": "..."}`;

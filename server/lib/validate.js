@@ -18,7 +18,7 @@ export function validateRequest(body) {
   if (!body || typeof body !== 'object') throw new RequestError('BAD_JSON', 'Send a JSON body like {"query": "..."}.');
   const query = typeof body.query === 'string' ? body.query.trim().replace(/\s+/g, ' ') : '';
   if (query.length < 3) throw new RequestError('QUERY_TOO_SHORT', 'Type a health claim (at least 3 characters).');
-  if (query.length > 500) throw new RequestError('QUERY_TOO_LONG', 'Keep the claim under 500 characters.');
+  if (query.length > 2000) throw new RequestError('QUERY_TOO_LONG', 'Keep the claim or caption under 2000 characters.');
   const lang = body.lang === undefined ? 'en' : body.lang;
   if (!['en', 'ar'].includes(lang)) throw new RequestError('BAD_LANG', 'lang must be "en" or "ar".');
   const provider = body.provider === undefined ? 'groq' : body.provider;

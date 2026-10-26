@@ -12,8 +12,8 @@ Request:
 
 | field | required | notes |
 |---|---|---|
-| `query` | yes | 3–500 characters |
-| `lang` | no | `"en"` (default) or `"ar"`; with `"ar"`, summary, true/overstated and notes come back in Arabic |
+| `query` | yes | 3–2000 characters (a pasted post is fine) |
+| `lang` | no | `"en"` (default) or `"ar"`; with `"ar"`, summary, true/overstated and notes come back in Arabic. Arabic claims are translated to English behind the scenes only for matching and PubMed search (`meta.search_text_en`) |
 | `provider` | no | `"groq"` (default) or `"openai"` |
 
 Example from the website (`app.js`):
@@ -57,12 +57,21 @@ else renderAnswerCard(data);
     { "title": "Cancer", "url": "https://medlineplus.gov/cancer.html", "snippet": "…", "source": "MedlinePlus" }
   ],
   "curated": null,
+  "manipulation": {
+    "score": 61, "level": "high",
+    "tags": [ { "key": "absolutism", "label": "Absolutism", "points": 18 } ],
+    "parts": { "absolutism": 18, "fear": 9, "sensational": 14, "hedging": 20 },
+    "matches": { "absolutism": ["guaranteed", "cures"], "fear": ["toxins"], "sensational": ["miracle"], "hedges": [],
+                 "exclamation_marks": 2, "all_caps_words": [] },
+    "explanation": "We think this wording is highly manipulative. Words like 'guaranteed' and 'cures' add pressure instead of evidence."
+  },
   "evidence_last_checked": "2026-10-18",
   "disclaimer": "MedicaLogic summarizes published research for education. It is literature-based, not a medical ruling…",
   "meta": {
     "prompt_version": "2.2", "provider": "groq", "model": "openai/gpt-oss-120b",
     "latency_ms": 2140, "usage": { "total_tokens": 1830 }, "cached": false,
     "retrieved": { "pubmed": 4, "medlineplus": 1 },
+    "search_text_en": null,
     "search_queries": ["alkaline water cancer", "dietary acid load cancer"],
     "retrieved_articles": [ { "pmid": "27297008", "title": "…", "study_type": "Systematic Review" } ], "warnings": []
   }
@@ -81,7 +90,7 @@ else renderAnswerCard(data);
 | Timestamp | `evidence_last_checked` |
 | Disclaimer | `disclaimer` (already in the right language) |
 | Fallback state | `tier === "fallback"` (always with `verdict === "Insufficient"` and `sources: []`) |
-| Manipulation Meter (curated claims only) | `curated.manipulation_markers` (4 lists: clickbait_phrases, absolute_promises, fear_keywords, urgency_phrases) |
+| Manipulation Meter (every claim) | `manipulation.score` (0–100), `manipulation.level` (low/moderate/high), `manipulation.tags[]`, `manipulation.explanation`; words to highlight in `manipulation.matches` |
 | Risk level + advice (curated claims only) | `curated.risk_level`, `curated.recommended_action`, `curated.advice_source` |
 
 `tier` tells you where the answer came from:
@@ -112,6 +121,21 @@ Rules the server enforces, so the website doesn't need to:
 
 `error.message` is safe to show to users as it is.
 
+The Manipulation Meter only looks at the wording (absolutism, fear/conspiracy, sensationalism, lack of hedging, up to 25 points each), not at whether the claim is true. Word lists are in `lib/manipulation.js`.
+
+## GET /api/unanswered
+
+Every claim that came back `Insufficient` is saved in `server/data/unanswered_claims.json`, grouped (same keywords = same claim; Arabic claims grouped by their English translation) and listed most-asked first. Optional `?limit=50`.
+
+```json
+{ "success": true, "total": 1, "claims": [
+  { "key": "baldness cures eating moon rocks", "count": 2,
+    "examples": ["Eating moon rocks cures baldness", "أكل صخور القمر يعالج الصلع"],
+    "english": "Eating moon rocks cures baldness", "langs": ["en", "ar"],
+    "reasons": { "no_pubmed_results": 2 }, "status": "new",
+    "first_seen": "2026-10-25T18:00:00Z", "last_seen": "2026-10-25T18:05:00Z" } ] }
+```
+
 ## GET /api/health
 
 ```json
@@ -136,3 +160,4 @@ Rules the server enforces, so the website doesn't need to:
 | `CACHE_TTL_MINUTES` | 360 | repeated questions are answered from memory |
 | `SEARCH_TERM_SUGGESTIONS` | on | `off` = skip the AI step that turns a new claim into medical PubMed search terms (live tier only) |
 | `CURATED_MATCH_THRESHOLD` | 0.5 | how closely a question must match a curated claim (0–1) |
+| `UNANSWERED_DB` | `server/data/unanswered_claims.json` | where unanswered claims are saved |

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedicaLogic | تحقق من المعلومات الطبية</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300..800&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-verifier">
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+      <ul class="side-list">
+        <li class="side-item"><i class="fa-solid fa-magnifying-glass"></i> ابحث في المحادثات</li>
+        <li class="side-item"><i class="fa-solid fa-clock-rotate-left"></i> أحدث المحادثات</li>
+        <li class="side-sub">محادثة 1</li><li class="side-sub">محادثة 2</li><li class="side-sub">محادثة 3</li>
+      </ul>
+    </aside>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="v-overlay" id="vOverlay"></div>
+
+    <div class="v-main">
+    <div class="hero">
+        <div class="nav">
+            <div class="container">
+                <div class="logo"><a href="index-ar.html"><img src="imgs/logo.jpg" alt="MedicaLogic"></a></div>
+                <div class="links">
+                    <ul>
+                        <li><a href="index-ar.html">الصفحة الرئيسية</a></li>
+                        <li><a href="educator-ar.html">موارد المعلمين</a></li><li><a href="verifier-ar.html" class="active">تحقق من المعلومات الطبية</a></li>
+                        <li><a href="methodology-ar.html">منهجيتنا</a></li>
+                    </ul>
+                </div>
+                <div class="btn"><a href="verifier.html">EN | AR</a></div>
+            </div>
+        </div>
+    </div>
+
+    <section class="v-empty" id="vEmpty">
+      <div class="container">
+        <h1>مستعد عندما تكون.</h1>
+        <ul class="v-checks"><li>تحقق من صحة الادعاءات</li><li>احصل على ملخص علمي سريع</li><li>اعثر على المصادر بسهولة وموثوقية</li></ul>
+        <textarea id="claim" rows="1" placeholder="الصق ادعاءً أو نصاً توضيحياً هنا..."></textarea>
+        <button type="button" id="verifyBtn" class="v-btn">تحقق من الادعاء</button>
+      </div>
+    </section>
+
+    <section class="v-result tools" id="vResult">
+      <div class="container">
+        <h2 class="v-title">الادعاء الذي قمت بلصقه</h2>
+        <div class="pasted-box" id="pastedText"></div>
+        <div class="tool answer-cards v-gap">
+          <div class="tool-text"><h3>بطاقة الإجابة</h3><p>إليك ما يراه نظام الذكاء الاصطناعي لدينا حول ادعائك، مدعوماً بملخص ومصادر.</p></div>
+          <div class="answer-wrapper">
+            <div class="claim-box"><p>ولهذا السبب تعتمد الكثير من العائلات على علاجاتها الخاصة عند ظهور أول علامة على الزكام. بعد سنوات من مشاهدة الناس يعانون كل شتاء، أصبح هناك شيء واضحاً: <mark>فيتامين (ج) يعالج نزلات البرد، وهذا أمر مضمون، والصيدلية لا يريدك أن تكتشف ذلك.</mark> العام الماضي وحده، كان جاري يتناوله كل صباح ولم يمرض ولو مرة واحدة، بينما غاب بقية من في المكتب أسبوعاً</p></div>
+            <div class="answer-card">
+              <div class="card-head">
+                <div>
+                  <span class="label">هذا الادعاء...</span>
+                  <h4>أدلة متضاربة</h4>
+                  <div class="dots"><span></span><span class="active"></span><span></span></div>
+                </div>
+                <span class="menu">&#8942;</span>
+              </div>
+              <span class="label dot-label">ملخص علمي</span>
+              <div class="blue-box">
+                <h5>أ. ما هو صحيح</h5><p>قد يساعد تناول مكملات فيتامين (ج) بانتظام في تقليل مدة أعراض نزلات البرد وشدتها لدى بعض الأشخاص.</p>
+                <h5>ب. ما هو مبالغ فيه</h5><p>لا يضمن فيتامين (ج) الوقاية من نزلات البرد ولا يعمل كعلاج لها، وتظل التجارب الشخصية غير مقبولة كدليل علمي.</p>
+              </div>
+              <span class="label dot-label">المصادر وسجل التدقيق</span>
+              <div class="blue-box sources"><p>MedlinePlus: فيتامين (ج)</p><p>PubMed · الرقم المعرّف: 00000000 · مراجعة منهجية · 2023 (مباشر)</p><p>PubMed · الرقم المعرّف: 00000000 · مراجعة منهجية · 2019 (مباشر)</p></div>
+              <span class="label dot-label">النتيجة</span>
+              <h4 class="verdict">ليس بنصيحة طبية.</h4>
+            </div>
+          </div>
+        </div>
+        <div class="tool meter">
+          <div class="tool-text"><h3>مقياس التلاعب العاطفي</h3><p>تقيس هذه الأداة مدى اعتماد صياغة الادعاء على الضغط بدلاً من الأدلة، من 0 (محايد) إلى 100 (عالي التلاعب).</p></div>
+          <div class="meter-card">
+            <h4>نمنح أسلوب النص درجة...</h4>
+            <span class="score">72/100</span>
+            <p>نرى أن هذا الادعاء يحتوي على نسبة عالية من التلاعب. كلمات مثل “مضمون” تشير إلى الجزم المطلق، ولا يذكر أبداً كلمات مثل “قد” أو “ربما”.</p>
+            <span class="tags-label">الوسوم:</span>
+            <ul class="tags"><li>الجزم المطلق</li><li>الخوف / المؤامرة</li><li>الإثارة والتهويل</li><li>غياب التحفظ في الصياغة</li></ul>
+          </div>
+        </div>
+        <div class="v-report"><a href="#" class="dl-btn wide">حمّل التقرير</a></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <a href="index-ar.html" class="footer-logo"><img src="imgs/Footer.jpg" alt="MedicaLogic - paste. verify. learn."></a>
+          <ul class="footer-links">
+            <li><a href="index-ar.html">الصفحة الرئيسية</a></li>
+            <li><a href="educator-ar.html">موارد المعلمين</a></li><li><a href="verifier-ar.html">تحقق من المعلومات الطبية</a></li>
+            <li><a href="methodology-ar.html">منهجيتنا</a></li>
+          </ul>
+        </div>
+        <div class="footer-info"><span>الفريق</span><span>MediLab #7062</span></div>
+      </div>
+    </footer>
+    </div>
+    <script src="js/verifier.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 // MedicaLogic backend v2
 //   POST /api/verify   { "query": "...", "lang": "en" | "ar" }   -> evidence-backed verdict (see API.md)
 //   GET  /api/health                                              -> is the server up?
+//   GET  /api/unanswered                                          -> claims we couldn't answer, most-asked first
 //
 // Built from Mohanned's v1 server (Express + zero-memory prompt), extended for Phase 2:
 // curated myth database, live PubMed + MedlinePlus retrieval, System Prompt v2.0,
@@ -22,10 +23,12 @@ const { validateRequest, RequestError } = await import('./lib/validate.js');
 const { createLimiter } = await import('./lib/ratelimit.js');
 const { UpstreamError } = await import('./lib/http.js');
 const { PROMPT_VERSION } = await import('./lib/prompts.js');
+const { initUnanswered, listUnanswered } = await import('./lib/unanswered.js');
 
 const PORT = process.env.PORT || 5000;
 const info = loadMyths(serverDir);
 setDataDir(serverDir);
+initUnanswered(serverDir);
 
 const app = express();
 app.use(cors());
@@ -37,6 +40,12 @@ const sendError = (res, status, code, message, extra = {}) =>
 
 app.get('/api/health', (req, res) => {
   res.json({ ok: true, curated_claims: mythCount(), prompt_version: PROMPT_VERSION });
+});
+
+// Claims the system could not answer, most-asked first (for the research team).
+app.get('/api/unanswered', (req, res) => {
+  const items = listUnanswered(Number(req.query?.limit) || 100);
+  res.json({ success: true, total: items.length, claims: items });
 });
 
 app.post('/api/verify', async (req, res) => {
