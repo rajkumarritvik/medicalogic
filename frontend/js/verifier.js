@@ -1,5 +1,5 @@
-/* MedicaLogic - Claim Verifier page logic (English + Arabic).
- * - Sends the claim to the backend (POST /api/verify) and fills the Answer Card + Manipulation Meter.
+/* MedicaLogic - AI Misinformation Checker page logic (English + Arabic).
+ * - Sends the claim to the backend (POST /api/verify) and fills the Evidence Card + Manipulation Detector.
  * - Saves every checked claim in this browser (Recent Chats), with Search Chats to filter them.
  * - "download report" saves the current answer as a text file.
  * Backend address: change API_BASE below if the server runs somewhere else.
@@ -20,7 +20,7 @@
       risk: 'Risk level', advice: 'What to do instead', checked: 'Evidence last checked', newChat: 'New Claim',
       noChats: 'No chats yet', searchPh: 'Search your chats…', clear: 'Clear history', clearQ: 'Delete all saved chats on this device?',
       errNet: "Can't reach the MedicaLogic server. Make sure it is running (node server.js) and try again.",
-      reportTitle: 'MedicaLogic report', claim: 'Claim', verdict: 'Verdict', sources: 'Sources', meter: 'Emotional Manipulation Meter', tags: 'Tags', generated: 'Generated',
+      reportTitle: 'MedicaLogic report', claim: 'Claim', verdict: 'Verdict', sources: 'Sources', meter: 'Manipulation Detector', tags: 'Tags', generated: 'Generated',
       dots: ['Supported', 'Divergent / evolving', 'Not supported'], more: 'Learn more',
     },
     ar: {
@@ -41,7 +41,7 @@
         SOURCES_UNAVAILABLE: 'قاعدة PubMed لا تستجيب الآن. حاول مرة أخرى بعد دقيقة.',
         SERVER_ERROR: 'حدث خطأ في الخادم. حاول مرة أخرى.',
       },
-      reportTitle: 'تقرير MedicaLogic', claim: 'الادعاء', verdict: 'الحكم', sources: 'المصادر', meter: 'مقياس التلاعب العاطفي', tags: 'الوسوم', generated: 'تاريخ التقرير',
+      reportTitle: 'تقرير MedicaLogic', claim: 'الادعاء', verdict: 'الحكم', sources: 'المصادر', meter: 'كاشف التلاعب', tags: 'الوسوم', generated: 'تاريخ التقرير',
       dots: ['مدعوم', 'أدلة متضاربة', 'غير مدعوم'], more: 'اعرف المزيد',
     },
   }[lang];
@@ -206,7 +206,7 @@
     var v = $('.verdict', card);
     if (v) v.textContent = d.disclaimer || v.textContent;
 
-    // Emotional Manipulation Meter
+    // Manipulation Detector
     var meter = $('.meter-card', result);
     if (meter && m) {
       $('.score', meter).textContent = m.score + '/100';

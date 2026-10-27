@@ -1,14 +1,14 @@
 # MedicaLogic
 
-**Paste. Verify. Learn.** MedicaLogic checks health claims from social media against real medical research (PubMed and MedlinePlus) and explains the result in plain language, in English and Arabic.
+**Paste. Verify. Learn.** MedicaLogic helps you spot AI-spread health misinformation. It checks health claims from social media against real medical research (PubMed and MedlinePlus) and explains the result in plain language, in English and Arabic.
 
 Built by MediLab #7062 for the 2026 NYAS Junior Academy Challenge.
 
 ## What it does
 
-- **Claim Verifier:** paste a health claim or a social media caption and get a verdict (Supported, Divergent, Not supported, or Insufficient evidence), a short summary, and real PubMed sources.
-- **Emotional Manipulation Meter:** scores how pushy the wording is (0 to 100), based on words like "guaranteed," "miracle," or "doctors don't want you to know."
-- **Educator Resources:** pre-verified example claims for classrooms.
+- **AI Misinformation Checker:** paste a health claim or a social media caption and get a verdict (Supported, Divergent, Not supported, or Insufficient evidence), a short summary, and real PubMed sources.
+- **Manipulation Detector:** scores how pushy the wording is (0 to 100), based on words like "guaranteed," "miracle," or "doctors don't want you to know."
+- **Educator Resources:** debunked viral claims, ready to use as classroom examples.
 - **English and Arabic:** every page has an Arabic version.
 
 ## What's in this project
@@ -138,7 +138,7 @@ Setup is done.
 
 ### Step 3: Try it
 
-1. Go to **Claim Verifier** (in the top menu).
+1. Go to **AI Misinformation Checker** (in the top menu).
 2. Paste a claim, for example:
    - `Smoking increases the risk of lung cancer.` (should be **Supported**)
    - `Vitamin C prevents colds.` (likely **Divergent**: the evidence is mixed)
