@@ -1,0 +1,14 @@
+{
+  "name": "medicalogic",
+  "private": true,
+  "description": "MedicaLogic website + server. Vercel installs these packages; on your computer use backend/server (see README).",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

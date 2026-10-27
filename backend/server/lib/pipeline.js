@@ -26,15 +26,19 @@ const cache = createCache({ ttlMs: Number(process.env.CACHE_TTL_MINUTES || 360) 
 let unmappedLog = '';
 
 export function setDataDir(serverDir) {
-  unmappedLog = process.env.UNMAPPED_LOG || path.join(serverDir, 'data', 'unmapped_claims.jsonl');
-  fs.mkdirSync(path.dirname(unmappedLog), { recursive: true });
+  // On Vercel the project folder is read-only, so the log goes to the temporary /tmp folder there.
+  const dir = process.env.VERCEL ? '/tmp/medicalogic' : path.join(serverDir, 'data');
+  unmappedLog = process.env.UNMAPPED_LOG || path.join(dir, 'unmapped_claims.jsonl');
+  try { fs.mkdirSync(path.dirname(unmappedLog), { recursive: true }); } catch { unmappedLog = ''; }
 }
 
 function logUnmapped(query, lang, reason, english = '') {
-  recordUnanswered(query, lang, reason, english);
-  if (!unmappedLog) return;
-  const line = JSON.stringify({ time: new Date().toISOString(), query, lang, reason, ...(english ? { english } : {}) }) + '\n';
-  fs.appendFile(unmappedLog, line, () => {});
+  const saved = recordUnanswered(query, lang, reason, english); // waited for below, so Vercel doesn't cut it off
+  if (unmappedLog) {
+    const line = JSON.stringify({ time: new Date().toISOString(), query, lang, reason, ...(english ? { english } : {}) }) + '\n';
+    fs.appendFile(unmappedLog, line, () => {});
+  }
+  return saved;
 }
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -174,7 +178,7 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
 
   if (answer.verdict === 'Insufficient') {
     if (tier === 'live') tier = 'fallback';
-    logUnmapped(query, lang, articles.length ? 'insufficient_evidence' : 'no_pubmed_results', english);
+    await logUnmapped(query, lang, articles.length ? 'insufficient_evidence' : 'no_pubmed_results', english);
   }
 
   const m = match?.myth;

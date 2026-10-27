@@ -178,6 +178,19 @@ py evaluate.py --set core         # tests the 5 core claims against the running 
 
 More technical details about the server are in [`backend/server/API.md`](backend/server/API.md).
 
+## Hosting on Vercel (for whoever maintains the live site)
+
+The repo is ready for Vercel's free plan: `vercel.json` serves the `frontend` folder as the website and runs the server from `api/index.js` (the same code as `backend/server`).
+
+In the Vercel project's **Settings → Environment Variables**:
+
+| Name | What to put |
+|---|---|
+| `GROQ_API_KEY` | the Groq key (required) |
+| `UNANSWERED_KEY` | any secret word; then the unanswered list is at `/api/unanswered?key=thatword` |
+
+To keep the unanswered-claims list permanently, connect a free **Upstash Redis** database from the project's **Storage** tab. Vercel adds its settings automatically; redeploy afterwards. Every push to GitHub updates the live site automatically.
+
 ## Disclaimer
 
 MedicaLogic summarizes published research for education. It is not medical advice. Talk to a health professional about your own health.

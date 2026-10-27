@@ -17,3 +17,6 @@ __pycache__/
 
 # --- Ritvik's personal guide ---
 RITVIK_NOTES.md
+
+# --- Vercel ---
+.vercel

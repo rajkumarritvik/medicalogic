@@ -5,7 +5,12 @@
  * Backend address: change API_BASE below if the server runs somewhere else.
  */
 (function () {
-  var API_BASE = window.MEDICALOGIC_API || 'http://localhost:5000';
+  // On your computer (Live Server / opened as a file) the server is at localhost:5000.
+  // On the hosted site (Vercel) the server is on the same website, so no address is needed.
+  var LOCAL = /^(localhost|127\.0\.0\.1|)$/.test(location.hostname);
+  var API_BASE = window.MEDICALOGIC_API || (LOCAL && location.port !== '5000' ? 'http://localhost:5000' : '');
+  var LOCAL_HINT_EN = LOCAL ? "Can't reach the MedicaLogic server. Make sure it is running (node server.js) and try again." : "Can't reach the MedicaLogic server right now. Please try again in a minute.";
+  var LOCAL_HINT_AR = LOCAL ? 'تعذّر الوصول إلى خادم MedicaLogic. تأكد من تشغيله ثم حاول مرة أخرى.' : 'تعذّر الوصول إلى خادم MedicaLogic الآن. حاول مرة أخرى بعد دقيقة.';
   var HISTORY_KEY = 'medicalogic_history_v1';
   var MAX_HISTORY = 30;
 
@@ -19,7 +24,7 @@
       fromDb: 'Answered from the MedicaLogic research database', fromLive: 'Answered from a live PubMed search', fromNone: 'Not enough verified research found',
       risk: 'Risk level', advice: 'What to do instead', checked: 'Evidence last checked', newChat: 'New Claim',
       noChats: 'No chats yet', searchPh: 'Search your chats…', clear: 'Clear history', clearQ: 'Delete all saved chats on this device?',
-      errNet: "Can't reach the MedicaLogic server. Make sure it is running (node server.js) and try again.",
+      errNet: LOCAL_HINT_EN,
       reportTitle: 'MedicaLogic report', claim: 'Claim', verdict: 'Verdict', sources: 'Sources', meter: 'Manipulation Detector', tags: 'Tags', generated: 'Generated',
       dots: ['Supported', 'Divergent / evolving', 'Not supported'], more: 'Learn more',
     },
@@ -31,7 +36,7 @@
       fromDb: 'الإجابة من قاعدة بيانات MedicaLogic البحثية', fromLive: 'الإجابة من بحث مباشر في PubMed', fromNone: 'لم نجد أبحاثاً موثّقة كافية',
       risk: 'مستوى الخطورة', advice: 'ماذا تفعل بدلاً من ذلك', checked: 'آخر تحقق من الأدلة', newChat: 'ادعاء جديد',
       noChats: 'لا توجد محادثات بعد', searchPh: 'ابحث في محادثاتك…', clear: 'مسح السجل', clearQ: 'حذف جميع المحادثات المحفوظة على هذا الجهاز؟',
-      errNet: 'تعذّر الوصول إلى خادم MedicaLogic. تأكد من تشغيله ثم حاول مرة أخرى.',
+      errNet: LOCAL_HINT_AR,
       errors: {
         QUERY_TOO_SHORT: 'اكتب ادعاءً صحياً (3 أحرف على الأقل).',
         QUERY_TOO_LONG: 'يجب ألا يتجاوز الادعاء أو النص 2000 حرف.',
