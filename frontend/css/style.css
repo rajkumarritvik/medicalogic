@@ -1658,3 +1658,47 @@ img { height: auto; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+/* ===== Tasneem's feedback (Oct 28) ===== */
+/* 1. Home input box starts small and grows when you tap it (same as the verifier page) */
+.hero .input textarea {
+  height: 72px;
+  border-radius: 36px;
+  transition: height 0.25s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.hero .input textarea:focus,
+.hero .input textarea:not(:placeholder-shown) { height: 180px; border-radius: 32px; }
+/* keep the verifier box open while it has text in it */
+.v-empty textarea:not(:placeholder-shown) { height: 120px; }
+
+/* 2. Bold home heading, consistent with the other headings */
+.hero .verifier h1 { font-weight: 600; letter-spacing: -0.5px; }
+
+@media (max-width: 767px) {
+  .hero .input textarea { height: 60px; border-radius: 30px; padding: 18px 22px; }
+  .hero .input textarea:focus,
+  .hero .input textarea:not(:placeholder-shown) { height: 140px; border-radius: 26px; }
+  .v-empty textarea:not(:placeholder-shown) { height: 110px; }
+
+  /* 3. Phones: the evidence card is ONE white card, with the blue claim box inside it at the top */
+  .tools .answer-wrapper,
+  .tools .answer-wrapper.stacked {
+    gap: 0;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+  .tools .claim-box,
+  .tools .stacked .claim-box { border-radius: 22px; padding: 18px 20px; }
+  .tools .answer-card,
+  .tools .stacked .answer-card {
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    margin-top: 0;
+    padding: 18px 10px 12px;
+  }
+  .tools .answer-card .verdict { font-weight: 600; }
+}
