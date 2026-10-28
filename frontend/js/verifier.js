@@ -25,7 +25,7 @@
       risk: 'Risk level', advice: 'What to do instead', checked: 'Evidence last checked', newChat: 'New Claim',
       noChats: 'No chats yet', searchPh: 'Search your chats…', clear: 'Clear history', clearQ: 'Delete all saved chats on this device?',
       errNet: LOCAL_HINT_EN,
-      reportTitle: 'MedicaLogic report', claim: 'Claim', verdict: 'Verdict', sources: 'Sources', meter: 'Manipulation Detector', tags: 'Tags', generated: 'Generated',
+      notAdvice: 'This is not medical advice.', reportTitle: 'MedicaLogic report', claim: 'Claim', verdict: 'Verdict', sources: 'Sources', meter: 'Manipulation Detector', tags: 'Tags', generated: 'Generated',
       dots: ['Supported', 'Divergent / evolving', 'Not supported'], more: 'Learn more',
     },
     ar: {
@@ -46,7 +46,7 @@
         SOURCES_UNAVAILABLE: 'قاعدة PubMed لا تستجيب الآن. حاول مرة أخرى بعد دقيقة.',
         SERVER_ERROR: 'حدث خطأ في الخادم. حاول مرة أخرى.',
       },
-      reportTitle: 'تقرير MedicaLogic', claim: 'الادعاء', verdict: 'الحكم', sources: 'المصادر', meter: 'كاشف التلاعب', tags: 'الوسوم', generated: 'تاريخ التقرير',
+      notAdvice: 'هذه ليست نصيحة طبية.', reportTitle: 'تقرير MedicaLogic', claim: 'الادعاء', verdict: 'الحكم', sources: 'المصادر', meter: 'كاشف التلاعب', tags: 'الوسوم', generated: 'تاريخ التقرير',
       dots: ['مدعوم', 'أدلة متضاربة', 'غير مدعوم'], more: 'اعرف المزيد',
     },
   }[lang];
@@ -209,7 +209,7 @@
 
     // Bottom line: disclaimer
     var v = $('.verdict', card);
-    if (v) v.textContent = d.disclaimer || v.textContent;
+    if (v) v.innerHTML = esc(T.notAdvice) + (d.disclaimer ? '<span class="disc-note">' + esc(d.disclaimer) + '</span>' : '');
 
     // Manipulation Detector
     var meter = $('.meter-card', result);

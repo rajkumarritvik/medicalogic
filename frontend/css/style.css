@@ -1702,3 +1702,26 @@ img { height: auto; }
   }
   .tools .answer-card .verdict { font-weight: 600; }
 }
+
+/* ===== Evidence card on phones: match Tasneem's mock-up ===== */
+.tools .answer-card .verdict .disc-note { display: block; margin-top: 6px; font-size: 13px; font-weight: 400; line-height: 1.5; opacity: 0.8; }
+@media (max-width: 767px) {
+  /* blue claim box sits across the full top of the white card */
+  .tools .answer-wrapper,
+  .tools .answer-wrapper.stacked { padding: 0; border-radius: 32px; overflow: visible; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); }
+  .tools .claim-box,
+  .tools .stacked .claim-box { border-radius: 32px; padding: 22px 24px; box-shadow: 0 0 18px 4px rgba(38, 83, 255, 0.45); }
+  .tools .claim-box p { font-size: 13.5px; line-height: 1.4; }
+  .tools .answer-card,
+  .tools .stacked .answer-card { padding: 22px 20px 26px; }
+  /* "This claim is…" + verdict: bigger label, verdict on one line where it fits */
+  .tools .card-head .label { font-size: 17px; font-weight: 500; }
+  .tools .card-head h4 { font-size: 19px; font-weight: 600; line-height: 1.25; margin-bottom: 14px; }
+  .tools .dots span { width: 28px; height: 28px; }
+  /* rounder inner boxes with a soft blue glow */
+  .tools .blue-box { border-radius: 26px; padding: 16px 20px; box-shadow: 0 0 16px 3px rgba(38, 83, 255, 0.4); }
+  .tools .blue-box p { line-height: 1.4; }
+  .tools .dot-label { font-size: 14px; margin: 18px 0 10px; }
+  /* big bold "not medical advice" line */
+  .tools .answer-card .verdict { font-size: 22px; font-weight: 700; line-height: 1.25; }
+}
