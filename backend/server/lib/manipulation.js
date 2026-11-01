@@ -13,22 +13,33 @@ const LEX = {
   absolutism: {
     en: ['guaranteed', 'guarantee', '100%', 'always', 'never fails', 'never', 'completely', 'totally', 'permanently',
       'instantly', 'forever', 'definitely', 'no doubt', 'proven', 'cures', 'cure', 'cured', 'heals', 'eliminates',
-      'destroys', 'every time', 'all diseases', 'the only way', 'no side effects', 'works for everyone', 'in just one'],
+      'destroys', 'every time', 'all diseases', 'the only way', 'no side effects', 'works for everyone', 'in just one',
+      'overnight', 'in one night', 'while you sleep', 'within days', 'in days', 'in 24 hours', 'reverses', 'melts', 'wipes out',
+      'chronic', 'never get sick', 'no need for', '100% natural', 'clinically proven', 'completely safe', 'zero risk'],
     ar: ['مضمون', 'مضمونة', 'دائما', 'دائماً', 'أبدا', 'أبداً', 'تماما', 'تماماً', 'نهائيا', 'نهائياً', 'فورا', 'فوراً',
-      'مؤكد', 'مثبت', 'يعالج', 'يشفي', 'علاج نهائي', 'يقضي على', 'بدون أي آثار', 'الطريقة الوحيدة', '100%'],
+      'مؤكد', 'مثبت', 'يعالج', 'يشفي', 'علاج نهائي', 'يقضي على', 'بدون أي آثار', 'الطريقة الوحيدة', '100%',
+      'في ليلة واحدة', 'بين ليلة وضحاها', 'خلال أسبوع', 'خلال أيام', 'أثناء النوم', 'يذيب', 'آمن تماماً', 'طبيعي 100%'],
   },
   fear: {
     en: ["doctors don't want", 'doctors dont want', "don't want you to know", "don't want you to", "doesn't want you to",
       'want you to find out', "they don't tell you", 'they hide', 'hidden', 'secret', 'cover up',
       'cover-up', 'big pharma', 'pharmacy', 'pharmaceutical companies', 'conspiracy', 'toxic', 'toxins', 'poison',
-      'dangerous', 'deadly', 'killing you', 'dying', 'wake up', 'banned', 'they lie', 'your doctor will never tell you'],
+      'dangerous', 'deadly', 'killing you', 'dying', 'wake up', 'banned', 'they lie', 'your doctor will never tell you',
+      'terrified', 'afraid', 'hiding', 'hide', 'intentionally', 'keep you sick', 'medical boards', 'hospitals are', 'doctors hate',
+      'expensive prescriptions', 'profit', 'profits', 'greedy', 'censored', 'suppressed', 'silenced', 'mainstream media',
+      'they want you', 'poisoning', 'chemicals', 'before they delete', 'the truth about'],
     ar: ['الأطباء لا يريدون', 'لا يريدونك أن تعرف', 'لا يريدك أن', 'لا يريدونك أن', 'شركات الأدوية', 'الصيدلية', 'سري', 'مؤامرة', 'سموم', 'سام',
-      'خطير', 'قاتل', 'يخفون', 'ممنوع', 'لن يخبرك طبيبك'],
+      'خطير', 'قاتل', 'يخفون', 'ممنوع', 'لن يخبرك طبيبك',
+      'يخفي', 'يخفونه', 'خائفون', 'المستشفيات', 'لإبقائك مريضاً', 'باهظة', 'أرباح', 'الحقيقة التي', 'قبل الحذف', 'محظور', 'مواد كيميائية'],
   },
   sensational: {
     en: ['miracle', 'magic', 'shocking', 'amazing', 'incredible', 'unbelievable', "you won't believe", 'life hack', 'hack',
-      'wonder', 'game changer', 'overnight', 'insane', 'mind-blowing', 'thank me later', 'secret trick', 'in minutes'],
-    ar: ['معجزة', 'سحري', 'سحرية', 'مذهل', 'صادم', 'لا يصدق', 'خدعة', 'حيلة', 'رهيب', 'اشكرني لاحقا', 'في دقائق'],
+      'wonder', 'game changer', 'insane', 'mind-blowing', 'thank me later', 'secret trick', 'in minutes',
+      'one simple', 'this one', 'weird trick', 'simple trick', 'trick', 'life-changing', 'share before', 'share this',
+      'act now', 'before it is too late', 'before it\'s too late', 'must see', 'breakthrough', 'superfood', 'root extract',
+      'detox', 'cleanse', 'flush out', 'flushes out', 'saved my', 'clean your liver'],
+    ar: ['معجزة', 'سحري', 'سحرية', 'مذهل', 'صادم', 'لا يصدق', 'خدعة', 'حيلة', 'رهيب', 'اشكرني لاحقا', 'في دقائق',
+      'شارك قبل', 'شارك هذا', 'سر بسيط', 'وصفة بسيطة', 'اكتشاف', 'ديتوكس', 'يطرد السموم', 'أنقذ'],
   },
   hedge: {
     en: ['may', 'might', 'could', 'can help', 'some studies', 'research suggests', 'studies suggest', 'possibly', 'likely',
@@ -79,8 +90,8 @@ export function analyzeManipulation(text = '', lang = 'en') {
   const isQuestion = /\?\s*$|^\s*(is|are|does|do|can|should|will|هل)\b/i.test(text.trim());
 
   const parts = {
-    absolutism: Math.min(25, found.absolutism.length * 9),
-    fear: Math.min(25, found.fear.length * 9),
+    absolutism: Math.min(25, found.absolutism.length * 10),
+    fear: Math.min(25, found.fear.length * 10),
     sensational: Math.min(25, found.sensational.length * 8 + Math.min(exclaims, 3) * 3 + Math.min(capsWords.length, 2) * 4),
     hedging: isQuestion ? 0 : Math.max(0, 25 - hedges.length * 12),
   };

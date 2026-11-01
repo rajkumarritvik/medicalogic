@@ -62,3 +62,29 @@
     if (saved) showResult(saved);
   }
 })();
+
+// ---------- Scroll reveal: sections fade up as you scroll to them ----------
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('ml-anim');
+  var groups = ['.section-title', '.tools .tool-text', '.tools .answer-wrapper', '.tools .meter-card', '.how-it-works .step-card',
+    '.educator .resource-card', '.more-wrapper', '.cta-button-wrapper', '.dl-text', '.dl-card', '.step-pill', '.evidence',
+    '.team-card', '.sub-intro', '.footer .container', '.tools.prev > .container > .dl-btn'];
+  var els = [];
+  groups.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el) {
+      if (el.closest('.v-result') || el.classList.contains('reveal')) return; // the result page animates itself
+      var sibs = Array.prototype.filter.call(el.parentNode.children, function (c) { return c.matches(sel); });
+      el.style.setProperty('--d', Math.min(sibs.indexOf(el), 5) * 0.09 + 's');
+      el.classList.add('reveal');
+      els.push(el);
+    });
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function (el) { io.observe(el); });
+})();

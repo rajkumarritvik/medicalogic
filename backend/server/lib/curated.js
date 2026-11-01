@@ -18,7 +18,11 @@ export function loadMyths(serverDir) {
   const mythsPath = process.env.MYTHS_PATH || path.join(serverDir, '..', 'myths.json');
   const holdoutPath = process.env.HOLDOUT_PATH || path.join(serverDir, '..', 'holdout.json');
   const all = readJSON(mythsPath, []);
-  const holdout = new Set(readJSON(holdoutPath, { holdout_ids: [] }).holdout_ids || []);
+  // Holdout claims are hidden only for testing on your computer (evaluate.py).
+  // The public website (Vercel) uses every claim, so visitors always get the team's checked answer.
+  // Override with HIDE_HOLDOUT=on / off.
+  const hide = process.env.HIDE_HOLDOUT ? process.env.HIDE_HOLDOUT === 'on' : !process.env.VERCEL;
+  const holdout = new Set(hide ? (readJSON(holdoutPath, { holdout_ids: [] }).holdout_ids || []) : []);
   myths = all
     .filter(m => !holdout.has(m.id))
     .map(m => ({ ...m, _terms: matchTerms(m.claim_text) }));
@@ -42,6 +46,24 @@ export function matchMyth(query) {
     for (const t of q) if (m._terms.has(t)) shared++;
     const score = (2 * shared) / (q.size + m._terms.size || 1);
     if (shared >= 2 && score >= threshold && (!best || score > best.score)) best = { myth: m, score };
+  }
+  return best;
+}
+
+/**
+ * A claim that isn't close enough to count as the same claim, but is clearly about the same thing
+ * (e.g. "Alkaline water prevents cancer" vs the team's "Drinking alkaline water destroys cancer cells").
+ * Used to put the team's checked sources and advice link at the top of a live answer.
+ */
+export function findRelated(query) {
+  const q = matchTerms(query);
+  const min = Number(process.env.RELATED_MATCH_THRESHOLD || 0.3);
+  let best = null;
+  for (const m of myths) {
+    let shared = 0;
+    for (const t of q) if (m._terms.has(t)) shared++;
+    const score = (2 * shared) / (q.size + m._terms.size || 1);
+    if (shared >= 2 && score >= min && (!best || score > best.score)) best = { myth: m, score };
   }
   return best;
 }

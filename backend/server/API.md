@@ -95,7 +95,7 @@ else renderAnswerCard(data);
 
 `tier` tells you where the answer came from:
 
-- `"curated"`: matched a claim in our database (`myths.json`); `curated` has the extra fields above.
+- `"curated"`: matched a claim in our database (`myths.json`); `curated` has the extra fields above. For these, `verdict`, `true_part`, `overstated_part` (English) and `sources` come straight from the research team's data (`team_reviewed: true`); the AI only writes the summary.
 - `"live"`: a new claim, answered from a live PubMed search; `curated` is `null`.
 - `"fallback"`: not enough verified evidence. Show the "Insufficient" state; the claim is logged for the team to research.
 
@@ -161,3 +161,4 @@ Every claim that came back `Insufficient` is saved in `server/data/unanswered_cl
 | `SEARCH_TERM_SUGGESTIONS` | on | `off` = skip the AI step that turns a new claim into medical PubMed search terms (live tier only) |
 | `CURATED_MATCH_THRESHOLD` | 0.5 | how closely a question must match a curated claim (0–1) |
 | `UNANSWERED_DB` | `server/data/unanswered_claims.json` | where unanswered claims are saved |
+| `HIDE_HOLDOUT` | on locally, off on Vercel | `on` = hide the holdout claims (for evaluate.py tests); `off` = use every claim |

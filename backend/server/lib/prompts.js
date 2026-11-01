@@ -42,7 +42,7 @@ export function userMessage({ claim, articles, consumer = [], teamNotes = null }
 
   const parts = [`CLAIM: "${claim}"`, '', 'CONTEXT:'];
   if (teamNotes) {
-    parts.push(`[MedicaLogic research notes - checked against the PMIDs below]\nMechanism: ${teamNotes.mechanism}\nRisk: ${teamNotes.risk}\nWhat is true: ${teamNotes.true_part}\nWhat is overstated: ${teamNotes.overstated_part}\n`);
+    parts.push(`[MedicaLogic research notes - checked against the PMIDs below]\nTeam verdict: ${teamNotes.verdict || 'not set'} (your summary must agree with it)\nMechanism: ${teamNotes.mechanism}\nRisk: ${teamNotes.risk}\nWhat is true: ${teamNotes.true_part}\nWhat is overstated: ${teamNotes.overstated_part}\n`);
   }
   parts.push(blocks.length ? blocks.join('\n\n') : '(no research articles found)');
   for (const c of consumer) {

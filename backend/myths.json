@@ -27,7 +27,7 @@
     "risk_rationale": "Using too much of these drinks can cause liver poisoning.",
     "verdict": "Refuted",
     "true_part": "The liver already works as a body cleaner and gets rid of unwanted substances.",
-    "overstated_part": "That the liver needs an external cleaner and that detox drinks clean the liver.",
+    "overstated_part": "That the liver needs an outside cleaner, and that detox drinks clean the liver.",
     "evidence": [
       {
         "pmid": "38062980",
@@ -64,7 +64,7 @@
     "advice_source": "https://liverfoundation.org/resource-center/blog/healthy-liver-tips/",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [],
     "core": true,
@@ -94,8 +94,8 @@
     "risk_classification": "High",
     "risk_rationale": "It causes irritation and erosion of the stomach wall, as well as disruption of good gut bacteria, if used daily. It also poses a risk for people with irritable bowel syndrome (IBS).",
     "verdict": "Refuted",
-    "true_part": "Garlic contains organosulfur compounds like allicin that show antibacterial and antiviral properties in laboratory settings.",
-    "overstated_part": "Claiming garlic water eradicates viral or bacterial infections inside the human body.",
+    "true_part": "Garlic contains organosulfur compounds like allicin that show natural antibacterial and antiviral properties in laboratory settings.",
+    "overstated_part": "Claiming garlic water wipes out viral or bacterial infections inside the human body.",
     "evidence": [
       {
         "pmid": "21520707",
@@ -131,10 +131,10 @@
     ],
     "safety_pmids": [],
     "recommended_action": "Eat cooked garlic by adding it to your food; this reduces its strong effect on the stomach. Eat foods that support good bacteria, like yogurt and buttermilk. If you have irritable bowel syndrome, ask a doctor first.",
-    "advice_source": "https://pubmed.ncbi.nlm.nih.gov/30889821/",
+    "advice_source": "https://www.mayoclinic.org/first-aid/first-aid-gastroenteritis/basics/art-20056595",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
@@ -166,7 +166,7 @@
     "risk_rationale": "Severe metabolic alkalosis and hypokalemia that can threaten the heart, failure to absorb oral cancer drugs, and delaying real treatment due to false hope.",
     "verdict": "Refuted",
     "true_part": "Alkaline water neutralizes stomach acid temporarily on contact.",
-    "overstated_part": "Claiming it permanently neutralizes blood acidity or treats cancer.",
+    "overstated_part": "That it permanently neutralizes blood acidity or treats cancer.",
     "evidence": [
       {
         "pmid": "39789195",
@@ -205,10 +205,10 @@
     ],
     "safety_pmids": [],
     "recommended_action": "See a doctor if you have any symptoms of cancer and follow your doctor's instructions.",
-    "advice_source": "https://pubmed.ncbi.nlm.nih.gov/28922780/",
+    "advice_source": "https://www.mayoclinic.org/diseases-conditions/cancer/in-depth/cancer-diagnosis/art-20044544",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [
       "one-line note missing for some PMIDs"
@@ -243,7 +243,7 @@
     "risk_rationale": "Taking too much concentrated apple cider vinegar daily on an empty stomach can damage tooth enamel, make gums sensitive, and slow stomach emptying, which is risky for people with diabetes or gastroparesis.",
     "verdict": "Refuted",
     "true_part": "Apple cider vinegar contains acetic and citric acid.",
-    "overstated_part": "Claiming that drinking vinegar directly dissolves existing calcium kidney stones.",
+    "overstated_part": "Claiming orally ingested vinegar directly dissolves existing calcium kidney stones.",
     "evidence": [
       {
         "pmid": "41351751",
@@ -269,10 +269,10 @@
       "18093343"
     ],
     "recommended_action": "Consult your doctor and follow the medical treatment plan if you have kidney stones. Drink plenty of water.",
-    "advice_source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4953772/",
+    "advice_source": "https://www.mayoclinic.org/diseases-conditions/kidney-stones/diagnosis-treatment/drc-20355759",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
@@ -303,7 +303,7 @@
     "risk_rationale": "Cyanide poisoning, which can lead to death and makes cancer patients severely ill.",
     "verdict": "Refuted",
     "true_part": "Bitter apricot seeds contain high concentrations of amygdalin.",
-    "overstated_part": "Claiming vitamin B17 cures or destroys cancer cells and that you will not need any medical treatment.",
+    "overstated_part": "Claiming vitamin B17 cures or destroys cancer cells, so you will not need any medical treatment.",
     "evidence": [
       {
         "pmid": "25918920",
@@ -346,12 +346,14 @@
     ],
     "safety_pmids": [],
     "recommended_action": "Consult your doctor. Do not take advertised cancer treatments or follow random medical advice, especially with a chronic or serious illness.",
-    "advice_source": "https://pubmed.ncbi.nlm.nih.gov/28922780/",
+    "advice_source": "",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
-    "needs_review": [],
+    "needs_review": [
+      "advice link in the 24-claim sheet pointed to a cybersecurity article; needs a new link"
+    ],
     "core": false,
     "information_disorder_type": "Disinformation"
   },
@@ -404,10 +406,10 @@
     ],
     "safety_pmids": [],
     "recommended_action": "To lose weight you need a calorie deficit with a diet plan and exercise; consult a nutritionist who knows your medical history.",
-    "advice_source": "https://www.health.harvard.edu/weight-loss/calorie-deficit-explained-is-it-a-safe-sustainable-approach-to-weight-loss",
+    "advice_source": "https://www.magrabihealth.com/blog/chia-seeds-for-weight-loss",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
@@ -477,7 +479,7 @@
     "advice_source": "https://www.mouthhealthy.org/all-topics-a-z/natural-teeth-whitening",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [
       "one-line note missing for some PMIDs"
@@ -546,7 +548,7 @@
     "advice_source": "https://www.cdc.gov/common-cold/treatment/index.html",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [
       "one-line note missing for some PMIDs"
@@ -577,7 +579,7 @@
     "risk_classification": "High",
     "risk_rationale": "Cell toxicity, severe irritation and inflammation, and permanent vision loss due to delayed treatment.",
     "verdict": "Refuted",
-    "true_part": "Sterile castor oil formulations are used in specialized lipid-based eye drops to lubricate the eye surface and reduce dry-eye symptoms.",
+    "true_part": "Sterile castor oil formulations are used in specialized lipid-based eye drops to lubricate the eye surface and reduce dry eye symptoms.",
     "overstated_part": "Claims that castor oil dissolves cataracts or reverses vision loss.",
     "evidence": [
       {
@@ -603,10 +605,10 @@
     ],
     "safety_pmids": [],
     "recommended_action": "If you have cataracts, see an eye doctor about treatment such as surgery. Do not put oils or other substances in your eyes unless prescribed.",
-    "advice_source": "https://www.aao.org/eye-health/tips-prevention/scariest-eye-cures-viral-tiktok-influencer",
+    "advice_source": "https://www.healthinaging.org/a-z-topic/cataracts/care-treatment",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
@@ -679,7 +681,7 @@
     "advice_source": "https://www.mayoclinic.org/first-aid/first-aid-burns/basics/art-20056649",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [
       "one-line note missing for some PMIDs"
@@ -755,7 +757,7 @@
     "advice_source": "https://healthy.kaiserpermanente.org/health-wellness/healtharticle.what-you-need-know-about-sunless-tanning",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [
       "one-line note missing for some PMIDs"
@@ -785,7 +787,7 @@
     "risk_classification": "High",
     "risk_rationale": "Chemical burns and permanent scarring hair loss (scarring alopecia), plus tissue damage.",
     "verdict": "Refuted",
-    "true_part": "Lab-formulated garlic gels, used under expert supervision, contain sulfur compounds that can increase scalp blood flow and soothe hair-follicle inflammation.",
+    "true_part": "Formulated in labs under expert supervision, garlic gels contain sulfur compounds that can increase scalp blood flow and soothe localized hair follicle inflammation.",
     "overstated_part": "Claiming raw crushed garlic reverses hair loss or baldness.",
     "evidence": [
       {
@@ -809,10 +811,10 @@
     ],
     "safety_pmids": [],
     "recommended_action": "See a doctor to find the cause of your hair loss and get the right treatment.",
-    "advice_source": "https://www.health.harvard.edu/womens-health/treating-female-pattern-hair-loss",
+    "advice_source": "https://www.mayoclinic.org/diseases-conditions/hair-loss/diagnosis-treatment/drc-20372932",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
@@ -836,8 +838,8 @@
     "risk_classification": "Medium",
     "risk_rationale": "",
     "verdict": "Refuted",
-    "true_part": "Ice causes local vasoconstriction and reduces swelling, causing a temporary rush of blood flow and a minor cooling flush when removed.",
-    "overstated_part": "Claims that using ice daily improves skin texture, shrinks pores, and replaces skincare or seeing a doctor.",
+    "true_part": "Ice causes local vasoconstriction and reduces swelling, causing a temporary rush of blood flow and minor cooling flush when removed.",
+    "overstated_part": "Claiming that using ice daily improves skin texture and shrinks pores, so there is no need for any skin care or a doctor.",
     "evidence": [
       {
         "pmid": "12788210",
@@ -858,10 +860,10 @@
     ],
     "safety_pmids": [],
     "recommended_action": "",
-    "advice_source": "",
+    "advice_source": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/healthier-looking-skin",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "core": false,
     "information_disorder_type": "Misinformation",
@@ -892,7 +894,7 @@
     "risk_rationale": "",
     "verdict": "Refuted",
     "true_part": "Celery contains antioxidants like apigenin and provides healthy hydration.",
-    "overstated_part": "Claiming celery juice cures chronic or autoimmune diseases.",
+    "overstated_part": "Claiming juicing celery cures chronic diseases.",
     "evidence": [
       {
         "pmid": "31464016",
@@ -914,10 +916,10 @@
     ],
     "safety_pmids": [],
     "recommended_action": "",
-    "advice_source": "",
+    "advice_source": "https://acibademinternational.com/blog/celery-juice-benefits-the-viral-health-claim-vs-the-actual-evidence/",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "core": false,
     "information_disorder_type": "Misinformation",
@@ -970,10 +972,10 @@
     ],
     "safety_pmids": [],
     "recommended_action": "",
-    "advice_source": "",
+    "advice_source": "https://www.mayoclinic.org/first-aid/first-aid-toothache/basics/art-20056628",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
-    "evidence_last_checked": "2026-10-21",
+    "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "core": false,
     "information_disorder_type": "Misinformation",
@@ -984,5 +986,539 @@
       "risk level and verdict to confirm",
       "one-line note missing for PMIDs"
     ]
+  },
+  {
+    "id": "MYTH-018",
+    "claim_text": "Putting garlic cloves in your nose clears congestion.",
+    "category": "general",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [
+      "Putting garlic cloves in your nose clears congestion."
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Garlic releases strong, pungent oils that irritate the nasal lining, causing an immediate rush of fluid and mucus.",
+    "overstated_part": "Claiming that putting garlic cloves in the nostrils clears sinus buildup or cures congestion.",
+    "evidence": [
+      {
+        "pmid": "28425131",
+        "title": "Garlic Dermatitis on the Neck of an Infant Treated for Nasal Congestion",
+        "authors": [
+          "Esfahani A",
+          "Chamlin SL"
+        ],
+        "journal": "Pediatr Dermatol",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Case Report",
+        "year": 2017,
+        "relevance": "direct"
+      },
+      {
+        "pmid": "36788861",
+        "title": "An Unexpected Reaction to Topical Garlic Medicament - A Case Report of Irritant Contact Dermatitis Successfully Managed in Primary Care",
+        "authors": [
+          "Jamaluddin J",
+          "Jamil SN"
+        ],
+        "journal": "Cureus",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Case Report",
+        "year": 2023,
+        "relevance": "direct"
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "https://my.clevelandclinic.org/health/diseases/17980-nasal-congestion",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-11-01",
+    "pmid_verified": true,
+    "needs_review": [
+      "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
+    ],
+    "core": false,
+    "information_disorder_type": "Misinformation"
+  },
+  {
+    "id": "MYTH-019",
+    "claim_text": "Drinking green tea melts body fat rapidly without diet or exercise.",
+    "category": "general",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [
+      "Drinking green tea melts body fat rapidly without diet or exercise."
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Green tea catechins produce a small, statistically non-significant reduction in body weight in overweight adults.",
+    "overstated_part": "Claiming green tea extract causes rapid or massive weight loss on its own without dietary changes or exercise.",
+    "evidence": [
+      {
+        "pmid": "23235664",
+        "title": "Green tea for weight loss and weight maintenance in overweight or obese adults",
+        "authors": [
+          "Jurgens TM",
+          "Whelan AM",
+          "Killian L",
+          "Doucette S",
+          "Kirk S",
+          "Foy E"
+        ],
+        "journal": "Cochrane Database Syst Rev",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Meta-Analysis",
+        "year": 2012,
+        "relevance": "direct"
+      },
+      {
+        "pmid": "39350601",
+        "title": "Does green tea catechin enhance weight-loss effect of exercise training in overweight and obese individuals? a systematic review and meta-analysis of randomized trials",
+        "authors": [
+          "Gholami F",
+          "Antonio J",
+          "Iranpour M",
+          "Curtis J",
+          "Pereira F"
+        ],
+        "journal": "J Int Soc Sports Nutr",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Meta-Analysis",
+        "year": 2024,
+        "relevance": "direct"
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "https://www.healthline.com/nutrition/green-tea-and-weight-loss",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-11-01",
+    "pmid_verified": true,
+    "needs_review": [
+      "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
+    ],
+    "core": false,
+    "information_disorder_type": "Disinformation"
+  },
+  {
+    "id": "MYTH-020",
+    "claim_text": "Taking high doses of vitamin C prevents and cures the common cold.",
+    "category": "general",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [
+      "Taking high doses of vitamin C prevents and cures the common cold."
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Vitamin C is an essential micronutrient that supports immune cell function and slightly reduces cold duration when taken regularly.",
+    "overstated_part": "Claiming that taking vitamin C prevents colds entirely or cures a cold once symptoms start.",
+    "evidence": [
+      {
+        "pmid": "23440782",
+        "title": "Vitamin C for preventing and treating the common cold",
+        "authors": [
+          "Hemilä H",
+          "Chalker E"
+        ],
+        "journal": "Cochrane Database Syst Rev",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Meta-Analysis",
+        "year": 2013,
+        "relevance": "direct"
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "https://www.mayoclinic.org/diseases-conditions/common-cold/in-depth/cold-remedies/art-20046403",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-11-01",
+    "pmid_verified": true,
+    "needs_review": [
+      "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
+    ],
+    "core": false,
+    "information_disorder_type": "Misinformation"
+  },
+  {
+    "id": "MYTH-021",
+    "claim_text": "Antiperspirants cause breast cancer.",
+    "category": "general",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [
+      "Antiperspirants cause breast cancer."
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Aluminum compounds in antiperspirants temporarily block sweat ducts in the underarm skin.",
+    "overstated_part": "Claiming that applying aluminum-based antiperspirants or deodorants promotes cell mutation or causes breast cancer.",
+    "evidence": [
+      {
+        "pmid": "12381712",
+        "title": "Antiperspirant use and the risk of breast cancer",
+        "authors": [
+          "Mirick DK",
+          "Davis S",
+          "Thomas DB"
+        ],
+        "journal": "J Natl Cancer Inst",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Other",
+        "year": 2002,
+        "relevance": "direct"
+      },
+      {
+        "pmid": "39324502",
+        "title": "Use of Antiperspirant Products and Risk of Breast Cancer: A Meta-Analysis of Case-Control Studies",
+        "authors": [
+          "Trinh TTK",
+          "Myung SK",
+          "Tran TH",
+          "Choi KS"
+        ],
+        "journal": "Cancer Invest",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Meta-Analysis",
+        "year": 2024,
+        "relevance": "direct"
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "https://www.everydayhealth.com/skin-conditions/antiperspirant-makes-sweat-more/",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-11-01",
+    "pmid_verified": true,
+    "needs_review": [
+      "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
+    ],
+    "core": false,
+    "information_disorder_type": "Misinformation"
+  },
+  {
+    "id": "MYTH-022",
+    "claim_text": "Consuming elderberry syrup prevents flu infections and cures influenza symptoms.",
+    "category": "general",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [
+      "Consuming elderberry syrup prevents flu infections and cures influenza symptoms."
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Elderberry extract contains polyphenols that inhibit viral replication and modulate immune response markers in vitro.",
+    "overstated_part": "Claiming that elderberry syrup acts as a cure for influenza or prevents infection in place of vaccination.",
+    "evidence": [
+      {
+        "pmid": "33827515",
+        "title": "Elderberry for prevention and treatment of viral respiratory illnesses: a systematic review",
+        "authors": [
+          "Wieland LS",
+          "Piechotta V",
+          "Feinberg T",
+          "Ludeman E",
+          "Hutton B",
+          "Kanji S"
+        ],
+        "journal": "BMC Complement Med Ther",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Systematic Review",
+        "year": 2021,
+        "relevance": "direct"
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "https://www.cdc.gov/flu/prevention/actions-prevent-flu.html",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-11-01",
+    "pmid_verified": true,
+    "needs_review": [
+      "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
+    ],
+    "core": false,
+    "information_disorder_type": "Misinformation"
+  },
+  {
+    "id": "MYTH-023",
+    "claim_text": "Aloe vera alone can get rid of severe acne.",
+    "category": "general",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [
+      "Aloe vera alone can get rid of severe acne."
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Aloe vera contains anti-inflammatory, soothing phytochemicals that reduce redness and surface skin irritation.",
+    "overstated_part": "Claiming that topically applied aloe vera gel permanently cures severe cystic acne or eradicates deep follicular bacterial infections.",
+    "evidence": [
+      {
+        "pmid": "23336746",
+        "title": "Effect of Aloe vera topical gel combined with tretinoin in treatment of mild and moderate acne vulgaris: a randomized, double-blind, prospective trial",
+        "authors": [
+          "Hajheydari Z",
+          "Saeedi M",
+          "Morteza-Semnani K",
+          "Soltani A"
+        ],
+        "journal": "J Dermatolog Treat",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "RCT",
+        "year": 2014,
+        "relevance": "indirect"
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "https://www.mayoclinic.org/diseases-conditions/acne/diagnosis-treatment/drc-20368048",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-11-01",
+    "pmid_verified": true,
+    "needs_review": [
+      "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
+    ],
+    "core": false,
+    "information_disorder_type": "Disinformation"
+  },
+  {
+    "id": "MYTH-024",
+    "claim_text": "Sugar causes hyperactivity in children.",
+    "category": "general",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [
+      "Sugar causes hyperactivity in children."
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Simple sugars cause rapid spikes in blood glucose levels, leading to short-term fluctuations in physical energy.",
+    "overstated_part": "Claiming that sugar intake causes behavioral hyperactivity, loss of self-control, or cognitive impairment in children.",
+    "evidence": [
+      {
+        "pmid": "7474248",
+        "title": "The effect of sugar on behavior or cognition in children. A meta-analysis",
+        "authors": [
+          "Wolraich ML",
+          "Wilson DB",
+          "White JW"
+        ],
+        "journal": "JAMA",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Meta-Analysis",
+        "year": 1995,
+        "relevance": "direct"
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "https://www.mayoclinic.org/diseases-conditions/adhd/symptoms-causes/syc-20350889",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-11-01",
+    "pmid_verified": true,
+    "needs_review": [
+      "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
+    ],
+    "core": false,
+    "information_disorder_type": "Misinformation"
+  },
+  {
+    "id": "MYTH-025",
+    "claim_text": "Taping your mouth shut during sleep gives you a snatched jawline.",
+    "category": "general",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [
+      "Taping your mouth shut during sleep gives you a snatched jawline."
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "For individuals with healthy, problem-free nasal passages, switching from mouth breathing to nose breathing during sleep improves air filtration and reduces snoring, ultimately enhancing overall sleep quality.",
+    "overstated_part": "Claiming it snatches your jawline. Studies found mouth taping made no difference and has potential risks, including suffocation.",
+    "evidence": [
+      {
+        "pmid": "40397877",
+        "title": "Breaking social media fads and uncovering the safety and efficacy of mouth taping in patients with mouth breathing, sleep disordered breathing, or obstructive sleep apnea: A systematic review",
+        "authors": [
+          "Rhee J",
+          "Iansavitchene A",
+          "Mannala S",
+          "Graham ME",
+          "Rotenberg B"
+        ],
+        "journal": "PLoS One",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Systematic Review",
+        "year": 2025,
+        "relevance": "indirect"
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "https://www.webmd.com/sleep-disorders/mouth-taping",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-11-01",
+    "pmid_verified": true,
+    "needs_review": [
+      "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
+    ],
+    "core": false,
+    "information_disorder_type": "Disinformation"
+  },
+  {
+    "id": "MYTH-026",
+    "claim_text": "Drinking commercial chlorophyll water boosts energy and reduces acne.",
+    "category": "general",
+    "platform_origin": [
+      "Other"
+    ],
+    "raw_quotes": [
+      "Drinking commercial chlorophyll water boosts energy and reduces acne."
+    ],
+    "manipulation_markers": {
+      "clickbait_phrases": [],
+      "absolute_promises": [],
+      "fear_keywords": [],
+      "urgency_phrases": []
+    },
+    "mechanism": "",
+    "risk_classification": "Medium",
+    "risk_rationale": "",
+    "verdict": "Refuted",
+    "true_part": "Chlorophyllin exhibits antioxidant properties and mild anti-inflammatory effects that may assist skin wound healing.",
+    "overstated_part": "Claiming that drinking commercial liquid chlorophyll provides a direct surge of cellular energy, or serves as a primary systemic cure for acne.",
+    "evidence": [
+      {
+        "pmid": "25123581",
+        "title": "Pseudoporphyria following self-medication with chlorophyll",
+        "authors": [
+          "Rossi E",
+          "Borchard K",
+          "Cole JM"
+        ],
+        "journal": "Australas J Dermatol",
+        "volume_issue": "",
+        "pages": "",
+        "note": "",
+        "study_type": "Case Report",
+        "year": 2015,
+        "relevance": "indirect"
+      }
+    ],
+    "safety_pmids": [],
+    "recommended_action": "",
+    "advice_source": "https://health.clevelandclinic.org/natural-energy-boosters",
+    "language": "en",
+    "reviewed_by": "Menna & Tasnim",
+    "evidence_last_checked": "2026-11-01",
+    "pmid_verified": true,
+    "needs_review": [
+      "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
+    ],
+    "core": false,
+    "information_disorder_type": "Disinformation"
   }
 ]

@@ -9,7 +9,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { matchMyth } from './curated.js';
+import { matchMyth, findRelated } from './curated.js';
 import { articlesFor, searchEvidence } from './pubmed.js';
 import { searchHealthTopics } from './medlineplus.js';
 import { complete } from './llm.js';
@@ -111,6 +111,49 @@ async function toEnglish(claim, provider, warnings) {
   return '';
 }
 
+const VERDICT_SET = new Set(['Supported', 'Refuted', 'Divergent', 'Insufficient']);
+
+/**
+ * Curated claims: the answer card shows the research team's own verdict, "what's true / overstated"
+ * and sources, so the website matches the team's data exactly. The AI only writes the summary
+ * (and, on the Arabic page, the Arabic wording of the team's text and notes).
+ */
+const teamSource = (a, note) => ({
+  pmid: a.pmid, title: a.title, journal: a.journal || '', year: a.year || null, study_type: a.study_type || 'Other',
+  url: a.url || `https://pubmed.ncbi.nlm.nih.gov/${a.pmid}/`, relevance: a.team_relevance === 'indirect' ? 'indirect' : 'direct',
+  note: note || '', team: true,
+});
+
+/** Live answer about a related team claim: the team's papers go first, then the other papers the AI cited. */
+function teamSourcesFirst(answer, articles, lang) {
+  const aiNotes = new Map((answer.sources || []).map(s => [s.pmid, s.note]));
+  const team = articles.filter(a => 'team_relevance' in a).map(a =>
+    teamSource(a, lang === 'en' ? (a.team_note || aiNotes.get(a.pmid)) : (aiNotes.get(a.pmid) || a.team_note)));
+  const teamIds = new Set(team.map(t => t.pmid));
+  answer.sources = [...team, ...(answer.sources || []).filter(s => !teamIds.has(s.pmid))];
+}
+
+function useTeamData(answer, m, articles, lang) {
+  const aiNotes = new Map((answer.sources || []).map(s => [s.pmid, s.note]));
+  if (VERDICT_SET.has(m.verdict)) answer.verdict = m.verdict;
+  if (lang === 'en') {
+    if (m.true_part) answer.true_part = m.true_part;
+    if (m.overstated_part) answer.overstated_part = m.overstated_part;
+  }
+  answer.sources = articles.map(a => ({
+    pmid: a.pmid,
+    title: a.title,
+    journal: a.journal || '',
+    year: a.year || null,
+    study_type: a.study_type || 'Other',
+    url: a.url || `https://pubmed.ncbi.nlm.nih.gov/${a.pmid}/`,
+    relevance: a.team_relevance === 'indirect' ? 'indirect' : 'direct',
+    note: lang === 'en' ? (a.team_note || aiNotes.get(a.pmid) || '') : (aiNotes.get(a.pmid) || a.team_note || ''),
+    team: true,
+  }));
+  answer.team_reviewed = true;
+}
+
 export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 'local' }) {
   const t0 = Date.now();
   const cacheKey = `${lang}|${provider}|${query.toLowerCase()}`;
@@ -122,14 +165,14 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
   const english = hasArabic(query) ? await toEnglish(query, provider, warnings) : '';
   const searchText = english || query;
   const match = matchMyth(searchText);
-  let tier, articles, kw, teamNotes = null, searchQueries = [];
+  let tier, articles, kw, teamNotes = null, searchQueries = [], related = null;
 
   if (match) {
     const m = match.myth;
     tier = 'curated';
     kw = searchTerms(m.claim_text);
     articles = await curatedArticles(m, warnings);
-    teamNotes = { mechanism: m.mechanism || '', risk: m.risk_rationale || '', true_part: m.true_part || '', overstated_part: m.overstated_part || '' };
+    teamNotes = { verdict: m.verdict || '', mechanism: m.mechanism || '', risk: m.risk_rationale || '', true_part: m.true_part || '', overstated_part: m.overstated_part || '' };
   } else {
     const allowed = liveLimiter.check(ip);
     if (!allowed.ok) {
@@ -145,6 +188,13 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
     } catch (err) {
       if (err instanceof UpstreamError) throw new RequestError('SOURCES_UNAVAILABLE', 'PubMed is not responding right now. Please try again in a minute.', 503);
       throw err;
+    }
+    // A related claim in the team's database? Put its checked papers first, then the live results.
+    related = findRelated(searchText);
+    if (related) {
+      const team = await curatedArticles(related.myth, warnings);
+      const ids = new Set(team.map(t => t.pmid));
+      articles = [...team, ...articles.filter(x => !ids.has(x.pmid))];
     }
   }
 
@@ -173,6 +223,8 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
     if (!result.answer) throw new RequestError('BAD_MODEL_OUTPUT', 'The AI returned an unreadable answer. Please try again.', 502);
     warnings.push(...result.warnings);
     answer = result.answer;
+    if (tier === 'curated') useTeamData(answer, match.myth, articles, lang);
+    else if (related) teamSourcesFirst(answer, articles, lang);
     if (!answer.summary) answer.summary = answer.verdict === 'Insufficient' ? FALLBACK_SUMMARY[lang] : '';
   }
 
@@ -193,12 +245,19 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
       myth_id: m.id,
       match_score: Number(match.score.toFixed(2)),
       claim_text: m.claim_text,
-      risk_level: m.risk_classification,
+      risk_level: m.risk_rationale ? m.risk_classification : null, // only shown once the team has filled in the reason
       risk_rationale: m.risk_rationale,
       recommended_action: m.recommended_action,
       advice_source: m.advice_source || '',
       manipulation_markers: m.manipulation_markers,
       platform_origin: m.platform_origin,
+    } : null,
+    related: (!m && related) ? {
+      myth_id: related.myth.id,
+      match_score: Number(related.score.toFixed(2)),
+      claim_text: related.myth.claim_text,
+      recommended_action: related.myth.recommended_action || '',
+      advice_source: related.myth.advice_source || '',
     } : null,
     manipulation: analyzeManipulation(query, lang),
     evidence_last_checked: m?.evidence_last_checked || today(),

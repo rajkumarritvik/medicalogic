@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300..800&family=Inter:wght@100..900&display=swap" rel="stylesheet">
-<link rel="icon" href="imgs/logo.jpg">
+<link rel="icon" href="imgs/logo.png">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="page-verifier">
@@ -27,7 +27,7 @@
     <div class="hero">
         <div class="nav">
             <div class="container">
-                <div class="logo"><a href="index.html"><img src="imgs/logo.jpg" alt="MedicaLogic"></a></div>
+                <div class="logo"><a href="index.html"><img src="imgs/logo.png" alt="MedicaLogic"></a></div>
                 <div class="links">
                     <ul>
                         <li><a href="index.html">Home</a></li>
@@ -53,7 +53,8 @@
     <section class="v-result tools" id="vResult">
       <div class="container">
         <h2 class="v-title">Your claim</h2>
-        <div class="pasted-box" id="pastedText"></div>
+        <textarea class="pasted-box" id="pastedText" rows="4" aria-label="Your claim (you can edit it)"></textarea>
+        <div class="v-recheck"><button type="button" id="recheckBtn" class="v-btn">Check again</button><span class="v-hint">Edit your claim above, then check it again.</span></div>
         <div class="tool answer-cards v-gap">
           <div class="tool-text"><h3>Your Evidence Card</h3><p>Here&rsquo;s what our AI found about your claim, backed by a summary and real sources.</p></div>
           <div class="answer-wrapper">
@@ -96,7 +97,7 @@
     <footer class="footer">
       <div class="container">
         <div class="footer-top">
-          <a href="index.html" class="footer-logo"><img src="imgs/footer.jpg" alt="MedicaLogic: paste. verify. learn."></a>
+          <a href="index.html" class="footer-logo" dir="ltr"><img src="imgs/logo.png" alt=""><span class="wordmark">MedicaLogic<small>paste. verify. learn.</small></span></a>
           <ul class="footer-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="verifier.html">AI Misinformation Checker</a></li><li><a href="educator.html">Educator Resources</a></li>

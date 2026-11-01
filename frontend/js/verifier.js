@@ -17,24 +17,24 @@
   var lang = (document.documentElement.lang || 'en').slice(0, 2) === 'ar' ? 'ar' : 'en';
   var T = {
     en: {
-      verifying: 'Verifying…', verify: 'Verify Claim', wait: 'Checking PubMed and MedlinePlus… This can take up to 20 seconds.',
+      verifying: 'Verifying…', verify: 'Verify Claim', recheck: 'Check again', wait: 'Checking PubMed and MedlinePlus… This can take up to 20 seconds.',
       verdicts: { Supported: 'Supported by evidence', Refuted: 'Not supported by evidence', Divergent: 'Divergent / Evolving Evidence', Insufficient: 'Insufficient verified evidence' },
       summary: 'Summary', trueP: 'a. What’s true', overP: 'b. What’s overstated', none: 'Nothing to add here.',
       noSources: 'No verified sources were found for this claim.', direct: 'Direct', indirect: 'Indirect',
       fromDb: 'Answered from the MedicaLogic research database', fromLive: 'Answered from a live PubMed search', fromNone: 'Not enough verified research found',
-      risk: 'Risk level', advice: 'What to do instead', checked: 'Evidence last checked', newChat: 'New Claim',
+      risk: 'Risk level', advice: 'What to do instead', trusted: 'Trusted medical advice', srcTeam: 'Checked by our research team', srcLive: 'More from a live search', checked: 'Evidence last checked', newChat: 'New Claim',
       noChats: 'No chats yet', searchPh: 'Search your chats…', clear: 'Clear history', clearQ: 'Delete all saved chats on this device?',
       errNet: LOCAL_HINT_EN,
       notAdvice: 'This is not medical advice.', reportTitle: 'MedicaLogic report', claim: 'Claim', verdict: 'Verdict', sources: 'Sources', meter: 'Manipulation Detector', tags: 'Tags', generated: 'Generated',
       dots: ['Supported', 'Divergent / evolving', 'Not supported'], more: 'Learn more',
     },
     ar: {
-      verifying: 'جارٍ التحقق…', verify: 'تحقق من الادعاء', wait: 'نبحث في PubMed وMedlinePlus… قد يستغرق ذلك حتى 20 ثانية.',
+      verifying: 'جارٍ التحقق…', verify: 'تحقق من الادعاء', recheck: 'تحقق مرة أخرى', wait: 'نبحث في PubMed وMedlinePlus… قد يستغرق ذلك حتى 20 ثانية.',
       verdicts: { Supported: 'مدعوم بالأدلة', Refuted: 'غير مدعوم بالأدلة', Divergent: 'أدلة متضاربة', Insufficient: 'أدلة موثّقة غير كافية' },
       summary: 'الملخص', trueP: 'أ. ما هو صحيح', overP: 'ب. ما هو مبالغ فيه', none: 'لا شيء لإضافته هنا.',
       noSources: 'لم يتم العثور على مصادر موثّقة لهذا الادعاء.', direct: 'مباشر', indirect: 'غير مباشر',
       fromDb: 'الإجابة من قاعدة بيانات MedicaLogic البحثية', fromLive: 'الإجابة من بحث مباشر في PubMed', fromNone: 'لم نجد أبحاثاً موثّقة كافية',
-      risk: 'مستوى الخطورة', advice: 'ماذا تفعل بدلاً من ذلك', checked: 'آخر تحقق من الأدلة', newChat: 'ادعاء جديد',
+      risk: 'مستوى الخطورة', advice: 'ماذا تفعل بدلاً من ذلك', trusted: 'نصيحة طبية موثوقة', srcTeam: 'تحقق منها فريقنا البحثي', srcLive: 'نتائج إضافية من بحث مباشر', checked: 'آخر تحقق من الأدلة', newChat: 'ادعاء جديد',
       noChats: 'لا توجد محادثات بعد', searchPh: 'ابحث في محادثاتك…', clear: 'مسح السجل', clearQ: 'حذف جميع المحادثات المحفوظة على هذا الجهاز؟',
       errNet: LOCAL_HINT_AR,
       errors: {
@@ -53,6 +53,7 @@
 
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var claimEl = $('#claim'), verifyBtn = $('#verifyBtn'), empty = $('#vEmpty'), result = $('#vResult'), pasted = $('#pastedText');
+  var recheckBtn = $('#recheckBtn'); // "Check again" under the editable claim on the result page
   if (!verifyBtn || !claimEl) return;
 
   var current = null; // { query, data, time }
@@ -69,6 +70,20 @@
     return (lang === 'ar' && s && !/[\u0600-\u06FF]/.test(s)) ? '<span dir="ltr" lang="en">' + e + '</span>' : e;
   }
   var RISK_AR = { High: 'مرتفع', Medium: 'متوسط', Low: 'منخفض' };
+  /** Manipulation score counts up from 0 (instant if the visitor prefers reduced motion). */
+  function countUp(node, target) {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !window.requestAnimationFrame) { node.textContent = target + '/100'; return; }
+    var start = null, dur = 900;
+    node.textContent = '0/100';
+    function step(t) {
+      if (start === null) start = t;
+      var k = Math.min(1, (t - start) / dur), eased = 1 - Math.pow(1 - k, 3);
+      node.textContent = Math.round(target * eased) + '/100';
+      if (k < 1) requestAnimationFrame(step);
+    }
+    setTimeout(function () { requestAnimationFrame(step); }, 350);
+  }
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
   /** Pasted text with the manipulative words highlighted (<mark>). */
@@ -162,7 +177,7 @@
 
   // ---------- rendering the answer ----------
   function render(query, d) {
-    pasted.textContent = query;
+    if ('value' in pasted) pasted.value = query; else pasted.textContent = query;
     var m = d.manipulation || null;
 
     // Left blue box: the pasted text with pressure words highlighted
@@ -190,20 +205,41 @@
         html += '<h5>' + esc(T.advice) + '</h5><p>' + txt(d.curated.recommended_action) +
           (d.curated.advice_source ? ' <a class="src-link" href="' + esc(d.curated.advice_source) + '" target="_blank" rel="noopener">' + esc(T.more) + ' ↗</a>' : '') + '</p>';
       }
+      else if (d.curated.advice_source) {
+        html += '<h5>' + esc(T.trusted) + '</h5><p><a class="src-link" href="' + esc(d.curated.advice_source) + '" target="_blank" rel="noopener">' + esc(T.more) + ' ↗</a></p>';
+      }
+    }
+    if (!d.curated && d.related && (d.related.recommended_action || d.related.advice_source)) {
+      html += '<h5>' + esc(d.related.recommended_action ? T.advice : T.trusted) + '</h5><p>' + (d.related.recommended_action ? txt(d.related.recommended_action) + ' ' : '') +
+        (d.related.advice_source ? '<a class="src-link" href="' + esc(d.related.advice_source) + '" target="_blank" rel="noopener">' + esc(T.more) + ' ↗</a>' : '') + '</p>';
     }
     html += '<p class="v-meta">' + esc(source) + ' · ' + esc(T.checked) + ': ' + esc(d.evidence_last_checked || '') + '</p>';
     sumBox.innerHTML = html;
 
-    // Sources and audit trail
-    var lines = [];
-    (d.consumer_info || []).forEach(function (c) {
-      lines.push('<p><a class="src-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">MedlinePlus: ' + esc(c.title) + '</a></p>');
-    });
-    (d.sources || []).forEach(function (s) {
-      lines.push('<p><a class="src-link" href="' + esc(s.url) + '" target="_blank" rel="noopener">PubMed · PMID: ' + esc(s.pmid) +
+    // Sources and audit trail: the research team's checked papers first, then MedlinePlus and the other papers
+    var teamClaim = (d.curated && d.curated.claim_text) || (d.related && d.related.claim_text) || '';
+    function paper(s) {
+      return '<p><a class="src-link" href="' + esc(s.url) + '" target="_blank" rel="noopener">PubMed · PMID: ' + esc(s.pmid) +
         ' · ' + esc(s.study_type) + (s.year ? ' · ' + esc(s.year) : '') + ' (' + esc(s.relevance === 'direct' ? T.direct : T.indirect) + ')</a>' +
-        '<span class="src-title" dir="ltr">' + esc(s.title) + '</span>' + (s.note ? '<span class="src-note">' + txt(s.note) + '</span>' : '') + '</p>');
-    });
+        '<span class="src-title" dir="ltr">' + esc(s.title) + '</span>' + (s.note ? '<span class="src-note">' + txt(s.note) + '</span>' : '') + '</p>';
+    }
+    var teamLines = (d.sources || []).filter(function (s) { return s.team; }).map(paper);
+    // The team's "trusted medical advice" link from the spreadsheet goes at the very top of their sources
+    var adviceUrl = (d.curated && d.curated.advice_source) || (d.related && d.related.advice_source) || '';
+    if (adviceUrl) {
+      var host = adviceUrl.replace(/^https?:\/\/(www\.)?/, '').split('/')[0];
+      teamLines.unshift('<p><a class="src-link" href="' + esc(adviceUrl) + '" target="_blank" rel="noopener">' + esc(T.trusted) + ' · ' + esc(host) + ' ↗</a></p>');
+    }
+    var otherLines = (d.consumer_info || []).map(function (c) {
+      return '<p><a class="src-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">MedlinePlus: ' + esc(c.title) + '</a></p>';
+    }).concat((d.sources || []).filter(function (s) { return !s.team; }).map(paper));
+    var lines = [];
+    if (teamLines.length) {
+      lines.push('<p class="src-group"><i class="fa-solid fa-shield-halved"></i> ' + esc(T.srcTeam) + (teamClaim ? ': “' + txt(teamClaim) + '”' : '') + '</p>');
+      lines = lines.concat(teamLines);
+      if (otherLines.length) lines.push('<p class="src-group"><i class="fa-solid fa-magnifying-glass"></i> ' + esc(T.srcLive) + '</p>');
+    }
+    lines = lines.concat(otherLines);
     if (!(d.sources || []).length) lines.push('<p>' + esc(T.noSources) + '</p>');
     srcBox.innerHTML = lines.join('');
 
@@ -214,7 +250,7 @@
     // Manipulation Detector
     var meter = $('.meter-card', result);
     if (meter && m) {
-      $('.score', meter).textContent = m.score + '/100';
+      countUp($('.score', meter), m.score);
       meter.setAttribute('data-level', m.level);
       var p = $('p', meter); if (p) p.textContent = m.explanation;
       var tags = $('.tags', meter);
@@ -222,6 +258,7 @@
     }
 
     empty.style.display = 'none';
+    result.classList.remove('show'); void result.offsetWidth; // restart the entrance animation
     result.classList.add('show');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -239,13 +276,24 @@
   // ---------- talking to the server ----------
   var errBox = el('div', 'v-error');
   verifyBtn.after(errBox);
-  function setError(msg) { errBox.textContent = msg; errBox.style.display = msg ? 'block' : 'none'; }
+  // Messages appear under whichever button was used: Verify (start page) or Check again (result page).
+  function placeErrBox() {
+    var onResult = recheckBtn && result.classList.contains('show');
+    (onResult ? recheckBtn.parentNode : verifyBtn).after(errBox);
+  }
+  function setError(msg) { placeErrBox(); errBox.textContent = msg; errBox.style.display = msg ? 'block' : 'none'; }
   setError('');
 
   function setLoading(on) {
+    placeErrBox();
     verifyBtn.disabled = on;
     verifyBtn.classList.toggle('loading', on);
     verifyBtn.textContent = on ? T.verifying : T.verify;
+    if (recheckBtn) {
+      recheckBtn.disabled = on;
+      recheckBtn.classList.toggle('loading', on);
+      recheckBtn.textContent = on ? T.verifying : T.recheck;
+    }
     errBox.className = on ? 'v-error v-wait' : 'v-error';
     errBox.textContent = on ? T.wait : '';
     errBox.style.display = on ? 'block' : 'none';
@@ -283,6 +331,17 @@
     }
     verify(text);
   });
+  if (recheckBtn) {
+    recheckBtn.addEventListener('click', function () {
+      var text = pasted.value.trim();
+      if (!text) { pasted.classList.remove('shake'); void pasted.offsetWidth; pasted.classList.add('shake'); pasted.focus(); return; }
+      claimEl.value = text;
+      verify(text);
+    });
+    pasted.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) recheckBtn.click();
+    });
+  }
   claimEl.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) verifyBtn.click();
   });
