@@ -4,6 +4,16 @@
   var overlay = document.getElementById('vOverlay');
   var toggles = [document.getElementById('sidebarToggle'), document.getElementById('menuBtn')];
 
+  // Phones: put the menu button in its own row under the page links, with the title below it
+  var menuBtn = document.getElementById('menuBtn');
+  var vMainHero = document.querySelector('.v-main > .hero');
+  if (menuBtn && vMainHero) {
+    var row = document.createElement('div');
+    row.className = 'v-menu-row';
+    vMainHero.after(row);
+    row.appendChild(menuBtn);
+  }
+
   function setSidebar(open) {
     if (!sidebar) return;
     sidebar.classList.toggle('open', open);
