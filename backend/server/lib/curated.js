@@ -18,19 +18,22 @@ export function loadMyths(serverDir) {
   const mythsPath = process.env.MYTHS_PATH || path.join(serverDir, '..', 'myths.json');
   const holdoutPath = process.env.HOLDOUT_PATH || path.join(serverDir, '..', 'holdout.json');
   const all = readJSON(mythsPath, []);
-  // Holdout claims are hidden only for testing on your computer (evaluate.py).
-  // The public website (Vercel) uses every claim, so visitors always get the team's checked answer.
-  // Override with HIDE_HOLDOUT=on / off.
-  const hide = process.env.HIDE_HOLDOUT ? process.env.HIDE_HOLDOUT === 'on' : !process.env.VERCEL;
+  // Normally every claim is used, so any claim from the team's spreadsheet gets the team's answer and links.
+  // For the holdout test (evaluate.py --set holdout), start the server with HIDE_HOLDOUT=on
+  // so the 5 holdout claims are hidden and the live search is tested fairly.
+  const hide = process.env.HIDE_HOLDOUT === 'on';
   const holdout = new Set(hide ? (readJSON(holdoutPath, { holdout_ids: [] }).holdout_ids || []) : []);
   myths = all
     .filter(m => !holdout.has(m.id))
     .map(m => ({ ...m, _terms: matchTerms(m.claim_text) }));
   loadedFrom = mythsPath;
+  hiddenCount = all.length - myths.length;
   return { loaded: myths.length, hidden: all.length - myths.length, path: mythsPath };
 }
 
 export function mythCount() { return myths.length; }
+let hiddenCount = 0;
+export function holdoutHidden() { return hiddenCount > 0; }
 export function mythsPath() { return loadedFrom; }
 
 /**
@@ -57,7 +60,7 @@ export function matchMyth(query) {
  */
 export function findRelated(query) {
   const q = matchTerms(query);
-  const min = Number(process.env.RELATED_MATCH_THRESHOLD || 0.3);
+  const min = Number(process.env.RELATED_MATCH_THRESHOLD || 0.4);
   let best = null;
   for (const m of myths) {
     let shared = 0;

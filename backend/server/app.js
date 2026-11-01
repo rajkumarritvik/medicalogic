@@ -18,7 +18,7 @@ const serverDir = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(serverDir, '.env') });
 
 // Imported after .env is loaded so settings like NCBI_API_KEY are visible.
-const { loadMyths, mythCount } = await import('./lib/curated.js');
+const { loadMyths, mythCount, holdoutHidden } = await import('./lib/curated.js');
 const { verifyClaim, setDataDir } = await import('./lib/pipeline.js');
 const { validateRequest, RequestError } = await import('./lib/validate.js');
 const { createLimiter } = await import('./lib/ratelimit.js');
@@ -40,7 +40,7 @@ const sendError = (res, status, code, message, extra = {}) =>
   res.status(status).json({ success: false, error: { code, message, ...extra } });
 
 app.get('/api/health', (req, res) => {
-  res.json({ ok: true, curated_claims: mythCount(), prompt_version: PROMPT_VERSION });
+  res.json({ ok: true, curated_claims: mythCount(), holdout_hidden: holdoutHidden(), prompt_version: PROMPT_VERSION });
 });
 
 // Claims the system could not answer, most-asked first (for the research team).

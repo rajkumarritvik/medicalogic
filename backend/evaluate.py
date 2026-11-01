@@ -145,6 +145,15 @@ def main():
     for m in myths:
         m["_set"] = "fresh" if m.get("fresh") else ("holdout" if m["id"] in hold else ("core" if m["id"] in core else "tuning"))
     todo = [m for m in myths if args.set == "all" or m["_set"] == args.set]
+    if not args.mock and any(m["_set"] == "holdout" for m in todo):
+        try:
+            import urllib.request
+            health = json.load(urllib.request.urlopen(args.url.replace("/api/verify", "/api/health"), timeout=10))
+            if not health.get("holdout_hidden"):
+                print("WARNING: the server can see the holdout claims, so the holdout test is not fair.")
+                print('  Restart the server with:  $env:HIDE_HOLDOUT="on"; node server.js   (then run this again)')
+        except Exception:
+            pass
 
     rows = []
     for m in todo:

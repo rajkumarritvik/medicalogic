@@ -346,13 +346,13 @@
     ],
     "safety_pmids": [],
     "recommended_action": "Consult your doctor. Do not take advertised cancer treatments or follow random medical advice, especially with a chronic or serious illness.",
-    "advice_source": "",
+    "advice_source": "https://www.cancer.gov/about-cancer/treatment/cam/patient/laetrile-pdq",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
     "evidence_last_checked": "2026-11-01",
     "pmid_verified": true,
     "needs_review": [
-      "advice link in the 24-claim sheet pointed to a cybersecurity article; needs a new link"
+      "advice link replaced with the National Cancer Institute laetrile page (the sheet had a cybersecurity article) - Menna to confirm"
     ],
     "core": false,
     "information_disorder_type": "Disinformation"

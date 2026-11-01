@@ -161,4 +161,4 @@ Every claim that came back `Insufficient` is saved in `server/data/unanswered_cl
 | `SEARCH_TERM_SUGGESTIONS` | on | `off` = skip the AI step that turns a new claim into medical PubMed search terms (live tier only) |
 | `CURATED_MATCH_THRESHOLD` | 0.5 | how closely a question must match a curated claim (0–1) |
 | `UNANSWERED_DB` | `server/data/unanswered_claims.json` | where unanswered claims are saved |
-| `HIDE_HOLDOUT` | on locally, off on Vercel | `on` = hide the holdout claims (for evaluate.py tests); `off` = use every claim |
+| `HIDE_HOLDOUT` | off | `on` = hide the 5 holdout claims (only for `evaluate.py --set holdout`); otherwise every claim is used |
