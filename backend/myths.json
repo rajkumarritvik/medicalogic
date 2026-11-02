@@ -42,7 +42,8 @@
         "pages": "601-610",
         "study_type": "Review",
         "relevance": "direct",
-        "note": "Reviews liver damage caused by dietary supplements (safety)."
+        "note": "Reviews liver damage caused by dietary supplements (safety).",
+        "note_ar": "يراجع تلف الكبد الناتج عن المكملات الغذائية (السلامة)."
       },
       {
         "pmid": "1749210",
@@ -56,7 +57,8 @@
         "pages": "421-30",
         "study_type": "Review",
         "relevance": "indirect",
-        "note": "Describes the liver's own built-in detoxification pathways (mechanism)."
+        "note": "Describes the liver's own built-in detoxification pathways (mechanism).",
+        "note_ar": "يصف مسارات إزالة السموم الطبيعية في الكبد (آلية العمل)."
       }
     ],
     "safety_pmids": [],
@@ -68,7 +70,12 @@
     "pmid_verified": true,
     "needs_review": [],
     "core": true,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "مشروبات الديتوكس والمنظفات العشبية تطرد السموم وتنظف الكبد.",
+    "true_part_ar": "الكبد يعمل بالفعل كمنظف للجسم ويتخلص من المواد غير المرغوب فيها.",
+    "overstated_part_ar": "أن الكبد يحتاج إلى منظف خارجي، وأن مشروبات الديتوكس تنظفه.",
+    "recommended_action_ar": "حافظ على نمط حياة صحي: تناول طعاماً متوازناً، واشرب كمية كافية من الماء، ومارس الرياضة، وحافظ على وزن صحي.",
+    "risk_rationale_ar": "الإفراط في هذه المشروبات قد يسبب تسمم الكبد."
   },
   {
     "id": "MYTH-002",
@@ -110,7 +117,8 @@
         "pages": "110-21",
         "study_type": "Review",
         "relevance": "direct",
-        "note": "Reviews garlic's sulfur compounds and their possible health uses (mechanism)."
+        "note": "Reviews garlic's sulfur compounds and their possible health uses (mechanism).",
+        "note_ar": "يراجع المركبات الكبريتية في الثوم واستخداماتها الصحية المحتملة (آلية العمل)."
       },
       {
         "pmid": "11238827",
@@ -126,7 +134,8 @@
         "pages": "1109S-13S",
         "study_type": "Review",
         "relevance": "direct",
-        "note": "Raw garlic can damage the stomach lining (safety)."
+        "note": "Raw garlic can damage the stomach lining (safety).",
+        "note_ar": "الثوم النيء قد يتلف بطانة المعدة (السلامة)."
       }
     ],
     "safety_pmids": [],
@@ -138,7 +147,12 @@
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "شرب ماء الثوم يومياً يقضي على البكتيريا والفيروسات في الجسم.",
+    "true_part_ar": "يحتوي الثوم على مركبات كبريتية عضوية مثل الأليسين، تُظهر خصائص طبيعية مضادة للبكتيريا والفيروسات في المختبر.",
+    "overstated_part_ar": "الادعاء بأن ماء الثوم يقضي على العدوى الفيروسية أو البكتيرية داخل جسم الإنسان.",
+    "recommended_action_ar": "تناول الثوم مطبوخاً بإضافته إلى طعامك، فهذا يخفف تأثيره القوي على المعدة. وتناول أطعمة تدعم البكتيريا النافعة مثل الزبادي واللبن الرائب. وإذا كنت تعاني من القولون العصبي، فاستشر طبيباً أولاً.",
+    "risk_rationale_ar": "يسبب تهيج جدار المعدة وتآكله، واضطراب البكتيريا النافعة في الأمعاء عند استخدامه يومياً، ويشكل خطراً على المصابين بالقولون العصبي."
   },
   {
     "id": "MYTH-003",
@@ -200,7 +214,8 @@
         "pages": "e010438",
         "study_type": "Systematic Review",
         "relevance": "direct",
-        "note": "Systematic review: no evidence that alkaline water or diet acid load treats or prevents cancer."
+        "note": "Systematic review: no evidence that alkaline water or diet acid load treats or prevents cancer.",
+        "note_ar": "مراجعة منهجية: لا يوجد دليل على أن الماء القلوي أو الحمل الحمضي الغذائي يعالج السرطان أو يقي منه."
       }
     ],
     "safety_pmids": [],
@@ -214,7 +229,12 @@
       "one-line note missing for some PMIDs"
     ],
     "core": false,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "شرب الماء القلوي يدمر الخلايا السرطانية.",
+    "true_part_ar": "الماء القلوي يعادل حمض المعدة مؤقتاً عند ملامسته.",
+    "overstated_part_ar": "أنه يعادل حموضة الدم بشكل دائم أو يعالج السرطان.",
+    "recommended_action_ar": "راجع الطبيب إذا ظهرت لديك أي أعراض للسرطان، واتبع تعليمات طبيبك.",
+    "risk_rationale_ar": "قلاء استقلابي شديد ونقص في البوتاسيوم قد يهددان القلب، وضعف امتصاص أدوية السرطان الفموية، وتأخير العلاج الحقيقي بسبب الأمل الزائف."
   },
   {
     "id": "MYTH-004",
@@ -261,7 +281,8 @@
         "pages": "1989-1994",
         "study_type": "RCT",
         "relevance": "direct",
-        "note": "Clinical trial of apple cider vinegar for preventing stones (prevention, not dissolving)."
+        "note": "Clinical trial of apple cider vinegar for preventing stones (prevention, not dissolving).",
+        "note_ar": "تجربة سريرية لخل التفاح في الوقاية من الحصى (الوقاية، لا الإذابة)."
       }
     ],
     "safety_pmids": [
@@ -276,7 +297,12 @@
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "خل التفاح يفتت حصى الكلى.",
+    "true_part_ar": "يحتوي خل التفاح على حمض الأسيتيك وحمض الستريك.",
+    "overstated_part_ar": "الادعاء بأن شرب الخل يذيب حصى الكلى الكلسية الموجودة مباشرة.",
+    "recommended_action_ar": "استشر طبيبك واتبع خطة العلاج الطبية إذا كنت تعاني من حصى الكلى، واشرب الكثير من الماء.",
+    "risk_rationale_ar": "الإفراط في تناول خل التفاح المركّز يومياً على معدة فارغة قد يتلف مينا الأسنان، ويجعل اللثة حساسة، ويبطئ إفراغ المعدة، وهذا خطر على مرضى السكري أو شلل المعدة."
   },
   {
     "id": "MYTH-006",
@@ -318,7 +344,8 @@
         "pages": "CD005476",
         "study_type": "Systematic Review",
         "relevance": "direct",
-        "note": "Cochrane review: no reliable evidence laetrile/amygdalin helps cancer; risk of cyanide poisoning."
+        "note": "Cochrane review: no reliable evidence laetrile/amygdalin helps cancer; risk of cyanide poisoning.",
+        "note_ar": "مراجعة كوكرين: لا يوجد دليل موثوق على أن اللاتريل/الأميغدالين يفيد مرضى السرطان، مع خطر التسمم بالسيانيد."
       },
       {
         "pmid": "7033783",
@@ -341,7 +368,8 @@
         "pages": "201-6",
         "study_type": "Other",
         "relevance": "indirect",
-        "note": "Clinical trial: amygdalin gave no substantial benefit to cancer patients."
+        "note": "Clinical trial: amygdalin gave no substantial benefit to cancer patients.",
+        "note_ar": "تجربة سريرية: لم يقدم الأميغدالين فائدة تُذكر لمرضى السرطان."
       }
     ],
     "safety_pmids": [],
@@ -355,7 +383,12 @@
       "advice link replaced with the National Cancer Institute laetrile page (the sheet had a cybersecurity article) - Menna to confirm"
     ],
     "core": false,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "نوى المشمش المر (فيتامين ب17) يدمر الخلايا السرطانية فوراً.",
+    "true_part_ar": "تحتوي بذور المشمش المر على تركيزات عالية من الأميغدالين.",
+    "overstated_part_ar": "الادعاء بأن فيتامين ب17 يعالج الخلايا السرطانية أو يدمرها، فلا حاجة إلى أي علاج طبي.",
+    "recommended_action_ar": "استشر طبيبك، ولا تتناول علاجات السرطان المعلن عنها ولا تتبع نصائح طبية عشوائية، خاصة مع مرض مزمن أو خطير.",
+    "risk_rationale_ar": "التسمم بالسيانيد، الذي قد يؤدي إلى الوفاة ويُسبب تدهوراً شديداً لدى مرضى السرطان."
   },
   {
     "id": "MYTH-007",
@@ -401,7 +434,8 @@
         "pages": "414-8",
         "study_type": "RCT",
         "relevance": "direct",
-        "note": "Randomized trial: chia seeds did not cause weight loss in overweight adults."
+        "note": "Randomized trial: chia seeds did not cause weight loss in overweight adults.",
+        "note_ar": "تجربة عشوائية: لم تسبب بذور الشيا فقدان الوزن لدى البالغين ذوي الوزن الزائد."
       }
     ],
     "safety_pmids": [],
@@ -413,7 +447,12 @@
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "شرب بذور الشيا الجافة مع الماء الدافئ والليمون يمنع امتصاص الدهون ويسبب فقدان الوزن السريع.",
+    "true_part_ar": "تحتوي بذور الشيا على نسبة عالية من الألياف، مما يشعرك بالشبع.",
+    "overstated_part_ar": "الادعاء بأن جل الشيا يشكّل حاجزاً يمنع امتصاص الدهون أو يسبب فقداناً سريعاً للوزن.",
+    "recommended_action_ar": "لإنقاص الوزن تحتاج إلى عجز في السعرات الحرارية مع خطة غذائية وممارسة الرياضة، واستشر أخصائي تغذية يعرف تاريخك الطبي.",
+    "risk_rationale_ar": "ابتلاع بذور الشيا الجافة يجعلها تنتفخ في المريء والمعدة، مما قد يسبب صعوبة في التنفس وانسداد المريء."
   },
   {
     "id": "MYTH-008",
@@ -485,7 +524,12 @@
       "one-line note missing for some PMIDs"
     ],
     "core": true,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "الفحم النشط يبيّض الأسنان في المنزل.",
+    "true_part_ar": "يمكن للفحم النشط أن يزيل البقع السطحية (من القهوة أو الشاي أو الطعام) عن طريق الاحتكاك الميكانيكي الخفيف.",
+    "overstated_part_ar": "الادعاء بأن الفحم يبيّض الأسنان بعمق مثل علاج التبييض الحقيقي، وأنه آمن للاستخدام اليومي دون أن يُتلف المينا أو يسبب ألماً في الأسنان.",
+    "recommended_action_ar": "استشر طبيب أسنانك بشأن التبييض الاحترافي، وتجنب الوصفات المنزلية مثل الفحم أو بيكربونات الصوديوم.",
+    "risk_rationale_ar": "يُتلف المينا ويكشف الطبقة الأكثر اصفراراً وحساسية تحتها، والفحم العادي (غير النشط) يضيف خطر التسمم والتهيج."
   },
   {
     "id": "MYTH-009",
@@ -525,7 +569,8 @@
         "pages": "CD000247",
         "study_type": "Meta-Analysis",
         "relevance": "direct",
-        "note": "Cochrane review: antibiotics do not help the common cold and cause side effects."
+        "note": "Cochrane review: antibiotics do not help the common cold and cause side effects.",
+        "note_ar": "مراجعة كوكرين: المضادات الحيوية لا تفيد في نزلات البرد وتسبب آثاراً جانبية."
       },
       {
         "pmid": "10796517",
@@ -554,7 +599,12 @@
       "one-line note missing for some PMIDs"
     ],
     "core": true,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "المضادات الحيوية تعالج الإنفلونزا ونزلات البرد.",
+    "true_part_ar": "المضادات الحيوية أدوية قوية مصممة خصيصاً لعلاج العدوى البكتيرية.",
+    "overstated_part_ar": "الادعاء بأن المضادات الحيوية تشفي نزلات البرد أو غيرها من العدوى الفيروسية.",
+    "recommended_action_ar": "إذا أصبت بنزلة برد، راجع الطبيب لتخفيف الأعراض، وتجنب المضادات الحيوية لأنها لا تؤثر في الفيروسات.",
+    "risk_rationale_ar": "الاستخدام الخاطئ يقضي على البكتيريا النافعة والضارة معاً ويؤدي إلى مقاومة المضادات الحيوية، فيصبح علاج العدوى البكتيرية مستقبلاً أصعب."
   },
   {
     "id": "MYTH-010",
@@ -600,7 +650,8 @@
         "pages": "5000-6",
         "study_type": "Other",
         "relevance": "indirect",
-        "note": "Lab study of vegetable oils on eye cells, including toxic effects (safety); not a cataract trial."
+        "note": "Lab study of vegetable oils on eye cells, including toxic effects (safety); not a cataract trial.",
+        "note_ar": "دراسة مخبرية للزيوت النباتية على خلايا العين تشمل تأثيرات سامة (السلامة)، وليست تجربة على المياه البيضاء."
       }
     ],
     "safety_pmids": [],
@@ -612,7 +663,12 @@
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "قطرات زيت الخروع للعين تعالج المياه البيضاء (الساد) وتحسّن الرؤية.",
+    "true_part_ar": "تُستخدم تركيبات معقمة من زيت الخروع في قطرات عين متخصصة قائمة على الدهون لترطيب سطح العين وتخفيف أعراض جفافها.",
+    "overstated_part_ar": "الادعاء بأن زيت الخروع يذيب المياه البيضاء أو يعيد البصر المفقود.",
+    "recommended_action_ar": "إذا كنت مصاباً بالمياه البيضاء، راجع طبيب العيون بشأن العلاج مثل الجراحة، ولا تضع زيوتاً أو أي مواد في عينيك إلا بوصفة طبية.",
+    "risk_rationale_ar": "سمية للخلايا، وتهيج والتهاب شديدان، وفقدان دائم للبصر بسبب تأخير العلاج."
   },
   {
     "id": "MYTH-012",
@@ -687,7 +743,12 @@
       "one-line note missing for some PMIDs"
     ],
     "core": true,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "وضع معجون الأسنان على الحروق يشفيها.",
+    "true_part_ar": "المنثول الموجود في معجون الأسنان يمنح إحساساً قصيراً ومؤقتاً بالبرودة على سطح الجلد.",
+    "overstated_part_ar": "الادعاء بأن معجون الأسنان يشفي الحروق أو أنه من خطوات الإسعافات الأولية للحروق.",
+    "recommended_action_ar": "للحروق البسيطة: برّد الحرق تحت الماء الجاري، وضع مرهماً للحروق، ولا تفقأ الفقاعات. أما الحروق العميقة فتوجّه بها إلى المستشفى.",
+    "risk_rationale_ar": "يزيد الحرق سوءاً وقد يسبب العدوى، كما يلتصق بالحرق وتكون إزالته مؤلمة في الطوارئ."
   },
   {
     "id": "MYTH-013",
@@ -763,7 +824,12 @@
       "one-line note missing for some PMIDs"
     ],
     "core": true,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "مصابيح التسمير المنزلية غير المعايرة طريقة آمنة للحصول على سُمرة سريعة.",
+    "true_part_ar": "تُصدر مصابيح التسمير الصناعية أشعة فوق بنفسجية عالية الشدة (UVA/UVB) تحفّز خلايا الجلد على إنتاج الميلانين.",
+    "overstated_part_ar": "الادعاء بأنها توفر سُمرة سريعة وآمنة دون أي مخاطر.",
+    "recommended_action_ar": "استخدم كريمات التسمير بدون شمس من علامة تجارية آمنة (جرّبها على جزء صغير من الجلد أولاً)، وضع واقي الشمس في الخارج.",
+    "risk_rationale_ar": "سرطان الجلد، خاصة مع الاستخدام المتكرر، وشيخوخة أسرع للجلد بسبب تلف الكولاجين."
   },
   {
     "id": "MYTH-014",
@@ -806,7 +872,8 @@
         "pages": "5-10",
         "study_type": "Systematic Review",
         "relevance": "direct",
-        "note": "Systematic review of cases where raw garlic on skin caused burns (safety)."
+        "note": "Systematic review of cases where raw garlic on skin caused burns (safety).",
+        "note_ar": "مراجعة منهجية لحالات تسبب فيها الثوم النيء على الجلد بحروق (السلامة)."
       }
     ],
     "safety_pmids": [],
@@ -818,7 +885,12 @@
     "pmid_verified": true,
     "needs_review": [],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "وضع الثوم النيء المهروس على فروة الرأس يعالج تساقط الشعر.",
+    "true_part_ar": "جل الثوم المحضّر في المختبرات تحت إشراف الخبراء يحتوي على مركبات كبريتية قد تزيد تدفق الدم إلى فروة الرأس وتهدئ التهاب بصيلات الشعر الموضعي.",
+    "overstated_part_ar": "الادعاء بأن الثوم النيء المهروس يعكس تساقط الشعر أو الصلع.",
+    "recommended_action_ar": "راجع الطبيب لمعرفة سبب تساقط شعرك والحصول على العلاج المناسب.",
+    "risk_rationale_ar": "حروق كيميائية وتساقط دائم للشعر بسبب التندب (الثعلبة الندبية)، إضافة إلى تلف الأنسجة."
   },
   {
     "id": "MYTH-015",
@@ -873,7 +945,10 @@
       "no recommended_action or advice link yet",
       "risk level and verdict to confirm",
       "one-line note missing for PMIDs"
-    ]
+    ],
+    "claim_text_ar": "استخدام الثلج باستمرار يمنح بشرة متوهجة.",
+    "true_part_ar": "يسبب الثلج انقباضاً موضعياً للأوعية الدموية ويقلل التورم، مع اندفاع مؤقت لتدفق الدم وتورّد خفيف عند إزالته.",
+    "overstated_part_ar": "الادعاء بأن استخدام الثلج يومياً يحسّن ملمس البشرة ويضيّق المسام، فلا حاجة لأي عناية بالبشرة أو لطبيب."
   },
   {
     "id": "MYTH-016",
@@ -929,7 +1004,10 @@
       "no recommended_action or advice link yet",
       "risk level and verdict to confirm",
       "one-line note missing for PMIDs"
-    ]
+    ],
+    "claim_text_ar": "شرب عصير الكرفس الصافي كل صباح يعالج أمراض المناعة الذاتية ويطرد السموم المزمنة.",
+    "true_part_ar": "يحتوي الكرفس على مضادات أكسدة مثل الأبيجينين ويوفر ترطيباً صحياً.",
+    "overstated_part_ar": "الادعاء بأن عصير الكرفس يعالج الأمراض المزمنة."
   },
   {
     "id": "MYTH-017",
@@ -985,7 +1063,10 @@
       "no recommended_action or advice link yet",
       "risk level and verdict to confirm",
       "one-line note missing for PMIDs"
-    ]
+    ],
+    "claim_text_ar": "الثوم النيء يعالج آلام الأسنان الشديدة.",
+    "true_part_ar": "يحتوي الثوم على الأليسين، وهو مركب كبريتي عضوي نشط.",
+    "overstated_part_ar": "الادعاء بأن الثوم يعالج التهابات الأسنان أو آلام العصب."
   },
   {
     "id": "MYTH-018",
@@ -1052,7 +1133,10 @@
       "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
     ],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "وضع فصوص الثوم في الأنف يزيل الاحتقان.",
+    "true_part_ar": "يطلق الثوم زيوتاً قوية لاذعة تهيّج بطانة الأنف، فتسبب اندفاعاً فورياً للسوائل والمخاط.",
+    "overstated_part_ar": "الادعاء بأن وضع فصوص الثوم في فتحتي الأنف يزيل انسداد الجيوب الأنفية أو يعالج الاحتقان."
   },
   {
     "id": "MYTH-019",
@@ -1126,7 +1210,10 @@
       "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
     ],
     "core": false,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "شرب الشاي الأخضر يذيب دهون الجسم بسرعة دون حمية أو رياضة.",
+    "true_part_ar": "تُحدث كاتيشينات الشاي الأخضر انخفاضاً صغيراً وغير دال إحصائياً في وزن البالغين ذوي الوزن الزائد.",
+    "overstated_part_ar": "الادعاء بأن مستخلص الشاي الأخضر يسبب فقداناً سريعاً أو كبيراً للوزن وحده دون تغيير النظام الغذائي أو ممارسة الرياضة."
   },
   {
     "id": "MYTH-020",
@@ -1178,7 +1265,10 @@
       "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
     ],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "تناول جرعات عالية من فيتامين (ج) يقي من نزلات البرد ويعالجها.",
+    "true_part_ar": "فيتامين (ج) عنصر غذائي أساسي يدعم وظيفة الخلايا المناعية، ويقلل مدة نزلة البرد قليلاً عند تناوله بانتظام.",
+    "overstated_part_ar": "الادعاء بأن تناول فيتامين (ج) يمنع نزلات البرد تماماً أو يشفي نزلة البرد بعد ظهور الأعراض."
   },
   {
     "id": "MYTH-021",
@@ -1248,7 +1338,10 @@
       "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
     ],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "مضادات التعرق تسبب سرطان الثدي.",
+    "true_part_ar": "تسد مركبات الألومنيوم في مضادات التعرق قنوات العرق في جلد الإبط بشكل مؤقت.",
+    "overstated_part_ar": "الادعاء بأن استخدام مضادات التعرق أو مزيلات العرق المحتوية على الألومنيوم يسبب طفرات في الخلايا أو سرطان الثدي."
   },
   {
     "id": "MYTH-022",
@@ -1304,7 +1397,10 @@
       "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
     ],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "تناول شراب البلسان يقي من الإنفلونزا ويعالج أعراضها.",
+    "true_part_ar": "يحتوي مستخلص البلسان على مركبات البوليفينول التي تثبط تكاثر الفيروسات وتعدّل مؤشرات الاستجابة المناعية في المختبر.",
+    "overstated_part_ar": "الادعاء بأن شراب البلسان يشفي الإنفلونزا أو يقي من العدوى بدلاً من التطعيم."
   },
   {
     "id": "MYTH-023",
@@ -1358,7 +1454,10 @@
       "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
     ],
     "core": false,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "الصبار وحده يمكنه التخلص من حب الشباب الشديد.",
+    "true_part_ar": "يحتوي الصبار على مواد نباتية مهدئة ومضادة للالتهاب تخفف الاحمرار وتهيج سطح الجلد.",
+    "overstated_part_ar": "الادعاء بأن وضع جل الصبار على الجلد يشفي حب الشباب الكيسي الشديد نهائياً أو يقضي على العدوى البكتيرية العميقة في بصيلات الشعر."
   },
   {
     "id": "MYTH-024",
@@ -1411,7 +1510,10 @@
       "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
     ],
     "core": false,
-    "information_disorder_type": "Misinformation"
+    "information_disorder_type": "Misinformation",
+    "claim_text_ar": "السكر يسبب فرط النشاط لدى الأطفال.",
+    "true_part_ar": "تسبب السكريات البسيطة ارتفاعاً سريعاً في مستوى الجلوكوز في الدم، مما يؤدي إلى تقلبات قصيرة المدى في الطاقة الجسدية.",
+    "overstated_part_ar": "الادعاء بأن تناول السكر يسبب فرط النشاط السلوكي أو فقدان السيطرة على النفس أو ضعف القدرات الذهنية لدى الأطفال."
   },
   {
     "id": "MYTH-025",
@@ -1466,7 +1568,10 @@
       "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
     ],
     "core": false,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "إغلاق الفم بشريط لاصق أثناء النوم يمنحك خط فك محدداً.",
+    "true_part_ar": "لدى الأشخاص ذوي الممرات الأنفية السليمة، يؤدي التحول من التنفس عبر الفم إلى التنفس عبر الأنف أثناء النوم إلى تحسين ترشيح الهواء وتقليل الشخير، مما يحسّن جودة النوم بشكل عام.",
+    "overstated_part_ar": "الادعاء بأنه يحدد خط الفك. وجدت الدراسات أن إغلاق الفم بشريط لاصق لا يُحدث فرقاً، وله مخاطر محتملة منها الاختناق."
   },
   {
     "id": "MYTH-026",
@@ -1519,6 +1624,9 @@
       "risk level, recommended action and quotes not filled in yet (new in the 24-claim sheet)"
     ],
     "core": false,
-    "information_disorder_type": "Disinformation"
+    "information_disorder_type": "Disinformation",
+    "claim_text_ar": "شرب ماء الكلوروفيل التجاري يزيد الطاقة ويقلل حب الشباب.",
+    "true_part_ar": "يمتلك الكلوروفيلين خصائص مضادة للأكسدة وتأثيرات خفيفة مضادة للالتهاب قد تساعد في التئام جروح الجلد.",
+    "overstated_part_ar": "الادعاء بأن شرب الكلوروفيل السائل التجاري يمنح دفعة مباشرة من الطاقة الخلوية، أو أنه علاج أساسي لحب الشباب."
   }
 ]

@@ -70,6 +70,7 @@ async function curatedArticles(myth, warnings) {
       url: `https://pubmed.ncbi.nlm.nih.gov/${pmid}/`,
       abstract: fromPubMed?.abstract || '',
       team_note: e.note,
+      team_note_ar: e.note_ar || '',
       team_relevance: e.relevance,
     });
   }
@@ -111,6 +112,9 @@ async function toEnglish(claim, provider, warnings) {
   return '';
 }
 
+/** A team field in the page's language: myths.json has claim_text_ar, recommended_action_ar, etc. for the Arabic page. */
+const tr = (m, field, lang) => (lang === 'ar' && m[field + '_ar']) || m[field] || '';
+
 const VERDICT_SET = new Set(['Supported', 'Refuted', 'Divergent', 'Insufficient']);
 
 /**
@@ -128,7 +132,7 @@ const teamSource = (a, note) => ({
 function teamSourcesFirst(answer, articles, lang) {
   const aiNotes = new Map((answer.sources || []).map(s => [s.pmid, s.note]));
   const team = articles.filter(a => 'team_relevance' in a).map(a =>
-    teamSource(a, lang === 'en' ? (a.team_note || aiNotes.get(a.pmid)) : (aiNotes.get(a.pmid) || a.team_note)));
+    teamSource(a, lang === 'en' ? (a.team_note || aiNotes.get(a.pmid)) : (a.team_note_ar || aiNotes.get(a.pmid) || a.team_note)));
   const teamIds = new Set(team.map(t => t.pmid));
   answer.sources = [...team, ...(answer.sources || []).filter(s => !teamIds.has(s.pmid))];
 }
@@ -136,10 +140,10 @@ function teamSourcesFirst(answer, articles, lang) {
 function useTeamData(answer, m, articles, lang) {
   const aiNotes = new Map((answer.sources || []).map(s => [s.pmid, s.note]));
   if (VERDICT_SET.has(m.verdict)) answer.verdict = m.verdict;
-  if (lang === 'en') {
-    if (m.true_part) answer.true_part = m.true_part;
-    if (m.overstated_part) answer.overstated_part = m.overstated_part;
-  }
+  const t = tr(m, 'true_part', lang), o = tr(m, 'overstated_part', lang);
+  // English page: always the team's text. Arabic page: the team's Arabic translation (if there isn't one, the AI's Arabic wording stays).
+  if (t && (lang === 'en' || m.true_part_ar)) answer.true_part = t;
+  if (o && (lang === 'en' || m.overstated_part_ar)) answer.overstated_part = o;
   answer.sources = articles.map(a => ({
     pmid: a.pmid,
     title: a.title,
@@ -148,7 +152,7 @@ function useTeamData(answer, m, articles, lang) {
     study_type: a.study_type || 'Other',
     url: a.url || `https://pubmed.ncbi.nlm.nih.gov/${a.pmid}/`,
     relevance: a.team_relevance === 'indirect' ? 'indirect' : 'direct',
-    note: lang === 'en' ? (a.team_note || aiNotes.get(a.pmid) || '') : (aiNotes.get(a.pmid) || a.team_note || ''),
+    note: lang === 'en' ? (a.team_note || aiNotes.get(a.pmid) || '') : (a.team_note_ar || aiNotes.get(a.pmid) || a.team_note || ''),
     team: true,
   }));
   answer.team_reviewed = true;
@@ -244,10 +248,10 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
     curated: m ? {
       myth_id: m.id,
       match_score: Number(match.score.toFixed(2)),
-      claim_text: m.claim_text,
+      claim_text: tr(m, 'claim_text', lang),
       risk_level: m.risk_rationale ? m.risk_classification : null, // only shown once the team has filled in the reason
-      risk_rationale: m.risk_rationale,
-      recommended_action: m.recommended_action,
+      risk_rationale: tr(m, 'risk_rationale', lang),
+      recommended_action: tr(m, 'recommended_action', lang),
       advice_source: m.advice_source || '',
       manipulation_markers: m.manipulation_markers,
       platform_origin: m.platform_origin,
@@ -255,8 +259,8 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
     related: (!m && related) ? {
       myth_id: related.myth.id,
       match_score: Number(related.score.toFixed(2)),
-      claim_text: related.myth.claim_text,
-      recommended_action: related.myth.recommended_action || '',
+      claim_text: tr(related.myth, 'claim_text', lang),
+      recommended_action: tr(related.myth, 'recommended_action', lang),
       advice_source: related.myth.advice_source || '',
     } : null,
     manipulation: analyzeManipulation(query, lang),
