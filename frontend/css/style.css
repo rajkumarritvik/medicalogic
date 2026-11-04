@@ -1893,3 +1893,10 @@ html.ml-anim .in .claim-box mark, html.ml-anim .v-result.show .claim-box mark, h
   .v-empty h1 { margin-top: 14px; }
   .v-result { padding-top: 10px; }
 }
+
+/* "We understood your claim as…" line on the Arabic result page */
+.v-understood { margin: -2px 0 14px; padding: 10px 14px; border-radius: 12px; background: rgba(38, 83, 255, 0.07);
+  color: var(--dark-blue-color); font-size: 13px; line-height: 1.6; }
+.v-understood[hidden] { display: none; }
+.v-understood i { margin-inline-end: 6px; opacity: 0.8; }
+.v-understood span[dir="ltr"] { font-weight: 600; }

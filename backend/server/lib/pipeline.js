@@ -9,7 +9,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { matchMyth, findRelated } from './curated.js';
+import { matchMyth, matchMythArabic, findRelated } from './curated.js';
 import { articlesFor, searchEvidence } from './pubmed.js';
 import { searchHealthTopics } from './medlineplus.js';
 import { complete } from './llm.js';
@@ -20,6 +20,7 @@ import { createLimiter, createCache } from './ratelimit.js';
 import { UpstreamError } from './http.js';
 import { analyzeManipulation } from './manipulation.js';
 import { recordUnanswered } from './unanswered.js';
+import { memoKey, getVerdict, saveVerdict } from './memo.js';
 
 const liveLimiter = createLimiter({ windowMs: 60_000, max: Number(process.env.LIVE_LIMIT_PER_MIN || 8) });
 const cache = createCache({ ttlMs: Number(process.env.CACHE_TTL_MINUTES || 360) * 60_000 });
@@ -83,17 +84,20 @@ function fallbackAnswer(lang) {
 
 /** Ask the AI for 2-3 proper medical search queries. Returns [] if anything goes wrong. */
 async function suggestQueries(claim, provider, warnings) {
-  if (process.env.SEARCH_TERM_SUGGESTIONS === 'off') return [];
+  if (process.env.SEARCH_TERM_SUGGESTIONS === 'off') return { claim: '', queries: [] };
   try {
-    const out = await complete({ system: SEARCH_TERMS_PROMPT, user: `Claim: "${claim}"`, provider, maxTokens: 400 });
-    const list = parseModelJSON(out.text)?.queries;
-    return (Array.isArray(list) ? list : [])
+    const out = await complete({ system: SEARCH_TERMS_PROMPT, user: `Claim: "${claim}"`, provider, maxTokens: 500 });
+    const json = parseModelJSON(out.text) || {};
+    const list = json.queries;
+    const queries = (Array.isArray(list) ? list : [])
       .map(q => String(q).toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').replace(/\s+/g, ' ').trim())
       .filter(q => q.split(' ').length >= 1 && q.split(' ').length <= 5)
       .slice(0, 3);
+    const tidy = typeof json.claim === 'string' && !hasArabic(json.claim) ? json.claim.trim().slice(0, 500) : '';
+    return { claim: tidy, queries };
   } catch (err) {
     warnings.push(`search-term suggestion failed (${err.message}) - used keywords only`);
-    return [];
+    return { claim: '', queries: [] };
   }
 }
 
@@ -114,6 +118,14 @@ async function toEnglish(claim, provider, warnings) {
 
 /** A team field in the page's language: myths.json has claim_text_ar, recommended_action_ar, etc. for the Arabic page. */
 const tr = (m, field, lang) => (lang === 'ar' && m[field + '_ar']) || m[field] || '';
+
+// Words that limit a claim to "this thing on its own" (English + Arabic).
+const ONLY_RE = /\b(alone|only|by itself|on its own|without|instead of|replaces?|rely(ing)? on|relies on|depend(ing)? on)\b|وحده|وحدها|لوحده|بمفرده|فقط|بدون|بدلاً من|بدلا من|دون|الاعتماد على|الاعتماد علي|يعتمد على|اعتمد على/i;
+/** True when the team's claim is "X alone/without ..." and the user's claim isn't. */
+function isSofterClaim(userText, myth) {
+  const team = `${myth.claim_text} ${myth.claim_text_ar || ''}`;
+  return ONLY_RE.test(team) && !ONLY_RE.test(userText);
+}
 
 const VERDICT_SET = new Set(['Supported', 'Refuted', 'Divergent', 'Insufficient']);
 
@@ -165,11 +177,41 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
   if (hit) return { ...hit, meta: { ...hit.meta, cached: true, latency_ms: Date.now() - t0 } };
 
   const warnings = [];
-  // Our database and PubMed are English, so Arabic claims are searched in English.
-  const english = hasArabic(query) ? await toEnglish(query, provider, warnings) : '';
-  const searchText = english || query;
-  const match = matchMyth(searchText);
-  let tier, articles, kw, teamNotes = null, searchQueries = [], related = null;
+  // Arabic claims are first compared with the team's own Arabic wording, so a literal translation can't make them miss.
+  // Otherwise they are translated to English (our database and PubMed are English) for matching and searching.
+  const arMatch = hasArabic(query) ? matchMythArabic(query) : null;
+  let english = hasArabic(query) && !arMatch ? await toEnglish(query, provider, warnings) : '';
+  let searchText = english || query;
+  let match = arMatch || matchMyth(searchText);
+  let tier, articles, kw, teamNotes = null, searchQueries = [], related = null, tidyClaim = '';
+
+  // The team's claim says "X ALONE / WITHOUT anything else does Y" but the user's claim is the softer
+  // "X helps with Y": that's a different (weaker) claim, so the team's verdict doesn't apply as-is.
+  // We still show the team's sources and advice link on top, but the AI judges the softer claim.
+  let softer = null;
+  if (match && isSofterClaim(query + ' ' + english, match.myth)) {
+    softer = match;
+    match = null;
+    if (hasArabic(query) && !english) { english = await toEnglish(query, provider, warnings); searchText = english || query; }
+  }
+
+  if (!match) {
+    const allowed = liveLimiter.check(ip);
+    if (!allowed.ok) {
+      const e = new RequestError('RATE_LIMITED', `Too many new-claim searches. Try again in ${allowed.retryAfterSec}s.`, 429);
+      e.retryAfterSec = allowed.retryAfterSec;
+      throw e;
+    }
+    // The AI tidies the claim (spelling, standard medical words) and suggests PubMed searches.
+    // Then we check the team's database again, so "alo vera gets rid of pimples" still finds the aloe vera claim.
+    const s = await suggestQueries(searchText, provider, warnings);
+    searchQueries = s.queries;
+    tidyClaim = s.claim;
+    if (tidyClaim && !softer) {
+      match = matchMyth(tidyClaim);
+      if (match && isSofterClaim(query + ' ' + tidyClaim, match.myth)) { softer = match; match = null; }
+    }
+  }
 
   if (match) {
     const m = match.myth;
@@ -178,15 +220,8 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
     articles = await curatedArticles(m, warnings);
     teamNotes = { verdict: m.verdict || '', mechanism: m.mechanism || '', risk: m.risk_rationale || '', true_part: m.true_part || '', overstated_part: m.overstated_part || '' };
   } else {
-    const allowed = liveLimiter.check(ip);
-    if (!allowed.ok) {
-      const e = new RequestError('RATE_LIMITED', `Too many new-claim searches. Try again in ${allowed.retryAfterSec}s.`, 429);
-      e.retryAfterSec = allowed.retryAfterSec;
-      throw e;
-    }
     tier = 'live';
-    kw = searchTerms(searchText);
-    searchQueries = await suggestQueries(searchText, provider, warnings);
+    kw = searchTerms(tidyClaim || searchText);
     try {
       articles = (kw.length || searchQueries.length) ? await searchEvidence(kw, undefined, searchQueries) : [];
     } catch (err) {
@@ -194,7 +229,7 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
       throw err;
     }
     // A related claim in the team's database? Put its checked papers first, then the live results.
-    related = findRelated(searchText);
+    related = softer || findRelated(tidyClaim || searchText) || (tidyClaim ? findRelated(searchText) : null);
     if (related) {
       const team = await curatedArticles(related.myth, warnings);
       const ids = new Set(team.map(t => t.pmid));
@@ -216,7 +251,10 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
   } else {
     const allowed = new Map(articles.map(a => [a.pmid, a]));
     const system = systemPrompt(lang);
-    const user = userMessage({ claim: english ? `${query}\n(English: ${english})` : query, articles, consumer, teamNotes });
+    // New claims: reuse the verdict this claim got before (e.g. in the other language), so answers stay consistent.
+    const vKey = tier === 'live' ? memoKey(tidyClaim || searchText) : '';
+    const priorVerdict = vKey ? await getVerdict(vKey) : '';
+    const user = userMessage({ claim: english ? `${query}\n(English: ${english})` : query, articles, consumer, teamNotes, priorVerdict });
     let result;
     for (let attempt = 0; attempt < 2 && !result?.answer; attempt++) {
       const out = await complete({ system, user, provider });
@@ -229,6 +267,11 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
     answer = result.answer;
     if (tier === 'curated') useTeamData(answer, match.myth, articles, lang);
     else if (related) teamSourcesFirst(answer, articles, lang);
+    if (vKey) {
+      const keepPrior = VERDICT_SET.has(priorVerdict) && priorVerdict !== 'Insufficient' && answer.sources.length > 0;
+      if (keepPrior) answer.verdict = priorVerdict;
+      else if (answer.verdict !== 'Insufficient' || !priorVerdict) await saveVerdict(vKey, answer.verdict);
+    }
     if (!answer.summary) answer.summary = answer.verdict === 'Insufficient' ? FALLBACK_SUMMARY[lang] : '';
   }
 
@@ -275,6 +318,8 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
       cached: false,
       retrieved: { pubmed: articles.length, medlineplus: consumer.length },
       search_text_en: english || null,
+      matched_arabic: Boolean(arMatch),
+      tidy_claim: tidyClaim || null,
       search_queries: searchQueries,
       retrieved_articles: articles.map(a => ({ pmid: a.pmid, title: a.title, study_type: a.study_type })),
       warnings,

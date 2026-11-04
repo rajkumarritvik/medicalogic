@@ -25,7 +25,7 @@
       risk: 'Risk level', advice: 'What to do instead', trusted: 'Trusted medical advice', srcTeam: 'Checked by our research team', srcLive: 'More from a live search', checked: 'Evidence last checked', newChat: 'New Claim',
       noChats: 'No chats yet', searchPh: 'Search your chats…', clear: 'Clear history', clearQ: 'Delete all saved chats on this device?',
       errNet: LOCAL_HINT_EN,
-      notAdvice: 'This is not medical advice.', reportTitle: 'MedicaLogic report', claim: 'Claim', verdict: 'Verdict', sources: 'Sources', meter: 'Manipulation Detector', tags: 'Tags', generated: 'Generated',
+      notAdvice: 'This is not medical advice.', understood: 'We understood your claim as:', understoodTeam: 'Your claim matches one in our team\'s database:', reportTitle: 'MedicaLogic report', claim: 'Claim', verdict: 'Verdict', sources: 'Sources', meter: 'Manipulation Detector', tags: 'Tags', generated: 'Generated',
       dots: ['Supported', 'Divergent / evolving', 'Not supported'], more: 'Learn more',
     },
     ar: {
@@ -46,7 +46,7 @@
         SOURCES_UNAVAILABLE: 'قاعدة PubMed لا تستجيب الآن. حاول مرة أخرى بعد دقيقة.',
         SERVER_ERROR: 'حدث خطأ في الخادم. حاول مرة أخرى.',
       },
-      notAdvice: 'هذه ليست نصيحة طبية.', reportTitle: 'تقرير MedicaLogic', claim: 'الادعاء', verdict: 'الحكم', sources: 'المصادر', meter: 'كاشف التلاعب', tags: 'الوسوم', generated: 'تاريخ التقرير',
+      notAdvice: 'هذه ليست نصيحة طبية.', understood: 'فهمنا ادعاءك على أنه:', understoodTeam: 'يطابق ادعاءك ادعاءً في قاعدة بيانات فريقنا:', reportTitle: 'تقرير MedicaLogic', claim: 'الادعاء', verdict: 'الحكم', sources: 'المصادر', meter: 'كاشف التلاعب', tags: 'الوسوم', generated: 'تاريخ التقرير',
       dots: ['مدعوم', 'أدلة متضاربة', 'غير مدعوم'], more: 'اعرف المزيد',
     },
   }[lang];
@@ -178,6 +178,18 @@
   // ---------- rendering the answer ----------
   function render(query, d) {
     if ('value' in pasted) pasted.value = query; else pasted.textContent = query;
+    // Arabic page: show how we understood the claim in English, so a bad translation is easy to spot and fix
+    var und = $('#vUnderstood');
+    if (und) {
+      var en = d.meta && (d.meta.tidy_claim || d.meta.search_text_en);
+      var teamAr = d.meta && d.meta.matched_arabic && d.curated && d.curated.claim_text;
+      if (lang === 'ar' && (en || teamAr)) {
+        und.innerHTML = teamAr
+          ? '<i class="fa-solid fa-language"></i> ' + esc(T.understoodTeam) + ' «' + esc(teamAr) + '»'
+          : '<i class="fa-solid fa-language"></i> ' + esc(T.understood) + ' <span dir="ltr" lang="en">' + esc(en) + '</span>';
+        und.hidden = false;
+      } else { und.hidden = true; und.innerHTML = ''; }
+    }
     var m = d.manipulation || null;
 
     // Left blue box: the pasted text with pressure words highlighted

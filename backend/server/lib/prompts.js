@@ -3,11 +3,11 @@
 // v2.0 adds: synthesis rules, direct/indirect sources, "true vs overstated",
 // a <150-word summary, and a strict JSON reply the website can display.
 
-export const PROMPT_VERSION = '2.2';
+export const PROMPT_VERSION = '2.3';
 
 export function systemPrompt(lang = 'en') {
   const arabic = lang === 'ar'
-    ? '\n9. Write "summary", "true_part", "overstated_part" and every "note" in Modern Standard Arabic. Keep JSON keys, verdict values and PMIDs in English.'
+    ? '\n9. Write "summary", "true_part", "overstated_part" and every "note" in clear, natural Modern Standard Arabic, as if written in Arabic from the start, not translated word for word from English. Use the common Arabic medical terms people know (e.g. حب الشباب for acne, نزلة البرد for the common cold, ضغط الدم for blood pressure, السكري for diabetes), keep sentences short and simple, and put an English scientific term in brackets only when it helps. Keep JSON keys, verdict values and PMIDs in English.'
     : '';
   return `You are MedicaLogic, a medical-literature verification engine for health educators and students.
 
@@ -32,7 +32,7 @@ RULES
 }
 
 /** Builds the user message: the claim plus every source the model is allowed to use. */
-export function userMessage({ claim, articles, consumer = [], teamNotes = null }) {
+export function userMessage({ claim, articles, consumer = [], teamNotes = null, priorVerdict = '' }) {
   const blocks = articles.map(a => [
     `[PMID ${a.pmid}] (${a.study_type}${a.year ? ', ' + a.year : ''}${a.journal ? ', ' + a.journal : ''})`,
     `Title: ${a.title}`,
@@ -41,6 +41,9 @@ export function userMessage({ claim, articles, consumer = [], teamNotes = null }
   ].filter(Boolean).join('\n'));
 
   const parts = [`CLAIM: "${claim}"`, '', 'CONTEXT:'];
+  if (priorVerdict) {
+    parts.push(`[Consistency note] This same claim was already answered (possibly in another language) with the verdict "${priorVerdict}". Use the same verdict so English and Arabic users get the same answer.\n`);
+  }
   if (teamNotes) {
     parts.push(`[MedicaLogic research notes - checked against the PMIDs below]\nTeam verdict: ${teamNotes.verdict || 'not set'} (your summary must agree with it)\nMechanism: ${teamNotes.mechanism}\nRisk: ${teamNotes.risk}\nWhat is true: ${teamNotes.true_part}\nWhat is overstated: ${teamNotes.overstated_part}\n`);
   }
@@ -63,14 +66,18 @@ export const FALLBACK_SUMMARY = {
 
 // Used BEFORE searching PubMed: turns a social-media claim into proper medical search terms.
 // The model only chooses WHAT to search for; the verdict still comes only from retrieved papers.
-export const SEARCH_TERMS_PROMPT = `You help search PubMed. Turn the health claim into 2 or 3 short PubMed search queries
-(2 to 4 words each) using the standard scientific or medical terms researchers would use
-(compound names, condition names, MeSH-style terms). Example: "bitter apricot kernels vitamin B17 cure cancer"
--> ["amygdalin cancer", "laetrile cancer", "apricot kernel cyanide"].
-Do not judge or answer the claim. Use plain words only, no quotes or operators.
-Reply with JSON only: {"queries": ["...", "..."]}`;
+export const SEARCH_TERMS_PROMPT = `You help search PubMed. Do two things with the health claim:
+1. "claim": rewrite it as one clear English sentence with the same meaning, fixing spelling mistakes and using the
+   standard everyday medical words (e.g. "alo vera" -> "aloe vera", "pimples"/"zits" -> "acne", "the flu" stays "the flu").
+   Do not judge, soften or change what is claimed.
+2. "queries": 2 or 3 short PubMed search queries (2 to 4 words each) using the standard scientific or medical terms
+   researchers would use (compound names, condition names, MeSH-style terms). Example: "bitter apricot kernels vitamin B17
+   cure cancer" -> ["amygdalin cancer", "laetrile cancer", "apricot kernel cyanide"]. Plain words only, no quotes or operators.
+Reply with JSON only: {"claim": "...", "queries": ["...", "..."]}`;
 
 // Arabic claims: translated to English ONLY for matching our database and searching PubMed
 // (both are English). The user still sees the original text and an Arabic answer.
-export const TRANSLATE_PROMPT = `Translate this health claim into plain English, keeping its meaning exactly
-(do not correct, judge or soften it). Reply with JSON only: {"english": "..."}`;
+export const TRANSLATE_PROMPT = `Translate this health claim (it may be in Modern Standard or colloquial Arabic) into plain English,
+keeping its meaning exactly (do not correct, judge or soften it). Use the standard English medical words for things:
+for example "حبوب" or "حبوب الوجه" about skin means "acne" (not pills), "ألوفيرا"/"الصبار" means "aloe vera",
+"البرد"/"الزكام" means "the common cold". Keep words that limit the claim, such as "الاعتماد على" (relying on), "وحده" (alone), "فقط" (only), "بدون" (without). Fix obvious spelling mistakes. Reply with JSON only: {"english": "..."}`;
