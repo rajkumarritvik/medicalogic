@@ -84,12 +84,13 @@ const prepEn = t => String(t).replace(/vitamin\s+([a-z][0-9]{0,2})\b/gi, 'vitami
 const GENERIC_EN = matchTerms(`drink drinking drinks water cure cures cured treat treats treatment heal heals kill kills killing
   prevent prevents prevention cause causes caused help helps stop stops reduce reduces boost boosts improve improves
   good bad health healthy body daily day every morning eat eating take taking use using get gets rid lose losing make makes
-  work works natural quick rapid rapidly fast instantly safe really actually true real best way`);
+  work works natural quick rapid rapidly fast instantly safe really actually true real best way
+  warm hot cold dry empty stomach morning night bedtime glass cup`);
 const COND_EN = matchTerms(`cancer cancers tumor cold colds flu influenza acne pimples liver kidney kidneys stone stones burn burns
   tooth teeth toothache toothaches hair baldness skin wrinkles weight fat obesity cataract cataracts vision eye eyes
   autoimmune disease diseases infection infections bacteria viruses virus congestion sinus hyperactivity energy jawline
   inflammation diabetes blood pressure heart`);
-const GENERIC_AR = arabicTerms('سبب يسبب تسبب علاج يعالج تعالج شفاء يشفي تشفي قتل يقتل منع يمنع يقي تقي يقلل تقلل يزيد يساعد ماء شرب يشرب يوم كل مفيد صحه جسم الجسم يخلي يعطي طبيعي سريع بسرعه امن آمن');
+const GENERIC_AR = arabicTerms('سبب يسبب تسبب علاج يعالج تعالج شفاء يشفي تشفي قتل يقتل منع يمنع يقي تقي يقلل تقلل يزيد يساعد ماء شرب يشرب يوم كل مفيد صحه جسم الجسم يخلي يعطي طبيعي سريع بسرعه امن آمن دافئ دافي ساخن بارد صباح صباحا الصبح الريق ريق كوب');
 const COND_AR = arabicTerms('سرطان برد انفلونزا زكام حب الشباب كبد كلي كلى حصي حصى حصوات حروق حرق اسنان سن شعر صلع بشره جلد وزن دهون عين بصر الساد مناعه عدوي بكتيريا فيروسات احتقان التهاب سكري ضغط قلب طاقه فك نشاط');
 
 function judge(q, t, generic, cond) {
