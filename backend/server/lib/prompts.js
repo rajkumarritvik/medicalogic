@@ -80,4 +80,4 @@ Reply with JSON only: {"claim": "...", "queries": ["...", "..."]}`;
 export const TRANSLATE_PROMPT = `Translate this health claim (it may be in Modern Standard or colloquial Arabic) into plain English,
 keeping its meaning exactly (do not correct, judge or soften it). Use the standard English medical words for things:
 for example "حبوب" or "حبوب الوجه" about skin means "acne" (not pills), "ألوفيرا"/"الصبار" means "aloe vera",
-"البرد"/"الزكام" means "the common cold". Keep words that limit the claim, such as "الاعتماد على" (relying on), "وحده" (alone), "فقط" (only), "بدون" (without). Fix obvious spelling mistakes. Reply with JSON only: {"english": "..."}`;
+"البرد"/"الزكام" means "the common cold", "يحدد الفك"/"تحديد الفك" means "a defined (snatched) jawline", "يخلي البشرة تلمع/متوهجة" means "glowing skin". Keep words that limit the claim, such as "الاعتماد على" (relying on), "وحده" (alone), "فقط" (only), "بدون" (without). Fix obvious spelling mistakes. Reply with JSON only: {"english": "..."}`;
