@@ -73,7 +73,9 @@ export function mythsPath() { return loadedFrom; }
  * Score = Dice overlap of key terms (0..1). Needs >= 2 shared terms and score >= threshold.
  */
 // "vitamin C" and "vitamin D" are different things: keep the letter attached
-const prepEn = t => String(t).replace(/vitamin\s+([a-z][0-9]{0,2})\b/gi, 'vitamin$1');
+const EN_SYN = [[/\bfaces?\b/gi, 'skin'], [/\b(pimples?|zits?|breakouts?)\b/gi, 'acne'], [/\balo\b/gi, 'aloe'],
+  [/\bdeodorants?\b/gi, 'antiperspirant'], [/\b(glow|glowy|radiant)\b/gi, 'glowing']];
+const prepEn = t => EN_SYN.reduce((x, [re, to]) => x.replace(re, to), String(t)).replace(/vitamin\s+([a-z][0-9]{0,2})\b/gi, 'vitamin$1');
 
 // ---------- Deciding whether two claims are "the same claim" ----------
 // Shared words alone aren't enough ("Garlic cures cancer" shares "garlic" and "cures" with
@@ -104,7 +106,10 @@ function judge(q, t, generic, cond) {
   }
   for (const w of t) if (cond.has(w)) tCond++;
   const clash = qCond > 0 && tCond > 0 && condShared === 0;
-  const score = (2 * shared) / (q.size + t.size || 1);
+  // Similarity counts only meaningful words, so filler ("make", "use", "every day") doesn't water down a match.
+  const meaningful = set => { let n = 0; for (const w of set) if (!generic.has(w)) n++; return n; };
+  const sharedMeaningful = topic + condShared;
+  const score = (2 * sharedMeaningful) / (meaningful(q) + meaningful(t) || 1);
   return { score, ok: shared >= 2 && topic >= 1 && !clash };
 }
 

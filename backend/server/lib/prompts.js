@@ -72,7 +72,9 @@ export const SEARCH_TERMS_PROMPT = `You help search PubMed. Do two things with t
    Do not judge, soften or change what is claimed.
 2. "queries": 2 or 3 short PubMed search queries (2 to 4 words each) using the standard scientific or medical terms
    researchers would use (compound names, condition names, MeSH-style terms). Example: "bitter apricot kernels vitamin B17
-   cure cancer" -> ["amygdalin cancer", "laetrile cancer", "apricot kernel cyanide"]. Plain words only, no quotes or operators.
+   cure cancer" -> ["amygdalin cancer", "laetrile cancer", "apricot kernel cyanide"]. Translate everyday words into the
+   medical names researchers use: "night vision" -> "night blindness" / "dark adaptation", "glowing skin" -> "skin
+   appearance", "pimples" -> "acne vulgaris", "belly fat" -> "abdominal obesity". Plain words only, no quotes or operators.
 Reply with JSON only: {"claim": "...", "queries": ["...", "..."]}`;
 
 // Arabic claims: translated to English ONLY for matching our database and searching PubMed

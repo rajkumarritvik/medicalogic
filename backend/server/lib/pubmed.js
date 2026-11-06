@@ -6,7 +6,7 @@
 // so the AI can never cite a paper that doesn't exist.
 
 import { fetchWithRetry, makeThrottle, UpstreamError } from './http.js';
-import { cleanText, truncateChars } from './text.js';
+import { cleanText, truncateChars, matchTerms } from './text.js';
 
 const BASE = () => process.env.PUBMED_BASE || 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
 const throttle = makeThrottle(process.env.NCBI_API_KEY ? 110 : 350);
@@ -128,17 +128,36 @@ export async function searchEvidence(kw, max = Number(process.env.PUBMED_MAX_RES
   const rank = { 'Systematic Review': 0, 'Meta-Analysis': 0, RCT: 1, Guideline: 1, Review: 2, 'Case Report': 3, Other: 4 };
   const byStrength = list => list.sort((a, b) => (rank[a.study_type] ?? 4) - (rank[b.study_type] ?? 4) || (b.year || 0) - (a.year || 0));
 
-  // 0. AI-suggested medical search terms (e.g. "amygdalin cancer"), strongest study types first.
+  // 0. AI-suggested medical search terms (e.g. "amygdalin cancer"). We collect a wider pool of candidates
+  //    (strong study types first), then keep the ones that actually talk about the claim, so an off-topic
+  //    systematic review can't crowd out the relevant papers.
   const qIds = [];
+  const POOL = Number(process.env.PUBMED_CANDIDATES || 12);
   for (const q of queries) {
     const words = q.split(/\s+/).filter(Boolean);
     for (const term of [`(${words.join(' AND ')}) AND systematic[sb]`, `(${words.join(' AND ')}) AND ${STRONG_TYPES}`]) {
-      for (const id of await esearch(term, 2)) if (!qIds.includes(id)) qIds.push(id);
-      if (qIds.length >= max) break;
+      for (const id of await esearch(term, 3)) if (!qIds.includes(id)) qIds.push(id);
     }
-    if (qIds.length >= max) break;
+    if (qIds.length >= POOL) break;
   }
-  const fromQueries = qIds.length ? await articlesFor(qIds.slice(0, max)) : [];
+  let fromQueries = qIds.length ? await articlesFor(qIds.slice(0, POOL)) : [];
+  if (fromQueries.length) {
+    // Relevance = how many of the claim's key words (and the search words) appear in the title + abstract.
+    // The claim's own words count double, so a paper about a different topic that only shares search words ranks lower.
+    const claimWords = matchTerms(core.join(' '));
+    const searchWords = matchTerms(queries.join(' '));
+    const rel = a => {
+      const have = matchTerms(`${a.title} ${a.abstract}`);
+      let c = 0, q = 0;
+      for (const t of claimWords) if (have.has(t)) c++;
+      for (const t of searchWords) if (have.has(t) && !claimWords.has(t)) q++;
+      return { c, r: 2 * c + q };
+    };
+    const scored = fromQueries.map(a => ({ a, ...rel(a) }));
+    fromQueries = scored.filter(x => x.c >= 1 && x.r >= 3)
+      .sort((x, y) => y.r - x.r || (rank[x.a.study_type] ?? 4) - (rank[y.a.study_type] ?? 4))
+      .map(x => x.a).slice(0, max);
+  }
   if (fromQueries.length >= max || !core.length) return byStrength(fromQueries).slice(0, max);
   const rest = await keywordSearch(core, max - fromQueries.length, new Set(fromQueries.map(a => a.pmid)));
   return byStrength(fromQueries.concat(rest));

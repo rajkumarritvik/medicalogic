@@ -183,7 +183,15 @@
     if (und) {
       var en = d.meta && (d.meta.tidy_claim || d.meta.search_text_en);
       var teamAr = d.meta && d.meta.matched_arabic && d.curated && d.curated.claim_text;
-      if (lang === 'ar' && (en || teamAr)) {
+      var teamEn = lang !== 'ar' && d.curated && d.curated.claim_text;
+      var norm = function (x) { return String(x || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); };
+      if (lang !== 'ar' && (teamEn || (en && norm(en) !== norm(query)))) {
+        // English page: show which team claim it matched, or how the AI tidied a loosely worded claim
+        und.innerHTML = teamEn
+          ? '<i class="fa-solid fa-circle-check"></i> ' + esc(T.understoodTeam) + ' “' + esc(teamEn) + '”'
+          : '<i class="fa-solid fa-pen"></i> ' + esc(T.understood) + ' “' + esc(en) + '”';
+        und.hidden = norm(teamEn) === norm(query) && !!teamEn;
+      } else if (lang === 'ar' && (en || teamAr)) {
         und.innerHTML = teamAr
           ? '<i class="fa-solid fa-language"></i> ' + esc(T.understoodTeam) + ' «' + esc(teamAr) + '»'
           : '<i class="fa-solid fa-language"></i> ' + esc(T.understood) + ' <span dir="ltr" lang="en">' + esc(en) + '</span>';
