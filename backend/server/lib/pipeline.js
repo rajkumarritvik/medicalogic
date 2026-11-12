@@ -237,11 +237,14 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
     }
   }
 
+  // Team claims show only what's in our database (the team's papers + advice link), no extra outside links.
   let consumer = [];
-  try {
-    consumer = await searchHealthTopics(kw);
-  } catch (err) {
-    warnings.push(`MedlinePlus unavailable (${err.message})`);
+  if (tier !== 'curated') {
+    try {
+      consumer = await searchHealthTopics(kw);
+    } catch (err) {
+      warnings.push(`MedlinePlus unavailable (${err.message})`);
+    }
   }
 
   let answer, usage = null, model = null;

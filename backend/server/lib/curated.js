@@ -26,7 +26,8 @@ function arNorm(w) {
 const AR_SYN = { 'الوفيرا': ['صبار'], 'لوفيرا': ['صبار'], 'الوفيره': ['صبار'], 'الو': [], 'فيرا': ['صبار'],
   'حبوب': ['حب', 'شباب'], 'بثور': ['حب', 'شباب'], 'زكام': ['برد'], 'رشح': ['برد'], 'ديتوكس': ['ديتوكس'],
   'سي': [], 'مزيل': ['مضاد'], 'مزيلات': ['مضاد'], 'جيوب': ['احتقان'], 'زحم': ['احتقان'],
-  'لصق': ['شريط', 'لاصق'], 'لزق': ['شريط', 'لاصق'], 'حدد': ['محددا'], 'تحديد': ['محددا'], 'شيا': ['شيا'] };
+  'لصق': ['شريط', 'لاصق'], 'لزق': ['شريط', 'لاصق'], 'حدد': ['محددا'], 'تحديد': ['محددا'], 'شيا': ['شيا'],
+  'وجه': ['بشره'], 'وجهك': ['بشره'], 'وجهي': ['بشره'], 'توهج': ['متوهج'], 'يتوهج': ['متوهج'], 'تتوهج': ['متوهج'] };
 const AR_STOP_N = new Set([...AR_STOP].map(w => arNorm(w)));
 export function arabicTerms(text = '') {
   text = String(text).replace(/فيتامين\s*\(?\s*(سي|ج|c|C)(?![\u0621-\u064A])\s*\)?/g, 'فيتامينج ').replace(/فيتامين\s*\(?\s*(دي|د|d|D)(?![\u0621-\u064A])\s*\)?/g, 'فيتاميند ');
@@ -74,7 +75,10 @@ export function mythsPath() { return loadedFrom; }
  */
 // "vitamin C" and "vitamin D" are different things: keep the letter attached
 const EN_SYN = [[/\bfaces?\b/gi, 'skin'], [/\b(pimples?|zits?|breakouts?)\b/gi, 'acne'], [/\balo\b/gi, 'aloe'],
-  [/\bdeodorants?\b/gi, 'antiperspirant'], [/\b(glow|glowy|radiant)\b/gi, 'glowing']];
+  [/\bdeodorants?\b/gi, 'antiperspirant'], [/\b(glow|glowy|radiant)\b/gi, 'glowing'],
+  [/\b(stuffy|blocked|runny)\s+nose\b/gi, 'nose congestion'], [/\b(tanning|sun)\s*beds?\b/gi, 'tanning lamps'],
+  [/\btap(e|ed|es)\b/gi, 'taping'],
+  [/\bkids?\b/gi, 'children'], [/\bhyper\b/gi, 'hyperactivity'], [/\bACV\b/g, 'apple cider vinegar'], [/\btoothaches\b/gi, 'toothache']];
 const prepEn = t => EN_SYN.reduce((x, [re, to]) => x.replace(re, to), String(t)).replace(/vitamin\s+([a-z][0-9]{0,2})\b/gi, 'vitamin$1');
 
 // ---------- Deciding whether two claims are "the same claim" ----------
@@ -87,12 +91,12 @@ const GENERIC_EN = matchTerms(`drink drinking drinks water cure cures cured trea
   prevent prevents prevention cause causes caused help helps stop stops reduce reduces boost boosts improve improves
   good bad health healthy body daily day every morning eat eating take taking use using get gets rid lose losing make makes
   work works natural quick rapid rapidly fast instantly safe really actually true real best way
-  warm hot cold dry empty stomach morning night bedtime glass cup`);
+  warm hot cold dry empty stomach morning night bedtime glass cup cell cells destroy destroys destroying whiten whitens whitening`);
 const COND_EN = matchTerms(`cancer cancers tumor cold colds flu influenza acne pimples liver kidney kidneys stone stones burn burns
   tooth teeth toothache toothaches hair baldness skin wrinkles weight fat obesity cataract cataracts vision eye eyes
   autoimmune disease diseases infection infections bacteria viruses virus congestion sinus hyperactivity energy jawline
   inflammation diabetes blood pressure heart`);
-const GENERIC_AR = arabicTerms('سبب يسبب تسبب علاج يعالج تعالج شفاء يشفي تشفي قتل يقتل منع يمنع يقي تقي يقلل تقلل يزيد يساعد ماء شرب يشرب يوم كل مفيد صحه جسم الجسم يخلي يعطي طبيعي سريع بسرعه امن آمن دافئ دافي ساخن بارد صباح صباحا الصبح الريق ريق كوب');
+const GENERIC_AR = arabicTerms('سبب يسبب تسبب علاج يعالج تعالج شفاء يشفي تشفي قتل يقتل منع يمنع يقي تقي يقلل تقلل يزيد يساعد ماء شرب يشرب يوم كل مفيد صحه جسم الجسم يخلي يعطي طبيعي سريع بسرعه امن آمن دافئ دافي ساخن بارد صباح صباحا الصبح الريق ريق كوب خلايا خليه الخلايا يدمر تدمر تدمير');
 const COND_AR = arabicTerms('سرطان برد انفلونزا زكام حب الشباب كبد كلي كلى حصي حصى حصوات حروق حرق اسنان سن شعر صلع بشره جلد وزن دهون عين بصر الساد مناعه عدوي بكتيريا فيروسات احتقان التهاب سكري ضغط قلب طاقه فك نشاط');
 
 function judge(q, t, generic, cond) {
@@ -109,7 +113,11 @@ function judge(q, t, generic, cond) {
   // Similarity counts only meaningful words, so filler ("make", "use", "every day") doesn't water down a match.
   const meaningful = set => { let n = 0; for (const w of set) if (!generic.has(w)) n++; return n; };
   const sharedMeaningful = topic + condShared;
-  const score = (2 * sharedMeaningful) / (meaningful(q) + meaningful(t) || 1);
+  let score = (2 * sharedMeaningful) / (meaningful(q) + meaningful(t) || 1);
+  // Short claims ("celery juice detox") vs the team's long wording: if most of what the user typed is in the
+  // team's claim, that's the same claim even though the team's sentence has extra detail.
+  const cover = sharedMeaningful / (meaningful(q) || 1);
+  if (sharedMeaningful >= 2 && cover >= 0.66) score = Math.max(score, 0.45 + 0.3 * cover);
   return { score, ok: shared >= 2 && topic >= 1 && !clash };
 }
 

@@ -183,25 +183,6 @@
     "overstated_part": "That it permanently neutralizes blood acidity or treats cancer.",
     "evidence": [
       {
-        "pmid": "39789195",
-        "title": "Associations between per-and polyfluoroalkyl substances (PFAS) and county-level cancer incidence between 2016 and 2021 and incident cancer burden attributable to PFAS in drinking water in the United States",
-        "authors": [
-          "Li S",
-          "Oliva P",
-          "Zhang L",
-          "Goodrich JA",
-          "McConnell R",
-          "Conti DV"
-        ],
-        "journal": "J Expo Sci Environ Epidemiol",
-        "year": 2025,
-        "volume_issue": "",
-        "pages": "",
-        "study_type": "Systematic Review",
-        "relevance": "direct",
-        "note": ""
-      },
-      {
         "pmid": "27297008",
         "title": "Systematic review of the association between dietary acid load, alkaline water and cancer",
         "authors": [
@@ -285,10 +266,7 @@
         "note_ar": "تجربة سريرية لخل التفاح في الوقاية من الحصى (الوقاية، لا الإذابة)."
       }
     ],
-    "safety_pmids": [
-      "23373303",
-      "18093343"
-    ],
+    "safety_pmids": [],
     "recommended_action": "Consult your doctor and follow the medical treatment plan if you have kidney stones. Drink plenty of water.",
     "advice_source": "https://www.mayoclinic.org/diseases-conditions/kidney-stones/diagnosis-treatment/drc-20355759",
     "language": "en",
@@ -366,7 +344,7 @@
         "year": 1982,
         "volume_issue": "306(4)",
         "pages": "201-6",
-        "study_type": "Other",
+        "study_type": "Clinical Trial",
         "relevance": "indirect",
         "note": "Clinical trial: amygdalin gave no substantial benefit to cancer patients.",
         "note_ar": "تجربة سريرية: لم يقدم الأميغدالين فائدة تُذكر لمرضى السرطان."
@@ -374,7 +352,7 @@
     ],
     "safety_pmids": [],
     "recommended_action": "Consult your doctor. Do not take advertised cancer treatments or follow random medical advice, especially with a chronic or serious illness.",
-    "advice_source": "https://www.cancer.gov/about-cancer/treatment/cam/patient/laetrile-pdq",
+    "advice_source": "https://www.fda.gov/consumers/consumer-updates/products-claiming-cure-cancer-are-cruel-deception",
     "language": "en",
     "reviewed_by": "Menna & Tasnim",
     "evidence_last_checked": "2026-11-01",
@@ -648,7 +626,7 @@
         "year": 2007,
         "volume_issue": "48(11)",
         "pages": "5000-6",
-        "study_type": "Other",
+        "study_type": "Comparative Study",
         "relevance": "indirect",
         "note": "Lab study of vegetable oils on eye cells, including toxic effects (safety); not a cataract trial.",
         "note_ar": "دراسة مخبرية للزيوت النباتية على خلايا العين تشمل تأثيرات سامة (السلامة)، وليست تجربة على المياه البيضاء."
@@ -711,7 +689,7 @@
         "year": 2023,
         "volume_issue": "",
         "pages": "",
-        "study_type": "Other",
+        "study_type": "Observational Study",
         "relevance": "direct",
         "note": ""
       },
@@ -792,7 +770,7 @@
         "year": 2002,
         "volume_issue": "",
         "pages": "",
-        "study_type": "Other",
+        "study_type": "Research Report",
         "relevance": "direct",
         "note": ""
       },
@@ -925,7 +903,7 @@
         "year": 2003,
         "volume_issue": "",
         "pages": "",
-        "study_type": "Other",
+        "study_type": "Comparative Study",
         "relevance": "indirect",
         "note": ""
       }
@@ -1305,7 +1283,7 @@
         "volume_issue": "",
         "pages": "",
         "note": "",
-        "study_type": "Other",
+        "study_type": "Case-Control Study",
         "year": 2002,
         "relevance": "direct"
       },
