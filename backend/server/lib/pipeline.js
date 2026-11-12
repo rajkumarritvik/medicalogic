@@ -241,7 +241,7 @@ export async function verifyClaim({ query, lang = 'en', provider = 'groq', ip = 
   let consumer = [];
   if (tier !== 'curated') {
     try {
-      consumer = await searchHealthTopics(kw);
+      consumer = await searchHealthTopics(kw, 2, tidyClaim || searchText);
     } catch (err) {
       warnings.push(`MedlinePlus unavailable (${err.message})`);
     }
