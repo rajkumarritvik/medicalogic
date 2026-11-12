@@ -22,6 +22,14 @@ medicalogic/
     └── *.py       test and data-checking scripts (Python)
 ```
 
+## Just want to use it?
+
+You don't need to install anything. Open the live website:
+
+**👉 [https://medicalogic.vercel.app/](https://medicalogic.vercel.app/)**
+
+It works on any phone or computer, in English and Arabic. The steps below are only for people who want to run or change the code themselves.
+
 ---
 
 # How to run it on your computer (complete beginner guide)
