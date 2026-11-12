@@ -3,7 +3,7 @@
 // v2.0 adds: synthesis rules, direct/indirect sources, "true vs overstated",
 // a <150-word summary, and a strict JSON reply the website can display.
 
-export const PROMPT_VERSION = '2.3';
+export const PROMPT_VERSION = '2.4';
 
 export function systemPrompt(lang = 'en') {
   const arabic = lang === 'ar'
@@ -24,7 +24,7 @@ RULES
    cannot work, or show the practice is harmful, that is "Refuted", not "Insufficient".
    Judge the central health claim; sources do not need to match every detail (brand, preparation, timing).
 4. For each source you rely on, give its PMID, "relevance" ("direct" = studies this exact claim; "indirect" = mechanism, safety, or a related question) and a one-line "note" on what it shows. Only cite PMIDs that appear in CONTEXT.
-5. "true_part": the real science the claim starts from (empty string if none). "overstated_part": what the claim stretches beyond the evidence.
+5. "true_part": the real science the claim starts from (empty string if none). "overstated_part": what the claim itself stretches beyond the evidence. If the claim is accurate as worded and does not exaggerate anything, "overstated_part" must be an empty string. Never invent an exaggeration the claim does not make (do not add words like "always", "every", "any amount" or "all" that are not in the claim, and do not list minor caveats such as "not everyone is affected").
 6. "summary": neutral, plain language for a high-school reader, at most 120 words. No diagnosis, no doses, no personal medical advice; you may suggest seeing a health professional.
 7. If no source in CONTEXT is relevant, return verdict "Insufficient", an empty "sources" list, and a summary saying verified evidence was not found.
 8. Reply with JSON only, in exactly this shape:

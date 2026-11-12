@@ -19,7 +19,7 @@
     en: {
       verifying: 'Verifying…', verify: 'Verify Claim', recheck: 'Check again', wait: 'Checking PubMed and MedlinePlus… This can take up to 20 seconds.',
       verdicts: { Supported: 'Supported by evidence', Refuted: 'Not supported by evidence', Divergent: 'Divergent / Evolving Evidence', Insufficient: 'Insufficient verified evidence' },
-      summary: 'Summary', trueP: 'a. What’s true', overP: 'b. What’s overstated', none: 'Nothing to add here.',
+      summary: 'Summary', trueP: 'a. What’s true', overP: 'b. What’s overstated', none: 'Nothing to add here.', noneOver: 'Nothing. This claim matches what the evidence shows.',
       noSources: 'No verified sources were found for this claim.', direct: 'Direct', indirect: 'Indirect',
       fromDb: 'Answered from the MedicaLogic research database', fromLive: 'Answered from a live PubMed search', fromNone: 'Not enough verified research found',
       risk: 'Risk level', advice: 'What to do instead', trusted: 'Trusted medical advice', srcTeam: 'Checked by our research team', srcLive: 'More from a live search', checked: 'Evidence last checked', newChat: 'New Claim',
@@ -31,7 +31,7 @@
     ar: {
       verifying: 'جارٍ التحقق…', verify: 'تحقق من الادعاء', recheck: 'تحقق مرة أخرى', wait: 'نبحث في PubMed وMedlinePlus… قد يستغرق ذلك حتى 20 ثانية.',
       verdicts: { Supported: 'مدعوم بالأدلة', Refuted: 'غير مدعوم بالأدلة', Divergent: 'أدلة متضاربة', Insufficient: 'أدلة موثّقة غير كافية' },
-      summary: 'الملخص', trueP: 'أ. ما هو صحيح', overP: 'ب. ما هو مبالغ فيه', none: 'لا شيء لإضافته هنا.',
+      summary: 'الملخص', trueP: 'أ. ما هو صحيح', overP: 'ب. ما هو مبالغ فيه', none: 'لا شيء لإضافته هنا.', noneOver: 'لا شيء. هذا الادعاء يتوافق مع ما تُظهره الأدلة.',
       noSources: 'لم يتم العثور على مصادر موثّقة لهذا الادعاء.', direct: 'مباشر', indirect: 'غير مباشر',
       fromDb: 'الإجابة من قاعدة بيانات MedicaLogic البحثية', fromLive: 'الإجابة من بحث مباشر في PubMed', fromNone: 'لم نجد أبحاثاً موثّقة كافية',
       risk: 'مستوى الخطورة', advice: 'ماذا تفعل بدلاً من ذلك', trusted: 'نصيحة طبية موثوقة', srcTeam: 'تحقق منها فريقنا البحثي', srcLive: 'نتائج إضافية من بحث مباشر', checked: 'آخر تحقق من الأدلة', newChat: 'ادعاء جديد',
@@ -218,7 +218,7 @@
     var source = d.tier === 'curated' ? T.fromDb : d.tier === 'live' ? T.fromLive : T.fromNone;
     var html = '<h5>' + esc(T.summary) + '</h5><p>' + txt(d.summary || T.none) + '</p>' +
       '<h5>' + esc(T.trueP) + '</h5><p>' + txt(d.true_part || T.none) + '</p>' +
-      '<h5>' + esc(T.overP) + '</h5><p>' + txt(d.overstated_part || T.none) + '</p>';
+      '<h5>' + esc(T.overP) + '</h5><p>' + txt(d.overstated_part || (d.verdict === 'Supported' ? T.noneOver : T.none)) + '</p>';
     if (d.curated) {
       if (d.curated.risk_level) html += '<h5>' + esc(T.risk) + '</h5><p>' + esc(lang === 'ar' ? (RISK_AR[d.curated.risk_level] || d.curated.risk_level) : d.curated.risk_level) + (d.curated.risk_rationale ? ' · ' + txt(d.curated.risk_rationale) : '') + '</p>';
       if (d.curated.recommended_action) {
